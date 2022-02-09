@@ -47,7 +47,7 @@ async function login() {
         location.href = "../Responsive Sidebar menu/index.html"
     } else {
         Swal.fire(
-            'Invalid Username or Password!!!!',
+            'Invalid Username or Password!!!',
             '',
             'error'
         )
