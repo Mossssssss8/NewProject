@@ -44,8 +44,14 @@ async function login() {
     })
     var res = await response.json()
     if (res) {
-        location.href = "https://www.google.com"
-
+        location.href = "../Responsive Sidebar menu/index.html"
+    } else {
+        Swal.fire(
+            'Invalid Username or Password!!',
+            '',
+            'error'
+        )
+        document.getElementById("passwordForLogin").value = "";
     }
 
     return res
