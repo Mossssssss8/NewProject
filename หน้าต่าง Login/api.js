@@ -29,3 +29,24 @@ async function getAllUser() {
     console.log(allUSer)
     return response.json()
 }
+async function login() {
+    var modeluser = {
+        username: document.getElementById("usernameForLogin").value,
+        password: document.getElementById("passwordForLogin").value
+    }
+    console.log(modeluser)
+    var response = await fetch(UserApi + "login", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(modeluser)
+    })
+    var res = await response.json()
+    if (res) {
+        location.href = "https://www.google.com"
+
+    }
+
+    return res
+}
