@@ -5,16 +5,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css" />
-    <script src="./index.js"></script>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <link rel='stylesheet' type='text/css' href='/resources/tutorial/css/example.css'>
+    <script src="api.js"></script>
+    <!-- <script src="./index.js"></script> -->
     <title>Human Pose Estimation</title>
 </head>
 
 <body>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-auth.js"></script>
-
-    <script src="index.js"></script>
     <div class="container">
         <div class="forms-container">
             <div class="signin-signup">
@@ -46,24 +48,38 @@
                     </div>
                 </form>
                 <form action="#" class="sign-up-form">
-                    <h2 class="title">สมัครสมาชิก</h2>
+                    <h2 class="title">
+                        <B>สมัครสมาชิก</B>
+                    </h2>
                     <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="userId" placeholder="Username" />
+                        <i class="fas fa-id-card"></i>
+                        <input type="name" id="username" placeholder="Username" />
                     </div>
                     <div class="input-field">
-                        <i class="fas fa-venus-mars"></i>
-                        <input type="text" id="firstName" placeholder="FName" />
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Password" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="email" id="email" placeholder="Email Address" />
                     </div>
                     <div class="input-field">
                         <i class="fab fa-accessible-icon"></i>
-                        <input type="text" id="lastName" placeholder="LName" />
+                        <input id="age" placeholder="Age" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-venus-mars"></i>
+                        <input id="gender" placeholder="Gender" />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-heartbeat"></i>
-                        <input type="number" id="age" placeholder="Age" />
+                        <input id="height" placeholder="Height" />
                     </div>
-                    <button class="btn" id="addBtn">ลงทะเบียน</button>
+                    <div class="input-field">
+                        <i class="fas fa-fire-alt"></i>
+                        <input id="weight" placeholder="Weight" />
+                    </div>
+                    <button type="submit" onclick="UserRegister()" class="btn" id="addBtn">ลงทะเบียน</button>
                     <p class="social-text">Or Sign up with social platforms</p>
                     <div class="social-media">
                         <a href="#" class="social-icon">
@@ -82,7 +98,6 @@
                 </form>
             </div>
         </div>
-
         <div class="panels-container">
             <div class="panel left-panel">
                 <div class="content">
@@ -104,7 +119,6 @@
                         <h3 align="left">บันทึก วัน - เวลา ของการออกกาย</h3><br>
                         <h3 align="left">ดูข้อมูลการออกกำลังกายของคุณที่ไหนก็ได้!</h3><br>
                     </p>
-
                     <button class="btn transparent" id="sign-in-btn">
               เข้าใช้งาน
             </button>
@@ -113,41 +127,7 @@
             </div>
         </div>
     </div>
-    <script scr="https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js"></script>
-    <script scr="https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js"></script>
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyAmxJyi9AtDzm6ky9uCJB5aPE3L6ZQFNVM",
-            authDomain: "database-project-10b0e.firebaseapp.com",
-            databaseURL: "https://database-project-10b0e-default-rtdb.firebaseio.com",
-            projectId: "database-project-10b0e",
-            storageBucket: "database-project-10b0e.appspot.com",
-            messagingSenderId: "899931448524",
-            appId: "1:899931448524:web:b3930537cbdfb121804e69"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-    </script>
-    <script>
-        const userId = document.getElementById('userId');
-        const gender = document.getElementById('firstName');
-        const age = document.getElementById('lastName');
-        const height = document.getElementById('age');
-        const addBtn = document.getElementById('addBtn');
-
-        const database = firebase.database();
-
-        addBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            database.ref('/users/' + userId.value).set({
-                first_name: firstName.value,
-                last_name: lastName.value,
-                age: age.value
-            });
-        });
-    </script>
-
-    <script src="./app.js"></script>
+    <script src="./app.mjs"></script>
 </body>
 
 </html>
