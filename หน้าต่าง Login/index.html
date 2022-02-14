@@ -10,12 +10,12 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <link rel='stylesheet' type='text/css' href='/resources/tutorial/css/example.css'>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     <!-- <script src="./index.js"></script> -->
     <title>Human Pose Estimation</title>
 </head>
 
-<body>
+<body onload="init()">
 
     <div class="container">
         <div class="forms-container">
@@ -24,7 +24,7 @@
                     <h2 class="title">เข้าสู่ระบบ</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" id="usernameForLogin" placeholder="Username/Email Address" />
+                        <input type="text" id="usernameForLogin" placeholder="Usernam & Email address" />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="email" id="email" placeholder="Email Address" />
+                        <input type="email" id="email" placeholder="Email address" />
                     </div>
                     <div class="input-field">
                         <i class="fab fa-accessible-icon"></i>
@@ -130,7 +130,7 @@
     </div>
     <script src="./app.mjs"></script>
     <script src="api.js"></script>
-    
+
 </body>
 
 </html>

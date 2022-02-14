@@ -3,12 +3,12 @@ var passwordInput = document.getElementById("passwordForLogin");
 passwordInput.addEventListener("keyup", function(event) {
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
-      // Cancel the default action, if needed
-      event.preventDefault();
-      // Trigger the button element with a click
-      document.getElementById("Login_Btn").click();
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        document.getElementById("Login_Btn").click();
     }
-  });
+});
 //
 
 const UserApi = "http://localhost:3000/user/"
@@ -59,11 +59,11 @@ async function login() {
     if (res) {
         //ถ้า Login สำเร็จ
         console.log(res)
-        localStorage.setItem("User_Ex",JSON.stringify(res.data))
-        location.href = "../Responsive Sidebar menu/index.html"
+        localStorage.setItem("User_Ex", JSON.stringify(res.data))
+        location.href = "../Responsive Sidebar menu/index.html?LoginSucessfully"
     } else {
         Swal.fire(
-            'Invalid Username or Password!!!',
+            'Invalid Username or Password!',
             '',
             'error'
         )

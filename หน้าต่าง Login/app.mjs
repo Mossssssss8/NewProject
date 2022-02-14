@@ -10,15 +10,19 @@ sign_in_btn.addEventListener("click", () => {
     container.classList.remove("sign-up-mode");
 });
 
-function loginWithGuest(){
+function loginWithGuest() {
     var GuestUser = {
-        username : "Guest",
+        username: "Guest",
         gender: "?",
         age: 0,
         email: "?",
         Weight: "0",
         Height: "0",
     }
-    localStorage.setItem("User_Ex",JSON.stringify(GuestUser))
+    localStorage.setItem("User_Ex", JSON.stringify(GuestUser))
     location.href = "../Responsive Sidebar menu/index.html"
+}
+
+function init() {
+    localStorage.setItem("User_Ex", "");
 }

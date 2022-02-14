@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <!-- Created by CodingLab |www.youtube.com/c/CodingLabYT-->
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <title> Human Pose Estimation Technology </title>
     <link rel="stylesheet" href="style.css">
@@ -9,72 +10,74 @@
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
 <body onload="init()">
-  <div class="sidebar">
-    <div class="logo-details">
-      <i class='#'></i>
-        <div class="logo_name">Human Pose</div>
-        <i class='bx bx-menu' id="btn" ></i>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='#'></i>
+            <div class="logo_name">Human Pose</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-list" style="margin-left: -30px;">
+            <li>
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search...">
+                <span class="tooltip">Search</span>
+            </li>
+            <li>
+                <a href="index.html">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+            <li>
+                <a href="Set-mode.html">
+                    <i class='bx bx-menu'></i>
+                    <span class="links_name">Set mode</span>
+                </a>
+                <span class="tooltip">Set mode</span>
+            </li>
+            <li>
+                <a href="Video.html">
+                    <i class='bx bx-video'></i>
+                    <span class="links_name">Video</span>
+                </a>
+                <span class="tooltip">Video</span>
+            </li>
+            <li>
+                <a href="History.html">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">History</span>
+                </a>
+                <span class="tooltip">History</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Setting</span>
+                </a>
+                <span class="tooltip">Setting</span>
+            </li>
+            <li class="profile">
+                <div class="profile-details">
+                    <!-- <img src="profile.jpg" alt="profileImg"> -->
+                    <div class="name_job">
+                        <div id="ShowUserName" class="name">User</div>
+                        <div class="job">Web Human Pose</div>
+                    </div>
+                </div>
+                <button><i class='bx bx-log-out' title="Log out!" onclick="logout()" id="log_out" ></i></button>
+            </li>
+        </ul>
     </div>
-    <ul class="nav-list" style="margin-left: -30px;">
-      <li>
-          <i class='bx bx-search' ></i>
-         <input type="text" placeholder="Search...">
-         <span class="tooltip">Search</span>
-      </li>
-      <li>
-        <a href="index.html">
-          <i class='bx bx-grid-alt'></i>
-          <span class="links_name">Dashboard</span>
-        </a>
-         <span class="tooltip">Dashboard</span>
-      </li>
-      <li>
-        <a href="Set-mode.html">
-          <i class='bx bx-menu' ></i>
-          <span class="links_name">Set mode</span>
-        </a>
-        <span class="tooltip">Set mode</span>
-      </li>
-     <li>
-       <a href="Video.html">
-         <i class='bx bx-video' ></i>
-         <span class="links_name">Video</span>
-       </a>
-       <span class="tooltip">Video</span>
-     </li>
-     <li>
-       <a href="History.html">
-         <i class='bx bx-pie-chart-alt-2' ></i>
-         <span class="links_name">History</span>
-       </a>
-       <span class="tooltip">History</span>
-     </li>
-     <li>
-       <a href="#">
-         <i class='bx bx-cog' ></i>
-         <span class="links_name">Setting</span>
-       </a>
-       <span class="tooltip">Setting</span>
-     </li>
-     <li class="profile">
-         <div class="profile-details">
-           <!-- <img src="profile.jpg" alt="profileImg"> -->
-           <div class="name_job">
-             <div id="ShowUserName"class="name">User</div>
-             <div class="job">Web Human Pose</div>
-           </div>
-         </div>
-         <button><i class='bx bx-log-out' title="Log out!" onclick="logout()" id="log_out" ></i></button>
-     </li>
-    </ul>
-  </div>
-  <section class="home-section">
-      <div class="text">Video</div>
-  </section>
-  <script src="script.js"></script>
+    <section class="home-section">
+        <div class="text">Video</div>
+    </section>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
