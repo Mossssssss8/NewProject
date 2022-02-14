@@ -1,7 +1,6 @@
 // เพิ่มการกด Enter ใน Tag button
 var passwordInput = document.getElementById("passwordForLogin");
 passwordInput.addEventListener("keyup", function(event) {
-    console.log(event)
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
       // Cancel the default action, if needed
@@ -60,7 +59,7 @@ async function login() {
     if (res) {
         //ถ้า Login สำเร็จ
         console.log(res)
-        alert("Alert")
+        localStorage.setItem("User_Ex",JSON.stringify(res.data))
         location.href = "../Responsive Sidebar menu/index.html"
     } else {
         Swal.fire(
