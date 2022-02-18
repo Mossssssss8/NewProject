@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title> Human Pose Estimation Technology </title>
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Boxicons CDN Link -->
@@ -12,6 +13,14 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+<style>
+    body {
+        background-image: url("background/wallpaper.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+</style>
 
 <body onload="init()">
     <div class="sidebar">
@@ -65,7 +74,7 @@
                 <div class="profile-details">
                     <!-- <img src="profile.jpg" alt="profileImg"> -->
                     <div class="name_job">
-                        <div id="ShowUserName" class="name">User</div>
+                        <div id="ShowUserName" class="name"><i class="fa-solid fa-user"></i>User</div>
                         <div class="job">Web Human Pose</div>
                     </div>
                 </div>
@@ -74,10 +83,33 @@
         </ul>
     </div>
     <section class="home-section">
-        <div class="text">Video</div>
+        <div class="text">Video Training</div>
+        <div class="video">
+            <video id="videoPlayer" width="600" controls muted="muted" autoplay>
+                <source src="./Video-Stream/PullUP.mp4" type="video/mp4"> 
+            </video>
+            <video id="videoPlayer" width="600" controls muted="muted" autoplay>
+                <source src="./Video-Stream/DiamondPU.mp4" type="video/mp4"> 
+            </video>
+            <video id="videoPlayer" width="600" controls muted="muted" autoplay>
+                <source src="./Video-Stream/PikePush-UP.mp4" type="video/mp4"> 
+            </video>
+            <video id="videoPlayer" width="600" controls muted="muted" autoplay>
+                <source src="./Video-Stream/Leg-Raise.mp4" type="video/mp4"> 
+            </video>
+            <video id="videoPlayer" width="600" controls muted="muted" autoplay>
+                <source src="./Video-Stream/Dumbell Curl.mp4" type="video/mp4"> 
+            </video>
+            <video id="videoPlayer" width="600" controls muted="muted" autoplay>
+                <source src="./Video-Stream/DumbellShoulderPress.mp4" type="video/mp4"> 
+            </video>
+            <!-- <video id="videoPlayer" width="600" controls muted="muted" autoplay>
+                <source src="./Video-Stream/Squats.mp4" type="video/mp4"> 
+            </video> -->
+
+        </div>
     </section>
     <script src="script.js"></script>
-
 </body>
 
 </html>
