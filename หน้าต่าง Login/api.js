@@ -14,24 +14,56 @@ passwordInput.addEventListener("keyup", function(event) {
 const UserApi = "http://localhost:3000/user/"
 async function UserRegister() {
     var modeluser = {}
-    modeluser.username = document.getElementById("users").value
+    modeluser.username = document.getElementById("username").value
     modeluser.age = document.getElementById("age").value
-    modeluser.gender = document.getElementById("Gender").value
-    modeluser.Height = document.getElementById("Height").value
-    modeluser.Weight = document.getElementById("Weight").value
+    modeluser.gender = document.getElementById("gender").value
+    modeluser.Height = document.getElementById("height").value
+    modeluser.Weight = document.getElementById("weight").value
     modeluser.email = document.getElementById("email").value
     modeluser.password = document.getElementById("password").value
     console.log(modeluser)
-    const response = await fetch(UserApi + "add", {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(modeluser)
+    var alertRequire = [];
+    !modeluser.username ? alertRequire.push("username") : "";
+    !modeluser.password ? alertRequire.push("password") : "";
+    !modeluser.email ? alertRequire.push("email") : "";
+    !modeluser.age ? alertRequire.push("age") : "";
+    !modeluser.gender ? alertRequire.push("gender") : "";
+    !modeluser.Height ? alertRequire.push("Height") : "";
+    !modeluser.Weight ? alertRequire.push("Weight") : "";
 
-    })
-    return response.json()
+    var alertText = "";
+    if(alertRequire.length > 0){
+        alertRequire.forEach((element,index)=>{
+            index != 0 ? alertText +=", ":"";
+            alertText += element;
+            console.log(index)
+        })
+        Swal.fire(
+            'Please Enter '+ alertText,
+            '',
+            'warning'
+        )
+    }else{
+        const response = await fetch(UserApi + "add", {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(modeluser)
+        })
+        Swal.fire({
+            title:"Register Successfully",
+            confirmButtonText:'OK',
+            icon:"success"
+        }).then((result)=>{
+            location.href = "./index.html"
+        })
+        return response.json()
+    }
+
+    
+    
 }
 async function getAllUser() {
     var response = await fetch(UserApi, {
