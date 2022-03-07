@@ -282,6 +282,114 @@
     position: center;
 }
 
+.head_content {
+    background-image: url('../หน้าต่าง Login/img/home-bg.svg'); 
+    background-position: center center;
+    background-size: cover;
+    color: #fff;
+    overflow: hidden;
+    z-index: 0;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    width: auto;
+    height: calc(60vh - 100px);
+    min-height: 400px;
+}
+.head_content .text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    font-size: 100px;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+}
+
+.head_content_index {
+    background-image: url('../หน้าต่าง Login/img/630x1200.png'); 
+    background-position: center center;
+    background-size: cover;
+    color: #fff;
+    overflow: hidden;
+    z-index: 0;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    width: auto;
+    height: calc(60vh - 100px);
+    min-height: 400px;
+}
+.head_content_index .text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    font-size: 100px;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+}
+
+.head_content_Video {
+    background-image: url('../หน้าต่าง Login/img/img2.jpg'); 
+    background-position: center center;
+    background-size: cover;
+    color: #fff;
+    overflow: hidden;
+    z-index: 0;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    width: auto;
+    height: calc(60vh - 100px);
+    min-height: 400px;
+}
+.head_content_Video .text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    font-size: 100px;
+    font-family: "Poppins", sans-serif;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    
+}
+
+.head_content:hover .overlay{
+    opacity: 1;
+}
+
+.head_content_index:hover .overlay{
+    opacity: 1;
+}
+
+.head_content_Video:hover .overlay{
+    opacity: 1;
+}
+
+
 @media (max-width: 420px) {
     .sidebar li .tooltip {
         display: none;
