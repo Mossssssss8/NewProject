@@ -1,5 +1,7 @@
 import * as posenet from "@tensorflow-models/posenet";
 import * as tf from "@tensorflow/tfjs";
+import * as mp_drawing from "@mediapipe/drawing_utils"
+import * as mp_pose from "@mediapipe/pose"
 
 const color = "aqua";
 const boundingBoxColor = "red";
@@ -106,6 +108,8 @@ export function drawSkeleton(keypoints, minConfidence, ctx, scale = 1) {
 /**
  * Draw pose keypoints onto a canvas
  */
+var stage = "Down"
+var counter = 0;
 export function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
     for (let i = 0; i < keypoints.length; i++) {
         const keypoint = keypoints[i];
@@ -116,6 +120,72 @@ export function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
 
         const { y, x } = keypoint.position;
         drawPoint(ctx, y * scale, x * scale, 3, color);
+        ctx.font = '28px serif'
+
+        var angle = calculate_angle(keypoints[12], keypoints[14], keypoints[16]);
+        if (angle > 160) {
+            stage = "Down";
+        }
+        if (angle < 60 && stage == "Down") {
+            if (keypoints[16].score > 0.5 && (keypoints[16].position.y < 450 && keypoints[16].position.y > 350)) {
+                stage = "Up"
+                counter += 1
+            }
+
+        }
+        ctx.fillText("counter : " + counter, 10, 50)
+        ctx.fillText("angle : " + angle, 10, 150)
+        ctx.fillText("score : " + keypoints[16].score, 10, 100)
+        ctx.fillText("y : " + keypoints[16].position.y, 10, 200)
+
+        // // มือซ้าย
+        // if (i == 5) {
+        //     ctx.fillText(`5 `, x * scale, y * scale)
+        // }
+        // if (i == 7) {
+        //     ctx.fillText(`7 `, x * scale, y * scale)
+        // }
+        // if (i == 9) {
+        //     ctx.fillText(`9 `, x * scale, y * scale)
+        // }
+        // // มือขวา
+        // if (i == 6) {
+        //     ctx.fillText(`6 `, x * scale, y * scale)
+        // }
+        // if (i == 8) {
+        //     ctx.fillText(`8 `, x * scale, y * scale)
+        // }
+        // if (i == 10) {
+        //     ctx.fillText(`10 `, x * scale, y * scale)
+        // }
+        // // สะโพกซ้าย
+        // if (i == 11) {
+        //     // ctx.fillStyle = "red"
+        //     // ctx.fillText(`11 ${keypoint.score}`, x * scale, y * scale + 15)
+        // }
+        // // สะโพกขวา
+        // if (i == 12) {
+        //     ctx.fillStyle = "blue"
+        //     ctx.fillText(`${angle}`, x * scale, y * scale)
+
+        // }
+        // // ขาซ้าย
+        // if (i == 13) {
+        //     ctx.fillText(`13 `, x * scale, y * scale)
+        // }
+        // if (i == 15) {
+        //     ctx.fillText(`15 `, x * scale, y * scale)
+        // }
+        // // ขาขวา
+        // if (i == 14) {
+        //     ctx.fillText(`14 `, x * scale, y * scale)
+        // }
+        // if (i == 16) {
+        //     // ctx.fillText(`16 `, x * scale, y * scale)
+        //     ctx.fillText(`${keypoints[16].position.y}`, x * scale, y * scale)
+        // }
+
+
     }
 }
 
@@ -204,26 +274,16 @@ function drawPoints(ctx, points, radius, color) {
     }
 }
 
-/**
- * Draw offset vector values, one of the model outputs, on to the canvas
- * Read our blog post for a description of PoseNet's offset vector outputs
- * https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5
- */
-// export function drawOffsetVectors(
-//     heatMapValues, offsets, outputStride, scale = 1, ctx) {
-//   const offsetPoints =
-//       posenet.singlePose.getOffsetPoints(heatMapValues, outputStride, offsets);
+function calculate_angle(hip, knee, ankle) {
+    var a = [hip.position.x, hip.position.y];
+    var b = [knee.position.x, knee.position.y];
+    var c = [ankle.position.x, ankle.position.y];
 
-//   const heatmapData = heatMapValues.buffer().values;
-//   const offsetPointsData = offsetPoints.buffer().values;
+    var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+    var angle = Math.abs(radians * 180.0 / Math.PI)
 
-//   for (let i = 0; i < heatmapData.length; i += 2) {
-//     const heatmapY = heatmapData[i] * outputStride;
-//     const heatmapX = heatmapData[i + 1] * outputStride;
-//     const offsetPointY = offsetPointsData[i];
-//     const offsetPointX = offsetPointsData[i + 1];
-
-//     drawSegment(
-//         [heatmapY, heatmapX], [offsetPointY, offsetPointX], color, scale, ctx);
-//   }
-// }
+    if (angle > 180.0) {
+        angle = 360 - angle
+    }
+    return angle;
+}
