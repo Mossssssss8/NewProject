@@ -338,8 +338,8 @@
     font-family: "Poppins", sans-serif;
 }
 
-.head_content_Video {
-    background-image: url('../หน้าต่าง Login/img/img2.jpg'); 
+.head_content_setting {
+    background-image: url('../หน้าต่าง Login/img/630x1200.png'); 
     background-position: center center;
     background-size: cover;
     color: #fff;
@@ -350,9 +350,9 @@
     position: relative;
     width: auto;
     height: calc(60vh - 100px);
-    min-height: 400px;
+    min-height: 500px;
 }
-.head_content_Video .text {
+.head_content_setting .text {
     display: flex;
     align-items: center;
     justify-content: center;
