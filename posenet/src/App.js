@@ -14,7 +14,7 @@ const cv2 = require("react-opencvjs");
 function App() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
-
+    
     const runPosenet = async() => {
         const net = await posenet.load({
             inputResolution: { width: 640, height: 480 },
@@ -44,7 +44,7 @@ function App() {
             // Make Detections
             const pose = await net.estimateSinglePose(video);
             // console.log(pose);
-
+            
             drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
         }
     };
