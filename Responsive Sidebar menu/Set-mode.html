@@ -26,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body onload="init()">
+<body onload="setScore() ">
     <div class="sidebar">
         <div class="logo-details">
             <i class='#'></i>
@@ -93,140 +93,347 @@
             </li>
         </ul>
     </div>
-    <section class="home-section">
-        <div class="text">Set mode</div>
+    <section class="home-section" onload="setScore()">
+        <!-- <div class="text">Set mode</div> -->
         <button type="button" class="btn btn-secondary btn-lg" href="#">HIIT Mode</button>
         <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button>
 
-        <h1> Counter : <span id="showCounter">0 </span></h1>
+        <div class ="Time , Counter">
+        <h1 style="text-align: center;"> Counter : <span id="showCounter">0 </span></h1>
+        <button  id="TimeBTN" onclick="startTime()"> Start </button>
+        <button onclick="getUserScore()"> getScore </button>
+        <h1 style="text-align: center;"> Timer : <span id="showTime">0 </span></h1>
+        </div>
         <div class="container">
             <video class="input_video"></video>
             <canvas class="output_canvas" width="1280px" height="720px"></canvas>
             <div class="landmark-grid-container"></div>
         </div>
-        <script src="script.js"></script>
+    </section>
 
-        <script type="module">
-            const videoElement = document.getElementsByClassName('input_video')[0];
-            const canvasElement = document.getElementsByClassName('output_canvas')[0];
-            const canvasCtx = canvasElement.getContext('2d');
-            const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
-            const grid = new LandmarkGrid(landmarkContainer);
-            var counter = 0;
-            var stage = "down";
-            function onResults(results) {
-                if (!results.poseLandmarks) {
-                    grid.updateLandmarks([]);
-                    return;
-                }
-
-                canvasCtx.save();
-                canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-                canvasCtx.drawImage(results.segmentationMask, 0, 0,
-                    canvasElement.width, canvasElement.height);
-
-                // Only overwrite existing pixels.
-                canvasCtx.globalCompositeOperation = 'source-in';
-                canvasCtx.fillStyle = '#00FF00';
-                // canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
-
-                // Only overwrite missing pixels.
-                canvasCtx.globalCompositeOperation = 'destination-atop';
-                canvasCtx.drawImage(
-                    results.image, 0, 0, canvasElement.width, canvasElement.height);
-
-                canvasCtx.globalCompositeOperation = 'source-over';
-                drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-                    { color: '#00FF00', lineWidth: 4 });
-                drawLandmarks(canvasCtx, results.poseLandmarks,
-                    { color: '#FF0000', lineWidth: 2 });
-                canvasCtx.restore();
-
-                getPoseLandmarks(results.poseLandmarks)
-
-                grid.updateLandmarks(results.poseWorldLandmarks);
+    <script>
+        var timeleft = 0;
+        var isStart = false;
+        var timeCountdown
+        function startTime() {
+            if (isStart == false) {
+                isStart = true;
+                timeCountdown = setInterval(countdown, 1000)
+                document.getElementById("TimeBTN").innerHTML = "Stop"
+            } else {
+                isStart = false;
+                document.getElementById("TimeBTN").innerHTML = "Start"
+                clearTimeout(timeCountdown);
             }
+        }
+        function countdown() {
+            if (timeleft >= 30000) {
+                clearTimeout(timeleft);
+                document.getElementById("showTime").innerHTML = 0;
+            } else {
+                document.getElementById("showTime").innerHTML = timeleft;
+                timeleft++;
+            }
+        }
+        async function getUserScore() {
+            const UserApi = "http://localhost:3000/user/"
+            var user = localStorage.getItem("User_Ex");
+            var userObj = JSON.parse(user);
+            var response = await fetch(UserApi + "getScore/" + userObj._id)
+            var { data } = await response.json()
+            var strToJson = JSON.parse(data.AllScore)
+            console.log(strToJson)
 
-            const pose = new Pose({
-                locateFile: (file) => {
-                    return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
-                }
-            });
-            pose.setOptions({
-                modelComplexity: 1,
-                smoothLandmarks: true,
-                enableSegmentation: true,
-                smoothSegmentation: true,
-                minDetectionConfidence: 0.5,
-                minTrackingConfidence: 0.5
-            });
-            pose.onResults(onResults);
-
-            const camera = new Camera(videoElement, {
-                onFrame: async () => {
-                    await pose.send({ image: videoElement });
+            return strToJson;
+        }
+        async function plusScore() {
+            const UserApi = `http://localhost:3000/user/`
+            var user = localStorage.getItem("User_Ex");
+            var userObj = JSON.parse(user);
+            var modelAllScore = {
+                squatsScore: document.getElementById("showCounter").innerHTML
+            }
+            var modelScore = {
+                AllScore: JSON.stringify(modelAllScore),
+            }
+            var response = await fetch(UserApi + "updateScore/" + userObj._id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                width: 1280,
-                height: 720
-            });
-            camera.start();
-
-            function getPoseLandmarks(poseLandmarks) {
-                var hipRight = poseLandmarks[24];
-                var kneeRight = poseLandmarks[26];
-                var AnkleRight = poseLandmarks[28];
-                var angle = calculate_angle(hipRight, kneeRight, AnkleRight);
-
-                countScoreSquats(angle, poseLandmarks);
-
-                // console.log(poseLandmarks)
-                // console.log(poseLandmarks)
+                body: JSON.stringify(modelScore)
+            })
+            var res = await response.json()
+        }
+        async function setScore(){
+            var userScore = await getUserScore()
+            userScore.squatsScore 
+            document.getElementById("showCounter").innerHTML = userScore.squatsScore
+            console.log("Set Score")
+            init();
+        }
+    </script>
+    <script type="module">
+        const videoElement = document.getElementsByClassName('input_video')[0];
+        const canvasElement = document.getElementsByClassName('output_canvas')[0];
+        const canvasCtx = canvasElement.getContext('2d');
+        const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
+        const grid = new LandmarkGrid(landmarkContainer);
+        
+        var stage = "down";
+        function onResults(results) {
+            if (!results.poseLandmarks) {
+                grid.updateLandmarks([]);
+                return;
             }
 
-            function countScoreSquats(angle, poseLandmarks) {
-                if (CheckSpot(poseLandmarks)) {
-                    if (angle > 160) {
-                        stage = "down"
-                    }
-                    if (angle < 75 && stage == "down") {
-                        counter++;
-                        stage = "up";
-                        // success
-                        // change score
-                        document.getElementById("showCounter").innerHTML = counter;
-                        console.log(poseLandmarks)
-                    }
+            canvasCtx.save();
+            canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+            canvasCtx.drawImage(results.segmentationMask, 0, 0,
+                canvasElement.width, canvasElement.height);
+
+            // Only overwrite existing pixels.
+            canvasCtx.globalCompositeOperation = 'source-in';
+            canvasCtx.fillStyle = '#00FF00';
+            // canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
+
+            // Only overwrite missing pixels.
+            canvasCtx.globalCompositeOperation = 'destination-atop';
+            canvasCtx.drawImage(
+                results.image, 0, 0, canvasElement.width, canvasElement.height);
+
+            canvasCtx.globalCompositeOperation = 'source-over';
+            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
+                { color: '#00FF00', lineWidth: 4 });
+            drawLandmarks(canvasCtx, results.poseLandmarks,
+                { color: '#FF0000', lineWidth: 2 });
+            canvasCtx.restore();
+
+            getPosePullup(results.poseLandmarks)
+
+
+            grid.updateLandmarks(results.poseWorldLandmarks);
+        }
+
+        const pose = new Pose({
+            locateFile: (file) => {
+                return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
+            }
+        });
+        pose.setOptions({
+            modelComplexity: 1,
+            smoothLandmarks: true,
+            enableSegmentation: true,
+            smoothSegmentation: true,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5
+        });
+        pose.onResults(onResults);
+
+        const camera = new Camera(videoElement, {
+            onFrame: async () => {
+                await pose.send({ image: videoElement });
+            },
+            width: 1280,
+            height: 720
+        });
+        camera.start();
+
+
+        // ============================================================================== Pull-UP =================================================================================== // 
+        // ตรวจจับท่า Pull-Up
+        function getPosePullup (poseLandmarks){
+            var wristRight = poseLandmarks[16];
+            var elbowRight = poseLandmarks[14];
+            var shoulderRight = poseLandmarks[12];
+            var angle = Pullup_calculate_angle(wristRight, elbowRight, shoulderRight);
+
+            countScorePullup (angle, poseLandmarks); 
+        }
+        // ตรวจสอบคำนวณท่า Pull-Up
+        async function countScorePullup (angle, poseLandmarks) {
+            if (CheckSpot(poseLandmarks)) {
+                if (angle > 160) {
+                    stage = "down"
                 }
-
-            }
-
-            function calculate_angle(hip, knee, ankle) {
-                var a = [hip.x, hip.y];
-                var b = [knee.x, knee.y];
-                var c = [ankle.x, ankle.y];
-
-                var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
-                var angle = Math.abs(radians * 180.0 / Math.PI)
-
-                if (angle > 180.0) {
-                    angle = 360 - angle
+                if (angle < 50 && stage == "down") {
+                    var counter = document.getElementById("showCounter").innerHTML;
+                    console.log("counter : " + counter );
+                    counter++;
+                    stage = "up";
+                    // success
+                    // change score
+                    document.getElementById("showCounter").innerHTML = counter;
+                    await plusScore();
+                    console.log(poseLandmarks)
+                    
                 }
-                return angle;
             }
+        }
+        // คำนวณท่าทาง PullUP และ คำนวณเพื่อจะ Counter
+        function Pullup_calculate_angle(wrist, elbow, shoulder) {
+            var a = [wrist.x, wrist.y];
+            var b = [elbow.x, elbow.y];
+            var c = [shoulder.x, shoulder.y];
 
-            function CheckSpot(poseLandmarks) {
-                var footLeft = poseLandmarks[31];
-                var footRight = poseLandmarks[32];
-                var isCorrect = false;
-                var correctPercent = 0.68;
-                if (footLeft.visibility > correctPercent && footRight.visibility > correctPercent) {
-                    isCorrect = true;
+            var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+            var angle = Math.abs(radians * 180.0 / Math.PI)
+
+            if (angle > 180.0) {
+                angle = 360 - angle
+            }
+            return angle;
+        }
+
+        
+        // ============================================================================== PushUP =================================================================================== // 
+        // ท่า Push-Up
+        function getPosePushup (poseLandmarks){
+            var wristRight = poseLandmarks[16];
+            var elbowRight = poseLandmarks[14];
+            var shoulderRight = poseLandmarks[12];
+            var angle = Pushup_calculate_angle(wristRight, elbowRight, shoulderRight);
+
+            countScorePushup (angle, poseLandmarks); 
+        }
+        // ตรวจสอบคำนวณท่า Push-Up
+        async function countScorePushup (angle, poseLandmarks) {
+            if (CheckSpot(poseLandmarks)) {
+                if (angle > 160) {
+                    stage = "down"
                 }
-                return isCorrect;
+                if (angle < 110 && stage == "down") {
+                    var counter = document.getElementById("showCounter").innerHTML;
+                    console.log("counter : " + counter );
+                    counter++;
+                    stage = "up";
+                    // success
+                    // change score
+                    document.getElementById("showCounter").innerHTML = counter;
+                    await plusScore();
+                    console.log(poseLandmarks)
+                    
+                }
             }
+        }
+        // คำนวณท่าทาง PushUP และ คำนวณเพื่อจะ Counter
+        function Pushup_calculate_angle(wrist, elbow, shoulder) {
+            var a = [wrist.x, wrist.y];
+            var b = [elbow.x, elbow.y];
+            var c = [shoulder.x, shoulder.y];
 
-        </script>
+            var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+            var angle = Math.abs(radians * 180.0 / Math.PI)
 
+            if (angle > 180.0) {
+                angle = 360 - angle
+            }
+            return angle;
+        }
+
+
+        // ============================================================================== LegRaise ================================================================================= // 
+        // ตรวจจับท่า Legraise
+        function getPoseLegRaise (poseLandmarks){
+            var hipRight = poseLandmarks[24];
+            var kneeRight = poseLandmarks[26];
+            var AnkleRight = poseLandmarks[28];
+            var angle = Legraise_calculate_angle(hipRight, kneeRight, AnkleRight);
+
+            countScoreLegraise (angle, poseLandmarks); 
+        }
+        // ตรวจสอบคำนวณท่า Legraise
+        async function countScoreLegraise (angle, poseLandmarks) {
+            if (CheckSpot(poseLandmarks)) {
+                if (angle > 170) {
+                    stage = "down"
+                }
+                if (angle < 160 && stage == "down") {
+                    var counter = document.getElementById("showCounter").innerHTML;
+                    console.log("counter : " + counter );
+                    counter++;
+                    stage = "up";
+                    // success
+                    // change score
+                    document.getElementById("showCounter").innerHTML = counter;
+                    await plusScore();
+                    console.log(poseLandmarks)
+                    
+                }
+            }
+        }
+        // คำนวณท่าทาง Legraise และ คำนวณเพื่อจะ Counter
+        function Legraise_calculate_angle(hip, knee, ankle) {
+            var a = [hip.x, hip.y];
+            var b = [knee.x, knee.y];
+            var c = [ankle.x, ankle.y];
+
+            var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+            var angle = Math.abs(radians * 180.0 / Math.PI)
+
+            if (angle > 180.0) {
+                angle = 360 - angle
+            }
+            return angle;
+        }
+
+        // ============================================================================== Squats =================================================================================== // 
+        // ท่า Squats 
+        function getPoseSquats(poseLandmarks) {
+            var hipRight = poseLandmarks[24];
+            var kneeRight = poseLandmarks[26];
+            var AnkleRight = poseLandmarks[28];
+            var angle = Squats_calculate_angle(hipRight, kneeRight, AnkleRight);
+
+            countScoreSquats(angle, poseLandmarks);
+        }
+        // ตรวจสอบคำนวณท่า Squats , ดูองศาร่างกาย
+        async function countScoreSquats(angle, poseLandmarks) {
+            if (CheckSpot(poseLandmarks)) {
+                if (angle > 160) {
+                    stage = "down"
+                }
+                if (angle < 75 && stage == "down") {
+                    var counter = document.getElementById("showCounter").innerHTML;
+                    console.log("counter : " + counter );
+                    counter++;
+                    stage = "up";
+                    // success
+                    // change score
+                    document.getElementById("showCounter").innerHTML = counter;
+                    await plusScore();
+                    console.log(poseLandmarks)
+                }
+            }
+        }
+        // คำนวณท่าทาง Squats และ คำนวณเพื่อจะ Counter
+        function Squats_calculate_angle(hip, knee, ankle) {
+            var a = [hip.x, hip.y];
+            var b = [knee.x, knee.y];
+            var c = [ankle.x, ankle.y];
+
+            var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+            var angle = Math.abs(radians * 180.0 / Math.PI)
+
+            if (angle > 180.0) {
+                angle = 360 - angle
+            }
+            return angle;
+        }
+
+        // ตรวจสอบเท้าของ User ให้คำนวณไม่ผิดพลาด
+        function CheckSpot(poseLandmarks) {
+            var footLeft = poseLandmarks[31];
+            var footRight = poseLandmarks[32];
+            var isCorrect = false;
+            var correctPercent = 0.68;
+            if (footLeft.visibility > correctPercent && footRight.visibility > correctPercent) {
+                isCorrect = true;
+            }
+            return isCorrect;
+        }
+    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
