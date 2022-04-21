@@ -311,7 +311,8 @@
 }
 
 .head_content_index {
-    background-image: url('../หน้าต่าง Login/img/630x1200.png'); 
+    background-image: url('../หน้าต่าง Login/img/gradient-01-w.svg'); 
+    opacity: 0.5 !important;
     background-position: center center;
     background-size: cover;
     color: #fff;
@@ -324,6 +325,7 @@
     height: calc(60vh - 100px);
     min-height: 400px;
 }
+
 .head_content_index .text {
     display: flex;
     align-items: center;
