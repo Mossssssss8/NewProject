@@ -113,7 +113,7 @@
                                     <div class="mb-3">
                                         <label class="small mb-1" for="inputUsername"> Username </label>
                                         <input class="form-control" id="inputUsername" type="text"
-                                            placeholder="Enter your username">
+                                            placeholder="Enter your username" disabled>
                                     </div>
                                     <!-- Form Row-->
                                     <div class="row gx-3 mb-3">
@@ -131,7 +131,8 @@
                                         </div>
                                     </div>
                                     <!-- Save changes button-->
-                                    <button class="btn btn-primary" type="button">Save changes</button>
+                                    <button class="btn btn-primary" onclick="updateBtn()" type="button">Save
+                                        changes</button>
                                 </form>
                             </div>
                         </div>
@@ -144,7 +145,55 @@
         </section>
     </section>
     <script src="script.js"></script>
+    <script>
+        console.log("hello setting")
+        showUserNameDetail()
+        function showUserNameDetail() {
+            var user = GetUser_id();
+            document.getElementById('inputUsername').value = user.username;
+            document.getElementById('inputHeight').value = user.Height;
+            document.getElementById('inputWeight').value = user.Weight;
 
+        }
+        function updateBtn() {
+            Swal.fire({
+                title: 'Do you want to Save?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                icon: "question"
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    var user = GetUser_id();
+                    user.Height = document.getElementById('inputHeight').value;
+                    user.Weight = document.getElementById('inputWeight').value;
+                    console.log(user)
+                    updateUser(user);
+                }
+            })
+
+        }
+        async function updateUser(user) {
+            console.log("in update user")
+            console.log(user)
+            var newmodel ={
+                _id : user._id,
+                Height: user.Height,
+                Weight: user.Weight
+            }
+            var response = await fetch(UserApi + `update/${user._id}`, {
+                method: 'PUT',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newmodel)
+            })
+            var allUSer = await response.json()
+            console.log(allUSer)
+            return allUSer
+        }
+    </script>
 </body>
 
 </html>

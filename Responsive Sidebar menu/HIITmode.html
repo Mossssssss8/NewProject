@@ -104,8 +104,11 @@
         <button onclick="getUserScore()"> getScore </button>
         <h1 style="text-align: center;"> Timer : <span id="showTime">0 </span></h1>
         <div class="Current , Exercise">
-        <h1 style="text-align: Left;"> Current Exercise : <span id="CurrentEx">.</span></h1>
-        <h1 style="text-align: Right;"> Next Exercise : <span id="NextEx">.</span></h1>
+        <div style="display: flex;width: 100%;" class="grid">
+            <div class="g-col-6"><h1> Current Exercise : <span id="CurrentEx">.</span></h1></div>
+            <div style="margin-left: 46%;" class="g-col-6"><h1 style="margin-right: 0px;" > Next Exercise : <span id="NextEx">.</span></h1></div>
+        </div>
+        <h1>Current score : <span id="CurrentScore">0</span></h1>
         </div>
         
         <div class="container">
@@ -116,6 +119,7 @@
     </section>
 
     <script>
+        var currentScore = 0;
         var timeleft = 0;
         var isStart = false;
         var timeCountdown
@@ -168,6 +172,7 @@
                 body: JSON.stringify(modelScore)
             })
             var res = await response.json()
+            PlusCurrentScore()
         }
         async function setScore(){
             var userScore = await getUserScore()
@@ -175,6 +180,10 @@
             document.getElementById("showCounter").innerHTML = userScore.squatsScore
             console.log("Set Score")
             init();
+        }
+        function PlusCurrentScore(){
+            currentScore ++;
+            document.getElementById("CurrentScore").innerHTML = currentScore
         }
     </script>
     <script type="module">
@@ -213,9 +222,7 @@
                 { color: '#FF0000', lineWidth: 2 });
             canvasCtx.restore();
 
-            getPoseSquats(results.poseLandmarks)
-
-
+            MainExcercise("test",results.poseLandmarks)
             grid.updateLandmarks(results.poseWorldLandmarks);
         }
 
@@ -243,6 +250,48 @@
         });
         camera.start();
 
+
+
+        function getHiit(poseLandmarks){
+
+        }
+
+        function MainExcercise(nameExercise,poseLandmarks){
+            var CurScore = document.getElementById('CurrentScore').innerHTML
+            if(CurScore < 2){
+                nameExercise = "1"
+            }else if(CurScore <= 4){
+                nameExercise = "2";
+            }else if(CurScore <= 6){
+                nameExercise = "3";
+            }else if(CurScore <= 8){
+                nameExercise = "4";
+            }
+
+            switch(nameExercise){
+                case"1":{
+                    getPoseSquats(poseLandmarks)
+                    ChangeEx("ท่า1","ท่า2")
+                    break;
+                }
+                case"2":{
+                    getPosePullup(poseLandmarks)
+                    ChangeEx("ท่า2","ท่า3")
+                    break;
+                }
+                case"3":{
+                    Pullup_calculate_angle(poseLandmarks)
+                    ChangeEx("ท่า3","ท่า4")
+                    break;
+                }
+                case"4":{
+                    CheckSpot(poseLandmarks)
+                    ChangeEx("ท่า4","ท่า5")
+                    break;
+                }
+            }
+        }
+
      // ============================================================================== Squats =================================================================================== // 
         // ท่า Squats 
         function getPoseSquats(poseLandmarks) {
@@ -267,10 +316,7 @@
                     counter++;
                     stage = "up";
                     // success
-                    if(counter ==  55){
-                    console.log("Exercise Changing") 
-                    getPosePullup(poseLandmarks);
-                }
+                    
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
                     await plusScore();
@@ -296,10 +342,8 @@
         // ============================================================================== Pull-UP =================================================================================== // 
         // ตรวจจับท่า Pull-Up
         function getPosePullup (poseLandmarks){
-            var wristRight = poseLandmarks[16];
-            var elbowRight = poseLandmarks[14];
-            var shoulderRight = poseLandmarks[12];
-            var angle = Pullup_calculate_angle(wristRight, elbowRight, shoulderRight);
+            
+            var angle = Pullup_calculate_angle(poseLandmarks);
 
             countScorePullup (angle, poseLandmarks); 
         }
@@ -325,10 +369,13 @@
             }
         }
         // คำนวณท่าทาง PullUP และ คำนวณเพื่อจะ Counter
-        function Pullup_calculate_angle(wrist, elbow, shoulder) {
-            var a = [wrist.x, wrist.y];
-            var b = [elbow.x, elbow.y];
-            var c = [shoulder.x, shoulder.y];
+        function Pullup_calculate_angle(poseLandmarks) {
+            var wristRight = poseLandmarks[16];
+            var elbowRight = poseLandmarks[14];
+            var shoulderRight = poseLandmarks[12];
+            var a = [wristRight.x, wristRight.y];
+            var b = [elbowRight.x, elbowRight.y];
+            var c = [shoulderRight.x, shoulderRight.y];
 
             var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
             var angle = Math.abs(radians * 180.0 / Math.PI)
@@ -349,6 +396,10 @@
                 isCorrect = true;
             }
             return isCorrect;
+        }
+        function ChangeEx(currentEx,nextEx){
+            document.getElementById("CurrentEx").innerHTML = currentEx;
+            document.getElementById("NextEx").innerHTML = nextEx;
         }
     </script>
     <script src="script.js"></script>

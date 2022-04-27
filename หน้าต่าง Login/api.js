@@ -1,6 +1,6 @@
 // เพิ่มการกด Enter ใน Tag button
 var passwordInput = document.getElementById("passwordForLogin");
-passwordInput.addEventListener("keyup", function(event) {
+passwordInput.addEventListener("keyup", function (event) {
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
         // Cancel the default action, if needed
@@ -32,18 +32,18 @@ async function UserRegister() {
     !modeluser.Weight ? alertRequire.push("Weight") : "";
 
     var alertText = "";
-    if(alertRequire.length > 0){
-        alertRequire.forEach((element,index)=>{
-            index != 0 ? alertText +=", ":"";
+    if (alertRequire.length > 0) {
+        alertRequire.forEach((element, index) => {
+            index != 0 ? alertText += ", " : "";
             alertText += element;
             console.log(index)
         })
         Swal.fire(
-            'Please Enter '+ alertText,
+            'Please Enter ' + alertText,
             '',
             'warning'
         )
-    }else{
+    } else {
         const response = await fetch(UserApi + "add", {
             method: 'POST',
             mode: 'cors',
@@ -53,17 +53,17 @@ async function UserRegister() {
             body: JSON.stringify(modeluser)
         })
         Swal.fire({
-            title:"Register Successfully",
-            confirmButtonText:'OK',
-            icon:"success"
-        }).then((result)=>{
+            title: "Register Successfully",
+            confirmButtonText: 'OK',
+            icon: "success"
+        }).then((result) => {
             location.href = "./index.html"
         })
         return response.json()
     }
 
-    
-    
+
+
 }
 async function getAllUser() {
     var response = await fetch(UserApi, {
@@ -103,4 +103,18 @@ async function login() {
     }
 
     return res
+}
+
+async function updateUser(user) {
+    var response = await fetch(UserApi+`update/${user._id}`, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: user
+    })
+    var allUSer = await response.json()
+    console.log(allUSer)
+    return response.json()
 }

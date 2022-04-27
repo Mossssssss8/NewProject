@@ -24,7 +24,8 @@ function menuBtnChange() {
 }
 
 function GetUser_id() {
-    console.log(localStorage.getItem("User_Ex"))
+    // console.log(localStorage.getItem("User_Ex"))
+    return JSON.parse(localStorage.getItem("User_Ex"))
 }
 
 async function init() {
