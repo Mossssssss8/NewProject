@@ -335,6 +335,17 @@
                 </div>
         </section>
     <script src="script.js"></script>
+    <script>
+        // console.log("hello setting")
+        showUserNameDetail()
+        function showUserNameDetail() {
+            var user = GetUser_id();
+            document.getElementById('inputUsername').value = user.username;
+            document.getElementById('inputHeight').value = user.Height;
+            document.getElementById('inputWeight').value = user.Weight;
+
+        }
+    </script>
 </body>
 
 </html>
