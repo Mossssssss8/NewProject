@@ -28,8 +28,23 @@ function GetUser_id() {
     return JSON.parse(localStorage.getItem("User_Ex"))
 }
 
+async function getUserByid (userid){
+    var response = await fetch(UserApi + "get/" + userid, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(modeluser)
+    })
+    var res = await response.json()
+
+    localStorage.setItem("User_Ex", JSON.stringify(res.data))
+
+}
 async function init() {
     const user = localStorage.getItem("User_Ex");
+    var userjson = JSON.parse(user) 
+    getUserByid(userjson._id)
     console.log(user)
     console.log(location.search)
     if (location.search.includes("LoginSucessfully")) {

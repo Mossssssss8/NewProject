@@ -391,6 +391,9 @@
     opacity: 1;
 }
 
+.btn-hidden{
+    display: none;
+}
 
 @media (max-width: 420px) {
     .sidebar li .tooltip {

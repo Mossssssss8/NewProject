@@ -41,15 +41,15 @@
                     <span class="links_name">Set mode</span>
                 </a>
                 <span class="tooltip">Exercise</span>
-              </li>
-              <li>
-                  <a href="HIITmode.html">
-                      <i class='bx bx-task'></i>
-                      <span class="links_name">HIIT Mode</span>
-                  </a>
-                  <span class="tooltip">HIIT Workout</span>
-              </li>
-              <li>
+            </li>
+            <li>
+                <a href="HIITmode.html">
+                    <i class='bx bx-task'></i>
+                    <span class="links_name">HIIT Mode</span>
+                </a>
+                <span class="tooltip">HIIT Workout</span>
+            </li>
+            <li>
                 <a href="Endurance Mode.html">
                     <i class='bx bx-task '></i>
                     <span class="links_name">Endurance Mode</span>
@@ -197,8 +197,8 @@
         async function updateUser(user) {
             console.log("in update user")
             console.log(user)
-            var newmodel ={
-                _id : user._id,
+            var newmodel = {
+                _id: user._id,
                 Height: user.Height,
                 Weight: user.Weight
             }
@@ -210,10 +210,12 @@
                 },
                 body: JSON.stringify(newmodel)
             })
-            var allUSer = await response.json()
+
+            var res = await response.json()
             console.log("response")
-            console.log(allUSer)
-            return allUSer
+            console.log(res)
+            localStorage.setItem("User_Ex", JSON.stringify(res.data))
+            return res
         }
     </script>
 </body>
