@@ -124,6 +124,7 @@
 
             <div>
                 <button class="btn-hidden" id="TimeBTN" onclick="startTime()"> Start </button>
+                <button id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
                 <button class="btn-hidden" onclick="getUserScore()"> getScore </button>
             </div>
             <button id="btn-Easy" onclick="Setmode('Easy')"> Easy </button>
@@ -154,11 +155,14 @@
         var timeleft = 0;
         var isStart = false;
         var timeCountdown
+        var currentExerise = 1
+        var iscomplete = false
         function startTime() {
             if (isStart == false) {
                 isStart = true;
                 timeCountdown = setInterval(countdown, 1000)
-                document.getElementById("TimeBTN").innerHTML = "Stop"
+                document.getElementById("TimeBTN").innerHTML = "Restart"
+                timeleft = 0
             } else {
                 isStart = false;
                 document.getElementById("TimeBTN").innerHTML = "Start"
@@ -171,15 +175,19 @@
             console.log(timeleft)
             if (Mode == "Easy") {
                 console.log("Easysssss")
-                setTime = 10
+                setTime = 3
             } if (Mode == "Intermediate") {
                 setTime = 20 * 60
             } if (Mode == "Advance") {
                 setTime = 30 * 60
             }
-            if (timeleft >= 30000) {
-                clearTimeout(timeleft);
+            if (timeleft >= setTime) {
+                clearTimeout(timeCountdown);
+                isStart = false;
                 document.getElementById("showTime").innerHTML = 0;
+                document.getElementById("TimeBTN").innerHTML = "Start"
+                timeleft = 0
+                Incomplete();
             } else {
                 document.getElementById("showTime").innerHTML = timeset(setTime - timeleft);
                 timeleft++;
@@ -189,9 +197,6 @@
         function timeset(time) {
             var fontNum = 0
             var backNum = 0
-            if (time == 0) {
-                Incomplete();
-            }
             while (time > 0) {
                 if (time >= 60) {
                     time = time - 60
@@ -272,7 +277,7 @@
                 // showCancelButton: true,
                 showCloseButton: false
             }).then((result) => {
-                // camerastart();
+                camerastart();
                 document.getElementById("TimeBTN").style.display = "block"
                 SelectedMode(Mode)
             })
@@ -311,6 +316,13 @@
                     no-repeat
                 `
             })
+        }
+        function complete() {
+            Swal.fire(
+                'complete Workout',
+                'complete Workout',
+                'success'
+            )
         }
         async function getUserScore() {
             const UserApi = "http://localhost:3000/user/"
@@ -419,25 +431,56 @@
         });
 
         function camerastart() {
-
             camera.start();
+            currentExerise = 1
 
         }
 
         function MainExcercise(poseLandmarks) {
 
+
         }
 
         function MainExcercise(nameExercise, poseLandmarks) {
             var CurScore = document.getElementById('CurrentScore').innerHTML
-            if (CurScore < 8) {
+            var mode = localStorage.getItem('Mode')
+            var round = 0
+            console.log(CurScore)
+            if (mode == 'Easy') {
+                round = 8
+                // alert('Easy')
+            }
+            if (mode == 'Intermediate') {
+                round = 12
+                // alert('Intermediate')
+            }
+            if (mode == 'Advance') {
+                round = 15
+                // alert('Advance')
+            }
+            if (currentScore % round == 0 && currentScore > 1) {
+                currentExerise++
+                currentScore = 0
+                document.getElementById('CurrentScore').innerHTML = currentScore
+
+            }
+            if (currentExerise == 1) {
                 nameExercise = "1"
-            } else if (CurScore <= 4) {
+            } else if (currentExerise == 2) {
                 nameExercise = "2";
-            } else if (CurScore <= 6) {
+            } else if (currentExerise == 3) {
                 nameExercise = "3";
-            } else if (CurScore <= 8) {
+            } else if (currentExerise == 4) {
                 nameExercise = "4";
+            }
+            else if (currentExerise == 5 && iscomplete == false) {
+                complete()
+                iscomplete = true
+                ChangeEx("complete", "complete")
+                isStart = false;
+                clearTimeout(timeCountdown);
+                document.getElementById("TimeBTN").innerHTML = "Start"
+                currentExerise = 1
             }
 
             switch (nameExercise) {
