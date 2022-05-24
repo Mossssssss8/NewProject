@@ -52,15 +52,15 @@
                     <span class="links_name">Set mode</span>
                 </a>
                 <span class="tooltip">Exercise</span>
-              </li>
-              <li>
-                  <a href="HIITmode.html">
-                      <i class='bx bx-task'></i>
-                      <span class="links_name">HIIT Mode</span>
-                  </a>
-                  <span class="tooltip">HIIT Workout</span>
-              </li>
-              <li>
+            </li>
+            <li>
+                <a href="HIITmode.html">
+                    <i class='bx bx-task'></i>
+                    <span class="links_name">HIIT Mode</span>
+                </a>
+                <span class="tooltip">HIIT Workout</span>
+            </li>
+            <li>
                 <a href="Endurance Mode.html">
                     <i class='bx bx-task'></i>
                     <span class="links_name">Endurance Mode</span>
@@ -116,53 +116,255 @@
     </div>
     <section class="home-section" onload="setScore()">
         <!-- <div class="text">Set mode</div> -->
-        <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button>
+        <!-- <button type="button" class="btn btn-secondary btn-lg" href="#">HIIT Mode</button> -->
         <!-- <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button> -->
 
-        <div class ="Time , Counter">
-        <h1 style="text-align: center;"> Counter : <span id="showCounter">0 </span></h1>
-        <button  id="TimeBTN" onclick="startTime()"> Start </button>
-        <button onclick="getUserScore()"> getScore </button>
-        <h1 style="text-align: center;"> Timer : <span id="showTime">0 </span></h1>
-        <div class="Current , Exercise">
-        <div style="display: flex;width: 100%;" class="grid">
-            <div class="g-col-6"><h1> Current Exercise : <span id="CurrentEx">.</span></h1></div>
-            <div style="margin-left: 46%;" class="g-col-6"><h1 style="margin-right: 0px;" > Next Exercise : <span id="NextEx">.</span></h1></div>
-        </div>
-        <h1>Current score : <span id="CurrentScore">0</span></h1>
-        </div>
-        
-        <div class="container">
-            <video class="input_video"></video>
-            <canvas class="output_canvas" width="1280px" height="720px"></canvas>
-            <div class="landmark-grid-container"></div>
-        </div>
+        <div class="Time , Counter">
+            <h1 style="text-align: center;"> Counter : <span id="showCounter">0 </span></h1>
+
+            <div>
+                <button class="btn-hidden" id="TimeBTN" onclick="startTime()"> Start </button>
+                <button id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
+                <button class="btn-hidden" onclick="getUserScore()"> getScore </button>
+            </div>
+            <button id="btn-Easy" onclick="Setmode('Easy')"> Easy </button>
+            <button id="btn-Intermediate" onclick="Setmode('Intermediate')"> Intermediate </button>
+            <button id="btn-Advance" onclick="Setmode('Advance')"> Advance </button>
+            <h1 style="text-align: center;"> Timer : <span id="showTime">0 </span></h1>
+            <div class="Current , Exercise">
+                <div style="display: flex;width: 100%;" class="grid">
+                    <div class="g-col-6">
+                        <h1> Current Exercise : <span id="CurrentEx">.</span></h1>
+                    </div>
+                    <div style="margin-left: 46%;" class="g-col-6">
+                        <h1 style="margin-right: 0px;"> Next Exercise : <span id="NextEx">.</span></h1>
+                    </div>
+                </div>
+                <h1>Current score : <span id="CurrentScore">0</span></h1>
+            </div>
+
+            <div class="container">
+                <video class="input_video"></video>
+                <canvas class="output_canvas" width="1280px" height="720px"></canvas>
+                <div class="landmark-grid-container"></div>
+            </div>
     </section>
 
     <script>
         var currentScore = 0;
         var timeleft = 0;
+        var timeleft2 = 0;
         var isStart = false;
         var timeCountdown
+        var timeCountdown2
+        var currentExerise = 1
+        var iscomplete = false
+
         function startTime() {
             if (isStart == false) {
                 isStart = true;
                 timeCountdown = setInterval(countdown, 1000)
-                document.getElementById("TimeBTN").innerHTML = "Stop"
+                document.getElementById("TimeBTN").innerHTML = "Restart"
+                timeleft = 0
+                timeleft2 = 0
+                currentExerise = 1
+                document.getElementById('CurrentScore').innerHTML = 0
             } else {
-                isStart = false;
-                document.getElementById("TimeBTN").innerHTML = "Start"
-                clearTimeout(timeCountdown);
+                Swal.fire({
+                    title: 'Do you want to restart?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    icon: "question"
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        isStart = false;
+                        document.getElementById("TimeBTN").innerHTML = "Start"
+                        clearTimeout(timeCountdown);
+                        clearTimeout(timeCountdown2);
+                        document.getElementById('showTime').innerHTML = '00:00'
+
+                    }
+                })
+
             }
         }
         function countdown() {
-            if (timeleft >= 30000) {
-                clearTimeout(timeleft);
-                document.getElementById("showTime").innerHTML = 0;
-            } else {
-                document.getElementById("showTime").innerHTML = timeleft;
-                timeleft++;
+            var Mode = localStorage.getItem("Mode")
+            var setTime = 0;
+            console.log(timeleft)
+            if (Mode == "Easy") {
+                // console.log("Easysssss")
+                setTime = 10 * 60
+            } if (Mode == "Intermediate") {
+                setTime = 20 * 60
+            } if (Mode == "Advance") {
+                setTime = 30 * 60
             }
+            if (timeleft >= setTime) {
+                clearTimeout(timeCountdown);
+                isStart = false;
+                document.getElementById("showTime").innerHTML = 0;
+                document.getElementById("TimeBTN").innerHTML = "Start"
+                timeleft = 0
+                Incomplete();
+            } else {
+                document.getElementById("showTime").innerHTML = timeset(setTime - timeleft);
+                timeleft++;
+                // console.log(timeleft)
+            }
+        }
+        function countdown2() {
+            var time = 15s
+            if (timeleft2 >= time) {
+                clearTimeout(timeCountdown);
+                clearTimeout(timeCountdown2);
+                timeCountdown = setInterval(countdown, 1000)
+                timeleft2 = 0
+                document.getElementById('showTime').innerHTML = '00:00'
+            } else {
+                document.getElementById("showTime").innerHTML = timeset(time - timeleft2);
+                timeleft2++;
+                // console.log(timeleft)
+            }
+        }
+        function timeset(time) {
+            var fontNum = 0
+            var backNum = 0
+            while (time > 0) {
+                if (time >= 60) {
+                    time = time - 60
+                    fontNum++
+                } else {
+                    backNum = time
+                    time = 0
+                }
+
+            }
+
+            console.log(`${setTwodigit(fontNum)}:${setTwodigit(backNum)}`)
+            console.log(`fontNum`)
+            return `${setTwodigit(fontNum)}:${setTwodigit(backNum)}`
+        }
+        function setTwodigit(num) {
+            var returnNum = "0";
+            if (num < 10) {
+                if (num == 9) {
+                    return "09"
+                } if (num == 8) {
+                    return "08"
+                } if (num == 7) {
+                    return "07"
+                } if (num == 6) {
+                    return "06"
+                } if (num == 5) {
+                    return "05"
+                } if (num == 4) {
+                    return "04"
+                } if (num == 3) {
+                    return "03"
+                } if (num == 2) {
+                    return "02"
+                } if (num == 1) {
+                    return "01"
+                } if (num == 0) {
+                    return "00"
+                }
+            } else {
+                return num
+            }
+        }
+        function Setmode(Mode) {
+            var title = " "
+            var html = " "
+            if (Mode == "Easy") {
+                localStorage.setItem("Mode", "Easy")
+                // console.log("Easy")
+                Mode = "Easy"
+                // console.log(Mode)
+                title = "ระดับ Beginner"
+                html = `ต้องผ่านภายใน 10 นาที ทุกท่าทาง 8 ครั้ง / 1 เซต <br>
+                    Pull UP , Push-UP , Pike Push-UP , Leg Raise , Squats`
+            }
+            if (Mode == "Intermediate") {
+                localStorage.setItem("Mode", "Intermediate")
+                console.log("Intermediate")
+                title = "ระดับ Intermediate"
+                html = `ต้องผ่านภายใน 20 นาที ทุกท่าทาง 12 ครั้ง / 1 เซต <br>
+                    Pull UP , Push-UP , Pike Push-UP , Leg Raise , Squats`
+            }
+            if (Mode == "Advance") {
+                localStorage.setItem("Mode", "Advance")
+                console.log("Advance")
+                Mode = "Advance"
+                title = "ระดับ Advance"
+                html = `ต้องผ่านภายใน 30 นาที ทุกท่าทาง 15 ครั้ง / 1 เซต <br>
+                    Pull UP , Push-UP , Pike Push-UP , Leg Raise , Squats`
+            }
+            Swal.fire({
+                title: title,
+                // text: `ต้องผ่านภายใน 10 นาที  ทุกท่าทาง 8 ครั้ง / 1 เซต`,
+                html: html,
+                icon: 'question',
+                iconHtml: '?',
+                confirmButtonText: 'ตกลง',
+                // showCancelButton: true,
+                showCloseButton: false
+            }).then((result) => {
+                camerastart();
+                document.getElementById("TimeBTN").style.display = "block"
+                SelectedMode(Mode)
+            })
+            timeleft = 0;
+
+        }
+        function SelectedMode(Mode) {
+            if (Mode == "Easy") {
+                document.getElementById("btn-Easy").style.display = "none"
+                document.getElementById("btn-Intermediate").style.display = "none"
+                document.getElementById("btn-Advance").style.display = "none"
+            }
+            if (Mode == "Intermediate") {
+                document.getElementById("btn-Easy").style.display = "none"
+                document.getElementById("btn-Intermediate").style.display = "none"
+                document.getElementById("btn-Advance").style.display = "none"
+            }
+            if (Mode == "Advance") {
+                document.getElementById("btn-Easy").style.display = "none"
+                document.getElementById("btn-Intermediate").style.display = "none"
+                document.getElementById("btn-Advance").style.display = "none"
+            }
+        }
+        function Incomplete() {
+            Swal.fire({
+                title: 'Incomplete Workout',
+                text: 'Incomplete Workout Code:101 Timeout',
+                width: 600,
+                padding: '3em',
+                color: '#716add',
+                background: '#fff url(/images/trees.png)',
+                backdrop: `
+                    rgba(0,0,123,0.4)
+                    url("/images/nyan-cat.gif")
+                    left top
+                    no-repeat
+                `
+            })
+        }
+        function complete() {
+            Swal.fire(
+                'complete Workout',
+                'complete Workout',
+                'success'
+            )
+        }
+        function break15sec() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Break 15 secoud',
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
         async function getUserScore() {
             const UserApi = "http://localhost:3000/user/"
@@ -195,25 +397,25 @@
             var res = await response.json()
             PlusCurrentScore()
         }
-        async function setScore(){
+        async function setScore() {
             var userScore = await getUserScore()
-            userScore.squatsScore 
+            userScore.squatsScore
             document.getElementById("showCounter").innerHTML = userScore.squatsScore
             console.log("Set Score")
             init();
         }
-        function PlusCurrentScore(){
-            currentScore ++;
+        function PlusCurrentScore() {
+            currentScore++;
             document.getElementById("CurrentScore").innerHTML = currentScore
         }
     </script>
-    <script type="module">
+    <script>
         const videoElement = document.getElementsByClassName('input_video')[0];
         const canvasElement = document.getElementsByClassName('output_canvas')[0];
         const canvasCtx = canvasElement.getContext('2d');
         const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
         const grid = new LandmarkGrid(landmarkContainer);
-        
+
         var stage = "down";
         function onResults(results) {
             if (!results.poseLandmarks) {
@@ -243,7 +445,7 @@
                 { color: '#FF0000', lineWidth: 2 });
             canvasCtx.restore();
 
-            MainExcercise("test",results.poseLandmarks)
+            MainExcercise("test", results.poseLandmarks)
             grid.updateLandmarks(results.poseWorldLandmarks);
         }
 
@@ -269,51 +471,92 @@
             width: 1280,
             height: 720
         });
-        camera.start();
 
-
-
-        function getHiit(poseLandmarks){
+        function camerastart() {
+            camera.start();
+            currentExerise = 1
 
         }
 
-        function MainExcercise(nameExercise,poseLandmarks){
+        function MainExcercise(poseLandmarks) {
+
+
+        }
+
+        function MainExcercise(nameExercise, poseLandmarks) {
             var CurScore = document.getElementById('CurrentScore').innerHTML
-            if(CurScore < 2){
+            var mode = localStorage.getItem('Mode')
+            var round = 0
+
+            console.log(CurScore)
+            if (mode == 'Easy') {
+                round = 8
+                // alert('Easy')
+            }
+            if (mode == 'Intermediate') {
+                round = 12
+                // alert('Intermediate')
+            }
+            if (mode == 'Advance') {
+                round = 15
+                // alert('Advance')
+            }
+            if (currentScore % round == 0 && currentScore > 1) {
+                currentExerise++
+                currentScore = 0
+                document.getElementById('CurrentScore').innerHTML = currentScore
+                clearTimeout(timeCountdown);
+                if (currentExerise < 5) {
+                    timeCountdown2 = setInterval(countdown2, 1000)
+                    clearTimeout(timeCountdown);
+                    break15sec()
+                }
+            }
+            if (currentExerise == 1) {
                 nameExercise = "1"
-            }else if(CurScore <= 4){
+            } else if (currentExerise == 2) {
                 nameExercise = "2";
-            }else if(CurScore <= 6){
+            } else if (currentExerise == 3) {
                 nameExercise = "3";
-            }else if(CurScore <= 8){
+            } else if (currentExerise == 4) {
                 nameExercise = "4";
             }
+            else if (currentExerise == 5 && iscomplete == false) {
+                complete()
+                iscomplete = true
+                ChangeEx("complete", "complete")
+                isStart = false;
+                clearTimeout(timeCountdown);
+                document.getElementById("TimeBTN").innerHTML = "Start"
+                currentExerise = 1
 
-            switch(nameExercise){
-                case"1":{
+            }
+
+            switch (nameExercise) {
+                case "1": {
                     getPoseSquats(poseLandmarks)
-                    ChangeEx("ท่า1","ท่า2")
+                    ChangeEx("ท่า1", "ท่า2")
                     break;
                 }
-                case"2":{
+                case "2": {
                     getPosePullup(poseLandmarks)
-                    ChangeEx("ท่า2","ท่า3")
+                    ChangeEx("ท่า2", "ท่า3")
                     break;
                 }
-                case"3":{
+                case "3": {
                     Pullup_calculate_angle(poseLandmarks)
-                    ChangeEx("ท่า3","ท่า4")
+                    ChangeEx("ท่า3", "ท่า4")
                     break;
                 }
-                case"4":{
+                case "4": {
                     CheckSpot(poseLandmarks)
-                    ChangeEx("ท่า4","ท่า5")
+                    ChangeEx("ท่า4", "ท่า5")
                     break;
                 }
             }
         }
 
-     // ============================================================================== Squats =================================================================================== // 
+        // ============================================================================== Squats =================================================================================== // 
         // ท่า Squats 
         function getPoseSquats(poseLandmarks) {
             var hipRight = poseLandmarks[24];
@@ -333,11 +576,11 @@
                     var counter = document.getElementById("showCounter").innerHTML;
                     var currentex = document.getElementById("CurrentEx").innerHTML;
                     document.getElementById("CurrentEx").innerHTML = "Squats";
-                    console.log("counter : " + counter );
+                    console.log("counter : " + counter);
                     counter++;
                     stage = "up";
                     // success
-                    
+
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
                     await plusScore();
@@ -362,14 +605,14 @@
 
         // ============================================================================== Pull-UP =================================================================================== // 
         // ตรวจจับท่า Pull-Up
-        function getPosePullup (poseLandmarks){
-            
+        function getPosePullup(poseLandmarks) {
+
             var angle = Pullup_calculate_angle(poseLandmarks);
 
-            countScorePullup (angle, poseLandmarks); 
+            countScorePullup(angle, poseLandmarks);
         }
         // ตรวจสอบคำนวณท่า Pull-Up
-        async function countScorePullup (angle, poseLandmarks) {
+        async function countScorePullup(angle, poseLandmarks) {
             if (CheckSpot(poseLandmarks)) {
                 if (angle > 160) {
                     stage = "down"
@@ -377,16 +620,16 @@
                 if (angle < 50 && stage == "down") {
                     document.getElementById("CurrentEx").innerHTML = "Pull up";
                     var counter = document.getElementById("showCounter").innerHTML;
-                    console.log("counter : " + counter );
+                    console.log("counter : " + counter);
                     counter++;
                     stage = "up";
                     // success
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
                     await plusScore();
-                    console.log(poseLandmarks)                 
+                    console.log(poseLandmarks)
                 }
-                
+
             }
         }
         // คำนวณท่าทาง PullUP และ คำนวณเพื่อจะ Counter
@@ -418,7 +661,7 @@
             }
             return isCorrect;
         }
-        function ChangeEx(currentEx,nextEx){
+        function ChangeEx(currentEx, nextEx) {
             document.getElementById("CurrentEx").innerHTML = currentEx;
             document.getElementById("NextEx").innerHTML = nextEx;
         }
