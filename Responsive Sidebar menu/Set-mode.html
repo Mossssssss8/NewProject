@@ -24,6 +24,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="ScoreApi.js"></script>
 </head>
 
 <body onload="setScore() ">
@@ -52,15 +53,15 @@
                     <span class="links_name">Set mode</span>
                 </a>
                 <span class="tooltip">Exercise</span>
-              </li>
-              <li>
-                  <a href="HIITmode.html">
-                      <i class='bx bx-task'></i>
-                      <span class="links_name">HIIT Mode</span>
-                  </a>
-                  <span class="tooltip">HIIT Workout</span>
-              </li>
-              <li>
+            </li>
+            <li>
+                <a href="HIITmode.html">
+                    <i class='bx bx-task'></i>
+                    <span class="links_name">HIIT Mode</span>
+                </a>
+                <span class="tooltip">HIIT Workout</span>
+            </li>
+            <li>
                 <a href="Endurance Mode.html">
                     <i class='bx bx-task'></i>
                     <span class="links_name">Endurance Mode</span>
@@ -119,11 +120,12 @@
         <button type="button" class="btn btn-secondary btn-lg" href="#">HIIT Mode</button>
         <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button>
 
-        <div class ="Time , Counter">
-        <h1 style="text-align: center;"> Counter : <span id="showCounter">0 </span></h1>
-        <button  id="TimeBTN" onclick="startTime()"> Start </button>
-        <button onclick="getUserScore()"> getScore </button>
-        <h1 style="text-align: center;"> Timer : <span id="showTime">0 </span></h1>
+        <div class="Time , Counter">
+            <h1 style="text-align: center;"> Counter : <span id="showCounter">0 </span></h1>
+            <button id="TimeBTN" onclick="startTime()"> Start </button>
+            <button id="plusScore" onclick="plusScore('squats')"> plusScore </button>
+            <button onclick="getUserScore()"> getScore </button>
+            <h1 style="text-align: center;"> Timer : <span id="showTime">0 </span></h1>
         </div>
         <div class="container">
             <video class="input_video"></video>
@@ -167,29 +169,15 @@
 
             return strToJson;
         }
-        async function plusScore() {
-            const UserApi = `http://localhost:3000/user/`
-            var user = localStorage.getItem("User_Ex");
-            var userObj = JSON.parse(user);
-            var modelAllScore = {
-                squatsScore: document.getElementById("showCounter").innerHTML
-            }
-            var modelScore = {
-                AllScore: JSON.stringify(modelAllScore),
-            }
-            var response = await fetch(UserApi + "updateScore/" + userObj._id, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(modelScore)
-            })
-            var res = await response.json()
-        }
-        async function setScore(){
-            var userScore = await getUserScore()
-            userScore.squatsScore 
-            document.getElementById("showCounter").innerHTML = userScore.squatsScore
+
+        async function setScore() {
+            var user = GetUser()
+            console.log("Set Score")
+            console.log(user._id)
+            var AlluserScore = await getScoreById(user._id)
+            console.log(AlluserScore)
+            var Score = CountScoreByNameEx(AlluserScore, "squats")
+            document.getElementById("showCounter").innerHTML = Score
             console.log("Set Score")
             init();
         }
@@ -200,7 +188,7 @@
         const canvasCtx = canvasElement.getContext('2d');
         const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
         const grid = new LandmarkGrid(landmarkContainer);
-        
+
         var stage = "down";
         function onResults(results) {
             if (!results.poseLandmarks) {
@@ -260,35 +248,35 @@
         });
         camera.start();
 
-        
+
 
         // ============================================================================== Pull-UP =================================================================================== // 
         // ตรวจจับท่า Pull-Up
-        function getPosePullup (poseLandmarks){
+        function getPosePullup(poseLandmarks) {
             var wristRight = poseLandmarks[16];
             var elbowRight = poseLandmarks[14];
             var shoulderRight = poseLandmarks[12];
             var angle = Pullup_calculate_angle(wristRight, elbowRight, shoulderRight);
 
-            countScorePullup (angle, poseLandmarks); 
+            countScorePullup(angle, poseLandmarks);
         }
         // ตรวจสอบคำนวณท่า Pull-Up
-        async function countScorePullup (angle, poseLandmarks) {
+        async function countScorePullup(angle, poseLandmarks) {
             if (CheckSpot(poseLandmarks)) {
                 if (angle > 160) {
                     stage = "down"
                 }
                 if (angle < 50 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
-                    console.log("counter : " + counter );
+                    console.log("counter : " + counter);
                     counter++;
                     stage = "up";
                     // success
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore();
+                    await plusScore("Pull-Up");
                     console.log(poseLandmarks)
-                    
+
                 }
             }
         }
@@ -307,34 +295,34 @@
             return angle;
         }
 
-        
+
         // ============================================================================== PushUP =================================================================================== // 
         // ท่า Push-Up
-        function getPosePushup (poseLandmarks){
+        function getPosePushup(poseLandmarks) {
             var wristRight = poseLandmarks[16];
             var elbowRight = poseLandmarks[14];
             var shoulderRight = poseLandmarks[12];
             var angle = Pushup_calculate_angle(wristRight, elbowRight, shoulderRight);
 
-            countScorePushup (angle, poseLandmarks); 
+            countScorePushup(angle, poseLandmarks);
         }
         // ตรวจสอบคำนวณท่า Push-Up
-        async function countScorePushup (angle, poseLandmarks) {
+        async function countScorePushup(angle, poseLandmarks) {
             if (CheckSpot(poseLandmarks)) {
                 if (angle > 160) {
                     stage = "down"
                 }
                 if (angle < 110 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
-                    console.log("counter : " + counter );
+                    console.log("counter : " + counter);
                     counter++;
                     stage = "up";
                     // success
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore();
+                    await plusScore("Push-Up");
                     console.log(poseLandmarks)
-                    
+
                 }
             }
         }
@@ -356,31 +344,31 @@
 
         // ============================================================================== LegRaise ================================================================================= // 
         // ตรวจจับท่า Legraise
-        function getPoseLegRaise (poseLandmarks){
+        function getPoseLegRaise(poseLandmarks) {
             var hipRight = poseLandmarks[24];
             var kneeRight = poseLandmarks[26];
             var AnkleRight = poseLandmarks[28];
             var angle = Legraise_calculate_angle(hipRight, kneeRight, AnkleRight);
 
-            countScoreLegraise (angle, poseLandmarks); 
+            countScoreLegraise(angle, poseLandmarks);
         }
         // ตรวจสอบคำนวณท่า Legraise
-        async function countScoreLegraise (angle, poseLandmarks) {
+        async function countScoreLegraise(angle, poseLandmarks) {
             if (CheckSpot(poseLandmarks)) {
                 if (angle > 170) {
                     stage = "down"
                 }
                 if (angle < 160 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
-                    console.log("counter : " + counter );
+                    console.log("counter : " + counter);
                     counter++;
                     stage = "up";
                     // success
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore();
+                    await plusScore("Legraise");
                     console.log(poseLandmarks)
-                    
+
                 }
             }
         }
@@ -417,13 +405,13 @@
                 }
                 if (angle < 75 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
-                    console.log("counter : " + counter );
+                    console.log("counter : " + counter);
                     counter++;
                     stage = "up";
                     // success
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore();
+                    await plusScore("Squats");
                     console.log(poseLandmarks)
                 }
             }
@@ -456,6 +444,7 @@
         }
     </script>
     <script src="script.js"></script>
+
 </body>
 
 </html>

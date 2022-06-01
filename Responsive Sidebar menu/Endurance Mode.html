@@ -159,9 +159,10 @@
         var timeCountdown2
         var currentExerise = 1
         var iscomplete = false
-
         function startTime() {
             if (isStart == false) {
+                iscomplete = false
+
                 isStart = true;
                 timeCountdown = setInterval(countdown, 1000)
                 document.getElementById("TimeBTN").innerHTML = "Restart"
@@ -215,7 +216,7 @@
             }
         }
         function countdown2() {
-            var time = 15s
+            var time = 15
             if (timeleft2 >= time) {
                 clearTimeout(timeCountdown);
                 clearTimeout(timeCountdown2);

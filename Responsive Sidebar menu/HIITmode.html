@@ -159,6 +159,7 @@
         var iscomplete = false
         function startTime() {
             if (isStart == false) {
+                iscomplete = false
                 isStart = true;
                 timeCountdown = setInterval(countdown, 1000)
                 document.getElementById("TimeBTN").innerHTML = "Restart"
@@ -350,26 +351,7 @@
 
             return strToJson;
         }
-        async function plusScore() {
-            const UserApi = `http://localhost:3000/user/`
-            var user = localStorage.getItem("User_Ex");
-            var userObj = JSON.parse(user);
-            var modelAllScore = {
-                squatsScore: document.getElementById("showCounter").innerHTML
-            }
-            var modelScore = {
-                AllScore: JSON.stringify(modelAllScore),
-            }
-            var response = await fetch(UserApi + "updateScore/" + userObj._id, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(modelScore)
-            })
-            var res = await response.json()
-            PlusCurrentScore()
-        }
+        
         async function setScore() {
             var userScore = await getUserScore()
             userScore.squatsScore
@@ -453,7 +435,6 @@
 
         function MainExcercise(poseLandmarks) {
 
-
         }
 
         function MainExcercise(nameExercise, poseLandmarks) {
@@ -501,22 +482,22 @@
             switch (nameExercise) {
                 case "1": {
                     getPoseSquats(poseLandmarks)
-                    ChangeEx("ท่า1", "ท่า2")
+                    ChangeEx("Squats", "Pull UP")
                     break;
                 }
                 case "2": {
                     getPosePullup(poseLandmarks)
-                    ChangeEx("ท่า2", "ท่า3")
+                    ChangeEx("Pull UP", "Push UP")
                     break;
                 }
                 case "3": {
-                    Pullup_calculate_angle(poseLandmarks)
-                    ChangeEx("ท่า3", "ท่า4")
+                    getPosePushup(poseLandmarks)
+                    ChangeEx("Push UP", "Leg Raise")
                     break;
                 }
                 case "4": {
                     CheckSpot(poseLandmarks)
-                    ChangeEx("ท่า4", "ท่า5")
+                    ChangeEx("DMPush-UP", "Squat")
                     break;
                 }
             }
@@ -550,6 +531,7 @@
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
                     await plusScore();
+                    PlusCurrentScore()
                     console.log(poseLandmarks)
                 }
             }
@@ -568,7 +550,6 @@
             }
             return angle;
         }
-
         // ============================================================================== Pull-UP =================================================================================== // 
         // ตรวจจับท่า Pull-Up
         function getPosePullup(poseLandmarks) {
@@ -593,6 +574,7 @@
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
                     await plusScore();
+                    PlusCurrentScore()
                     console.log(poseLandmarks)
                 }
 
@@ -616,6 +598,53 @@
             return angle;
         }
 
+        // ============================================================================== Pushup =================================================================================== // 
+        // ท่า Pushup 
+        function getPosePushup(poseLandmarks){
+            var shoulder = poseLandmarks[11];
+            var elbow = poseLandmarks[13];
+            var wrist = poseLandmarks[15];
+            var angle = Pushup_calculate_angle(shoulder, elbow, wrist);
+
+            countScorePushup(angle,poseLandmarks);
+        }
+        // ตรวจสอบท่าคำนวณ Pushup 
+        async function countScorePushup(angle, poseLandmarks) {
+            if (CheckSpot(poseLandmarks)) {
+                if (angle > 160) {
+                    stage = "down"
+                }
+                if (angle < 80 && stage == "down") {
+                    var counter = document.getElementById("showCounter").innerHTML;
+                    var currentex = document.getElementById("CurrentEx").innerHTML;
+                    document.getElementById("CurrentEx").innerHTML = "Push UP";
+                    console.log("counter : " + counter);
+                    counter++;
+                    stage = "up";
+                    // success
+
+                    // change score
+                    document.getElementById("showCounter").innerHTML = counter;
+                    await plusScore();
+                    PlusCurrentScore()
+                    console.log(poseLandmarks)
+                }
+            }
+        }
+        function Pushup_calculate_angle(shoulder, elbow, wrist) {
+            var a = [shoulder.x, shoulder.y];
+            var b = [elbow.x, elbow.y];
+            var c = [wrist.x, wrist.y];
+
+            var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+            var angle = Math.abs(radians * 180.0 / Math.PI)
+
+            if (angle > 180.0) {
+                angle = 360 - angle
+            }
+            return angle;
+        }
+    
         // ตรวจสอบเท้าของ User ให้คำนวณไม่ผิดพลาด
         function CheckSpot(poseLandmarks) {
             var footLeft = poseLandmarks[31];
@@ -627,6 +656,7 @@
             }
             return isCorrect;
         }
+        
         function ChangeEx(currentEx, nextEx) {
             document.getElementById("CurrentEx").innerHTML = currentEx;
             document.getElementById("NextEx").innerHTML = nextEx;
