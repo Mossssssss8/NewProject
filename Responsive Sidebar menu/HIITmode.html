@@ -191,7 +191,7 @@
             console.log(timeleft)
             if (Mode == "Easy") {
                 console.log("Easysssss")
-                setTime = 10 * 60
+                setTime = 5 
             } if (Mode == "Intermediate") {
                 setTime = 20 * 60
             } if (Mode == "Advance") {
@@ -317,7 +317,7 @@
                 document.getElementById("btn-Advance").style.display = "none"
             }
         }
-        function Incomplete() {
+        async function Incomplete() {
             Swal.fire({
                 title: 'Incomplete Workout',
                 text: 'Incomplete Workout Code:101 Timeout',
@@ -332,13 +332,119 @@
                     no-repeat
                 `
             })
+            currentExerise
+            currentScore
+            if (currentExerise == 1) {
+            }
+            var User = GetUser()
+            var ScoreModel = {
+                UserId: User._id,
+                NameEx: "",
+                Score: null,
+                DateTime: new Date(),
+                Status: false
+            }
+            var HIITModel = {
+                UserId: User._id,
+                NameEx: "HIIT",
+                Score: null,
+                Seconds: timeleft,
+                DateTime: new Date(),
+                Status: false
+            }
+            var Mode = localStorage.getItem("Mode")
+            if (Mode == "Easy") {
+                HIITModel.Score = 1
+                ScoreModel.Score = 8
+            } if (Mode == "Intermediate") {
+                HIITModel.Score = 2
+                ScoreModel.Score = 12
+            } if (Mode == "Advance") {
+                HIITModel.Score = 3
+                ScoreModel.Score = 15
+            }
+            if (currentExerise >= 1) {
+                if (currentExerise == 1) {
+                    ScoreModel.Score = currentScore
+                }
+                ScoreModel.NameEx = "Squats"
+                await addLineInScoreDB(HIITModel)
+                await addLineInScoreDB(ScoreModel)
+            }
+            if (currentExerise >= 2) {
+                if (currentExerise == 2) {
+                    ScoreModel.Score = currentScore
+                }
+                ScoreModel.NameEx = "Pull-Up"
+                await addLineInScoreDB(ScoreModel)
+            }
+            if (currentExerise >= 3) {
+                if (currentExerise == 3) {
+                    ScoreModel.Score = currentScore
+                }
+                ScoreModel.NameEx = "Push-Up"
+                await addLineInScoreDB(ScoreModel)
+            }
+            if (currentExerise >= 4) {
+                if (currentExerise == 4) {
+                    ScoreModel.Score = currentScore
+                }
+                ScoreModel.NameEx = "Legraise"
+                await addLineInScoreDB(ScoreModel)
+            } if (currentExerise >= 5) {
+                if (currentExerise == 5) {
+                    ScoreModel.Score = currentScore
+                }
+                ScoreModel.NameEx = "Dmpushup"
+                await addLineInScoreDB(ScoreModel)
+            }
         }
-        function complete() {
+        async function complete() {
             Swal.fire(
                 'complete Workout',
                 'complete Workout',
                 'success'
             )
+            var User = GetUser()
+            var ScoreModel = {
+                UserId: User._id,
+                NameEx: "",
+                Score: null,
+                DateTime: new Date(),
+                Status: true
+            }
+            var HIITModel = {
+                UserId: User._id,
+                NameEx: "HIIT",
+                Score: null,
+                Seconds: timeleft,
+                DateTime: new Date(),
+                Status: true
+
+            }
+            var Mode = localStorage.getItem("Mode")
+            if (Mode == "Easy") {
+                HIITModel.Score = 1
+                ScoreModel.Score = 8
+            } if (Mode == "Intermediate") {
+                HIITModel.Score = 2
+                ScoreModel.Score = 12
+            } if (Mode == "Advance") {
+                HIITModel.Score = 3
+                ScoreModel.Score = 15
+            }
+            await addLineInScoreDB(HIITModel)
+            ScoreModel.NameEx = "Squats"
+            await addLineInScoreDB(ScoreModel)
+            ScoreModel.NameEx = "Pull-Up"
+            await addLineInScoreDB(ScoreModel)
+            ScoreModel.NameEx = "Push-Up"
+            await addLineInScoreDB(ScoreModel)
+            ScoreModel.NameEx = "Legraise"
+            await addLineInScoreDB(ScoreModel)
+            ScoreModel.NameEx = "Dmpushup"
+            await addLineInScoreDB(ScoreModel)
+
         }
         async function getUserScore() {
             const UserApi = "http://localhost:3000/user/"
@@ -351,14 +457,14 @@
 
             return strToJson;
         }
-        
-        async function setScore() {
-            var userScore = await getUserScore()
-            userScore.squatsScore
-            document.getElementById("showCounter").innerHTML = userScore.squatsScore
-            console.log("Set Score")
-            init();
-        }
+
+        // async function setScore() {
+        //     var userScore = await getUserScore()
+        //     userScore.squatsScore
+        //     document.getElementById("showCounter").innerHTML = userScore.squatsScore
+        //     console.log("Set Score")
+        //     init();
+        // }
         function PlusCurrentScore() {
             currentScore++;
             document.getElementById("CurrentScore").innerHTML = currentScore
@@ -483,6 +589,7 @@
                 case "1": {
                     getPoseSquats(poseLandmarks)
                     ChangeEx("Squats", "Pull UP")
+
                     break;
                 }
                 case "2": {
@@ -530,7 +637,7 @@
 
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore();
+                    await plusScore("Squast");
                     PlusCurrentScore()
                     console.log(poseLandmarks)
                 }
@@ -600,13 +707,13 @@
 
         // ============================================================================== Pushup =================================================================================== // 
         // ท่า Pushup 
-        function getPosePushup(poseLandmarks){
+        function getPosePushup(poseLandmarks) {
             var shoulder = poseLandmarks[11];
             var elbow = poseLandmarks[13];
             var wrist = poseLandmarks[15];
             var angle = Pushup_calculate_angle(shoulder, elbow, wrist);
 
-            countScorePushup(angle,poseLandmarks);
+            countScorePushup(angle, poseLandmarks);
         }
         // ตรวจสอบท่าคำนวณ Pushup 
         async function countScorePushup(angle, poseLandmarks) {
@@ -644,7 +751,7 @@
             }
             return angle;
         }
-    
+
         // ตรวจสอบเท้าของ User ให้คำนวณไม่ผิดพลาด
         function CheckSpot(poseLandmarks) {
             var footLeft = poseLandmarks[31];
@@ -656,12 +763,14 @@
             }
             return isCorrect;
         }
-        
+
         function ChangeEx(currentEx, nextEx) {
             document.getElementById("CurrentEx").innerHTML = currentEx;
             document.getElementById("NextEx").innerHTML = nextEx;
         }
+
     </script>
+    <script src="ScoreApi.js"></script>
     <script src="script.js"></script>
 </body>
 

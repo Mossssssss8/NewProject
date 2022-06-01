@@ -23,7 +23,7 @@ async function getUserByid(userid) {
 
 }
 
-async function addScoreTable(ScoreModel) {
+async function addLineInScoreDB(ScoreModel) {
     const ScoreApi = `http://localhost:3000/score/`
 
     var response = await fetch(ScoreApi + "add", {
@@ -68,9 +68,22 @@ async function plusScore(nameEx){
     model.NameEx = nameEx.toLowerCase();
     model.DateTime = new Date();
     model.Score = 1;
-    await addScoreTable(model)
+    await addLineInScoreDB(model)
 }
+
 function GetUser() {
     // console.log(localStorage.getItem("User_Ex"))
     return JSON.parse(localStorage.getItem("User_Ex"))
+}
+
+async function setScore() {
+    var user = GetUser()
+    console.log("Set Score")
+    console.log(user._id)
+    var AlluserScore = await getScoreById(user._id)
+    console.log(AlluserScore)
+    var Score = CountScoreByNameEx(AlluserScore, "squats")
+    document.getElementById("showCounter").innerHTML = Score
+    console.log("Set Score")
+    init();
 }

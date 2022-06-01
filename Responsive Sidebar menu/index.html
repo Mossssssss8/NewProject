@@ -7,14 +7,16 @@
     <title> Human Pose Estimation Technology </title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="ScoreApi.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body onload="init()">
+<body onload="initInDashBoard()">
     <div class="sidebar">
         <div class="logo-details">
             <i class='#'></i>
@@ -40,15 +42,15 @@
                     <span class="links_name">Set mode</span>
                 </a>
                 <span class="tooltip">Exercise</span>
-              </li>
-              <li>
-                  <a href="HIITmode.html">
-                      <i class='bx bx-task'></i>
-                      <span class="links_name">HIIT Mode</span>
-                  </a>
-                  <span class="tooltip">HIIT Workout</span>
-              </li>
-              <li>
+            </li>
+            <li>
+                <a href="HIITmode.html">
+                    <i class='bx bx-task'></i>
+                    <span class="links_name">HIIT Mode</span>
+                </a>
+                <span class="tooltip">HIIT Workout</span>
+            </li>
+            <li>
                 <a href="Endurance Mode.html">
                     <i class='bx bx-task'></i>
                     <span class="links_name">Endurance Mode</span>
@@ -91,7 +93,8 @@
                         <div class="job">Human Pose Estimation</div>
                     </div>
                 </div>
-                <button style="display: contents;"><i class='bx bx-log-out' title="Log out!" onclick="logout()" id="log_out" ></i></button>
+                <button style="display: contents;"><i class='bx bx-log-out' title="Log out!" onclick="logout()"
+                        id="log_out"></i></button>
             </li>
         </ul>
     </div>
@@ -99,12 +102,12 @@
         <!-- <div class="text">Dashboard</div><br> -->
         <section class="first-section">
             <div class="head_content_index">
-              <div class="overlay">
-                <div class="text">Dashboard</div>
-              </div>
+                <div class="overlay">
+                    <div class="text">Dashboard</div>
+                </div>
             </div>
             <!-- <a href="#scrollto"><img src="../หน้าต่าง Login/img/ex2.jpg"></a></div> -->
-          </section>
+        </section>
         <section>
             <div class="container-fluid">
                 <!-- ============================================================== -->
@@ -121,37 +124,175 @@
                                     </div>
                                     <div class="ms-auto d-flex no-block align-items-center">
                                         <ul class="list-inline dl d-flex align-items-center m-r-15 m-b-0">
-                                            <li class="list-inline-item d-flex align-items-center text-info"><i class="fa fa-circle font-10 me-1"></i> Ample
+                                            <li class="list-inline-item d-flex align-items-center text-info"><i
+                                                    class="fa fa-circle font-10 me-1"></i> Ample
                                             </li>
-                                            <li class="list-inline-item d-flex align-items-center text-primary"><i class="fa fa-circle font-10 me-1"></i> Pixel
+                                            <li class="list-inline-item d-flex align-items-center text-primary"><i
+                                                    class="fa fa-circle font-10 me-1"></i> Pixel
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="amp-pxl mt-4" style="height: 350px;">
                                     <div class="chartist-tooltip"></div>
-                                    <svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-bar" style="width: 100%; height: 100%;"><g class="ct-grids"><line y1="315" y2="315" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line><line y1="255" y2="255" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line><line y1="195" y2="195" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line><line y1="135" y2="135" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line><line y1="75" y2="75" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line><line y1="15" y2="15" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line></g><g><g class="ct-series ct-series-a"><line x1="81.76116071428572" x2="81.76116071428572" y1="315" y2="99" class="ct-bar" ct:value="9"></line><line x1="160.28348214285717" x2="160.28348214285717" y1="315" y2="195" class="ct-bar" ct:value="5"></line><line x1="238.80580357142858" x2="238.80580357142858" y1="315" y2="243" class="ct-bar" ct:value="3"></line><line x1="317.328125" x2="317.328125" y1="315" y2="147" class="ct-bar" ct:value="7"></line><line x1="395.85044642857144" x2="395.85044642857144" y1="315" y2="195" class="ct-bar" ct:value="5"></line><line x1="474.3727678571429" x2="474.3727678571429" y1="315" y2="75" class="ct-bar" ct:value="10"></line><line x1="552.8950892857142" x2="552.8950892857142" y1="315" y2="243" class="ct-bar" ct:value="3"></line></g><g class="ct-series ct-series-b"><line x1="96.76116071428572" x2="96.76116071428572" y1="315" y2="171" class="ct-bar" ct:value="6"></line><line x1="175.28348214285717" x2="175.28348214285717" y1="315" y2="243" class="ct-bar" ct:value="3"></line><line x1="253.80580357142858" x2="253.80580357142858" y1="315" y2="99" class="ct-bar" ct:value="9"></line><line x1="332.328125" x2="332.328125" y1="315" y2="195" class="ct-bar" ct:value="5"></line><line x1="410.85044642857144" x2="410.85044642857144" y1="315" y2="219" class="ct-bar" ct:value="4"></line><line x1="489.3727678571429" x2="489.3727678571429" y1="315" y2="171" class="ct-bar" ct:value="6"></line><line x1="567.8950892857142" x2="567.8950892857142" y1="315" y2="219" class="ct-bar" ct:value="4"></line></g></g><g class="ct-labels"><foreignObject style="overflow: visible;" x="50" y="320" width="78.52232142857143" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 79px; height: 20px;">Mon</span></foreignObject><foreignObject style="overflow: visible;" x="128.52232142857144" y="320" width="78.52232142857143" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 79px; height: 20px;">Tue</span></foreignObject><foreignObject style="overflow: visible;" x="207.04464285714286" y="320" width="78.52232142857142" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 79px; height: 20px;">Wed</span></foreignObject><foreignObject style="overflow: visible;" x="285.5669642857143" y="320" width="78.52232142857144" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 79px; height: 20px;">Thu</span></foreignObject><foreignObject style="overflow: visible;" x="364.0892857142857" y="320" width="78.52232142857144" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 79px; height: 20px;">Fri</span></foreignObject><foreignObject style="overflow: visible;" x="442.61160714285717" y="320" width="78.52232142857139" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 79px; height: 20px;">Sat</span></foreignObject><foreignObject style="overflow: visible;" x="521.1339285714286" y="320" width="78.52232142857144" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 79px; height: 20px;">Sun</span></foreignObject><foreignObject style="overflow: visible;" y="255" x="10" height="60" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 60px; width: 30px;">0</span></foreignObject><foreignObject style="overflow: visible;" y="195" x="10" height="60" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 60px; width: 30px;">2.5</span></foreignObject><foreignObject style="overflow: visible;" y="135" x="10" height="60" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 60px; width: 30px;">5</span></foreignObject><foreignObject style="overflow: visible;" y="75" x="10" height="60" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 60px; width: 30px;">7.5</span></foreignObject><foreignObject style="overflow: visible;" y="15" x="10" height="60" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 60px; width: 30px;">10</span></foreignObject><foreignObject style="overflow: visible;" y="-15" x="10" height="30" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 30px; width: 30px;">12.5</span></foreignObject></g></svg>
+                                    <svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%"
+                                        class="ct-chart-bar" style="width: 100%; height: 100%;">
+                                        <g class="ct-grids">
+                                            <line y1="315" y2="315" x1="50" x2="599.65625" class="ct-grid ct-vertical">
+                                            </line>
+                                            <line y1="255" y2="255" x1="50" x2="599.65625" class="ct-grid ct-vertical">
+                                            </line>
+                                            <line y1="195" y2="195" x1="50" x2="599.65625" class="ct-grid ct-vertical">
+                                            </line>
+                                            <line y1="135" y2="135" x1="50" x2="599.65625" class="ct-grid ct-vertical">
+                                            </line>
+                                            <line y1="75" y2="75" x1="50" x2="599.65625" class="ct-grid ct-vertical">
+                                            </line>
+                                            <line y1="15" y2="15" x1="50" x2="599.65625" class="ct-grid ct-vertical">
+                                            </line>
+                                        </g>
+                                        <g>
+                                            <g class="ct-series ct-series-a">
+                                                <line x1="81.76116071428572" x2="81.76116071428572" y1="315" y2="99"
+                                                    class="ct-bar" ct:value="9"></line>
+                                                <line x1="160.28348214285717" x2="160.28348214285717" y1="315" y2="195"
+                                                    class="ct-bar" ct:value="5"></line>
+                                                <line x1="238.80580357142858" x2="238.80580357142858" y1="315" y2="243"
+                                                    class="ct-bar" ct:value="3"></line>
+                                                <line x1="317.328125" x2="317.328125" y1="315" y2="147" class="ct-bar"
+                                                    ct:value="7"></line>
+                                                <line x1="395.85044642857144" x2="395.85044642857144" y1="315" y2="195"
+                                                    class="ct-bar" ct:value="5"></line>
+                                                <line x1="474.3727678571429" x2="474.3727678571429" y1="315" y2="75"
+                                                    class="ct-bar" ct:value="10"></line>
+                                                <line x1="552.8950892857142" x2="552.8950892857142" y1="315" y2="243"
+                                                    class="ct-bar" ct:value="3"></line>
+                                            </g>
+                                            <g class="ct-series ct-series-b">
+                                                <line x1="96.76116071428572" x2="96.76116071428572" y1="315" y2="171"
+                                                    class="ct-bar" ct:value="6"></line>
+                                                <line x1="175.28348214285717" x2="175.28348214285717" y1="315" y2="243"
+                                                    class="ct-bar" ct:value="3"></line>
+                                                <line x1="253.80580357142858" x2="253.80580357142858" y1="315" y2="99"
+                                                    class="ct-bar" ct:value="9"></line>
+                                                <line x1="332.328125" x2="332.328125" y1="315" y2="195" class="ct-bar"
+                                                    ct:value="5"></line>
+                                                <line x1="410.85044642857144" x2="410.85044642857144" y1="315" y2="219"
+                                                    class="ct-bar" ct:value="4"></line>
+                                                <line x1="489.3727678571429" x2="489.3727678571429" y1="315" y2="171"
+                                                    class="ct-bar" ct:value="6"></line>
+                                                <line x1="567.8950892857142" x2="567.8950892857142" y1="315" y2="219"
+                                                    class="ct-bar" ct:value="4"></line>
+                                            </g>
+                                        </g>
+                                        <g class="ct-labels">
+                                            <foreignObject style="overflow: visible;" x="50" y="320"
+                                                width="78.52232142857143" height="20"><span
+                                                    class="ct-label ct-horizontal ct-end"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="width: 79px; height: 20px;">Mon</span></foreignObject>
+                                            <foreignObject style="overflow: visible;" x="128.52232142857144" y="320"
+                                                width="78.52232142857143" height="20"><span
+                                                    class="ct-label ct-horizontal ct-end"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="width: 79px; height: 20px;">Tue</span></foreignObject>
+                                            <foreignObject style="overflow: visible;" x="207.04464285714286" y="320"
+                                                width="78.52232142857142" height="20"><span
+                                                    class="ct-label ct-horizontal ct-end"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="width: 79px; height: 20px;">Wed</span></foreignObject>
+                                            <foreignObject style="overflow: visible;" x="285.5669642857143" y="320"
+                                                width="78.52232142857144" height="20"><span
+                                                    class="ct-label ct-horizontal ct-end"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="width: 79px; height: 20px;">Thu</span></foreignObject>
+                                            <foreignObject style="overflow: visible;" x="364.0892857142857" y="320"
+                                                width="78.52232142857144" height="20"><span
+                                                    class="ct-label ct-horizontal ct-end"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="width: 79px; height: 20px;">Fri</span></foreignObject>
+                                            <foreignObject style="overflow: visible;" x="442.61160714285717" y="320"
+                                                width="78.52232142857139" height="20"><span
+                                                    class="ct-label ct-horizontal ct-end"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="width: 79px; height: 20px;">Sat</span></foreignObject>
+                                            <foreignObject style="overflow: visible;" x="521.1339285714286" y="320"
+                                                width="78.52232142857144" height="20"><span
+                                                    class="ct-label ct-horizontal ct-end"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="width: 79px; height: 20px;">Sun</span></foreignObject>
+                                            <foreignObject style="overflow: visible;" y="255" x="10" height="60"
+                                                width="30"><span class="ct-label ct-vertical ct-start"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="height: 60px; width: 30px;">0</span></foreignObject>
+                                            <foreignObject style="overflow: visible;" y="195" x="10" height="60"
+                                                width="30"><span class="ct-label ct-vertical ct-start"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="height: 60px; width: 30px;">2.5</span></foreignObject>
+                                            <foreignObject style="overflow: visible;" y="135" x="10" height="60"
+                                                width="30"><span class="ct-label ct-vertical ct-start"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="height: 60px; width: 30px;">5</span></foreignObject>
+                                            <foreignObject style="overflow: visible;" y="75" x="10" height="60"
+                                                width="30"><span class="ct-label ct-vertical ct-start"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="height: 60px; width: 30px;">7.5</span></foreignObject>
+                                            <foreignObject style="overflow: visible;" y="15" x="10" height="60"
+                                                width="30"><span class="ct-label ct-vertical ct-start"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="height: 60px; width: 30px;">10</span></foreignObject>
+                                            <foreignObject style="overflow: visible;" y="-15" x="10" height="30"
+                                                width="30"><span class="ct-label ct-vertical ct-start"
+                                                    xmlns="http://www.w3.org/2000/xmlns/"
+                                                    style="height: 30px; width: 30px;">12.5</span></foreignObject>
+                                        </g>
+                                    </svg>
                                     <g class="ct-grids">
-                                        <line y1="315" y2="315" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line>
-                                        <line y1="255" y2="255" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line>
-                                        <line y1="195" y2="195" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line>
-                                        <line y1="135" y2="135" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line>
+                                        <line y1="315" y2="315" x1="50" x2="599.65625" class="ct-grid ct-vertical">
+                                        </line>
+                                        <line y1="255" y2="255" x1="50" x2="599.65625" class="ct-grid ct-vertical">
+                                        </line>
+                                        <line y1="195" y2="195" x1="50" x2="599.65625" class="ct-grid ct-vertical">
+                                        </line>
+                                        <line y1="135" y2="135" x1="50" x2="599.65625" class="ct-grid ct-vertical">
+                                        </line>
                                         <line y1="75" y2="75" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line>
-                                        <line y1="15" y2="15" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line></g>
-                                    <g><g class="ct-series ct-series-a"><line x1="81.76116071428572" x2="81.76116071428572" y1="315" y2="99" class="ct-bar" ct:value="9"></line>
-                                        <line x1="160.28348214285717" x2="160.28348214285717" y1="315" y2="195" class="ct-bar" ct:value="5"></line>
-                                        <line x1="238.80580357142858" x2="238.80580357142858" y1="315" y2="243" class="ct-bar" ct:value="3"></line>
-                                        <line x1="317.328125" x2="317.328125" y1="315" y2="147" class="ct-bar" ct:value="7"></line>
-                                        <line x1="395.85044642857144" x2="395.85044642857144" y1="315" y2="195" class="ct-bar" ct:value="5"></line>
-                                        <line x1="474.3727678571429" x2="474.3727678571429" y1="315" y2="75" class="ct-bar" ct:value="10"></line>
-                                        <line x1="552.8950892857142" x2="552.8950892857142" y1="315" y2="243" class="ct-bar" ct:value="3"></line></g>
-                                        <g class="ct-series ct-series-b"><line x1="96.76116071428572" x2="96.76116071428572" y1="315" y2="171" class="ct-bar" ct:value="6"></line>
-                                            <line x1="175.28348214285717" x2="175.28348214285717" y1="315" y2="243" class="ct-bar" ct:value="3"></line>
-                                            <line x1="253.80580357142858" x2="253.80580357142858" y1="315" y2="99" class="ct-bar" ct:value="9"></line>
-                                            <line x1="332.328125" x2="332.328125" y1="315" y2="195" class="ct-bar" ct:value="5"></line>
-                                            <line x1="410.85044642857144" x2="410.85044642857144" y1="315" y2="219" class="ct-bar" ct:value="4"></line>
-                                            <line x1="489.3727678571429" x2="489.3727678571429" y1="315" y2="171" class="ct-bar" ct:value="6"></line>
-                                            <line x1="567.8950892857142" x2="567.8950892857142" y1="315" y2="219" class="ct-bar" ct:value="4"></line></g></g>
+                                        <line y1="15" y2="15" x1="50" x2="599.65625" class="ct-grid ct-vertical"></line>
+                                    </g>
+                                    <g>
+                                        <g class="ct-series ct-series-a">
+                                            <line x1="81.76116071428572" x2="81.76116071428572" y1="315" y2="99"
+                                                class="ct-bar" ct:value="9"></line>
+                                            <line x1="160.28348214285717" x2="160.28348214285717" y1="315" y2="195"
+                                                class="ct-bar" ct:value="5"></line>
+                                            <line x1="238.80580357142858" x2="238.80580357142858" y1="315" y2="243"
+                                                class="ct-bar" ct:value="3"></line>
+                                            <line x1="317.328125" x2="317.328125" y1="315" y2="147" class="ct-bar"
+                                                ct:value="7"></line>
+                                            <line x1="395.85044642857144" x2="395.85044642857144" y1="315" y2="195"
+                                                class="ct-bar" ct:value="5"></line>
+                                            <line x1="474.3727678571429" x2="474.3727678571429" y1="315" y2="75"
+                                                class="ct-bar" ct:value="10"></line>
+                                            <line x1="552.8950892857142" x2="552.8950892857142" y1="315" y2="243"
+                                                class="ct-bar" ct:value="3"></line>
+                                        </g>
+                                        <g class="ct-series ct-series-b">
+                                            <line x1="96.76116071428572" x2="96.76116071428572" y1="315" y2="171"
+                                                class="ct-bar" ct:value="6"></line>
+                                            <line x1="175.28348214285717" x2="175.28348214285717" y1="315" y2="243"
+                                                class="ct-bar" ct:value="3"></line>
+                                            <line x1="253.80580357142858" x2="253.80580357142858" y1="315" y2="99"
+                                                class="ct-bar" ct:value="9"></line>
+                                            <line x1="332.328125" x2="332.328125" y1="315" y2="195" class="ct-bar"
+                                                ct:value="5"></line>
+                                            <line x1="410.85044642857144" x2="410.85044642857144" y1="315" y2="219"
+                                                class="ct-bar" ct:value="4"></line>
+                                            <line x1="489.3727678571429" x2="489.3727678571429" y1="315" y2="171"
+                                                class="ct-bar" ct:value="6"></line>
+                                            <line x1="567.8950892857142" x2="567.8950892857142" y1="315" y2="219"
+                                                class="ct-bar" ct:value="4"></line>
+                                        </g>
+                                    </g>
                                 </div>
                             </div>
                         </div>
@@ -159,11 +300,11 @@
                     <!-- --------------------------------------------------------------------------------------------------------------------- -->
                     <div class="col-lg-4">
                         <div class="card" style="margin-top: 10px">
-                            <div class="card-body" >
+                            <div class="card-body">
                                 <h4 class="card-title">Lastest Exercise</h4>
                                 <div class="mt-5 pb-3 d-flex align-items-center">
                                     <div class="ms-3">
-                                        <h5 class="mb-0 fw-bold">Pull-up</h5>
+                                        <h5 class="mb-0 fw-bold">HiiT</h5>
                                     </div>
                                     <div class="ms-auto">
                                         <span class="badge bg-light text-muted">none</span>
@@ -171,8 +312,8 @@
                                 </div>
                                 <div class="py-3 d-flex align-items-center">
                                     <div class="ms-3">
-                                        <h5 class="mb-0 fw-bold">Pike Push up</h5>
-                                     </div>
+                                        <h5 class="mb-0 fw-bold">Endurance</h5>
+                                    </div>
                                     <div class="ms-auto">
                                         <span class="badge bg-light text-muted">none</span>
                                     </div>
@@ -180,7 +321,7 @@
                                 <div class="py-3 d-flex align-items-center">
                                     <div class="ms-3">
                                         <h5 class="mb-0 fw-bold">Diamond Push up</h5>
-                                        </div>
+                                    </div>
                                     <div class="ms-auto">
                                         <span class="badge bg-light text-muted">none</span>
                                     </div>
@@ -188,15 +329,15 @@
                                 <div class="py-3 d-flex align-items-center">
                                     <div class="ms-3">
                                         <h5 class="mb-0 fw-bold">Pike Push up</h5>
-                                       </div>
+                                    </div>
                                     <div class="ms-auto">
                                         <span class="badge bg-light text-muted">none</span>
                                     </div>
                                 </div>
                                 <div class="pt-3 d-flex align-items-center">
-                                   <div class="ms-3">
+                                    <div class="ms-3">
                                         <h5 class="mb-0 fw-bold">Leg-Raise</h5>
-                                       </div>
+                                    </div>
                                     <div class="ms-auto">
                                         <span class="badge bg-light text-muted">none</span>
                                     </div>
@@ -205,24 +346,23 @@
                         </div>
                     </div>
                 </div>
-                <!-- ------------------------------------------------------------------------------------------------------------------------------- -->
+                <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                 <div class="row">
                     <!-- column -->
                     <div class="col-12">
                         <div class="card" style="margin-top: 10px">
-                            <div class="card-body"> 
+                            <div class="card-body">
                                 <!-- title -->
                                 <div class="d-md-flex">
                                     <div>
-                                        <h4 class="card-title">Exercise History</h4>
+                                        <h4 class="card-title">High-Intensity Interval Training</h4>
                                     </div>
                                     <div class="ms-auto">
                                         <div class="dl">
                                             <select class="form-select shadow-none">
-                                                <option value="0" selected>Monthly</option>
-                                                <option value="1">Daily</option>
-                                                <option value="2">Weekly</option>
-                                                <option value="3">Yearly</option>
+                                                <option value="0" selected>Today</option>
+                                                <option value="1">Weekly</option>
+                                                <option value="2">Monthly</option>
                                             </select>
                                         </div>
                                     </div>
@@ -232,100 +372,17 @@
                                     <table class="table mb-0 table-hover align-middle text-nowrap">
                                         <thead>
                                             <tr>
-                                                <th class="border-top-0">Exercise</th>
+                                                <th class="border-top-0">Exercise - Type</th>
                                                 <th class="border-top-0">Date</th>
-                                                <th class="border-top-0">Timer</th>
-                                                <th class="border-top-0">Repetition</th>
-                                                <th class="border-top-0">calorie</th>
+                                                <th class="border-top-0">Duration</th>
+                                                <th class="border-top-0">Status - Exercise</th>
+                                                <th class="border-top-0">Calories</th>
                                                 <!-- <th class="border-top-0">Sales</th> -->
                                                 <!-- <th class="border-top-0">Earnings</th> -->
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        </div>
-                                                        <div class="">
-                                                            <h4 class="m-b-0 font-16">Pull-up</h4>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>0/0/0</td>
-                                                <td>00:00</td>
-                                                <td>0</td>
-                                                <td>none</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        </div>
-                                                        <div class="">
-                                                            <h4 class="m-b-0 font-16">Pike Push up</h4>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>0/0/0</td>
-                                                <td>00:00</td>
-                                                <td>0</td>
-                                                <td>none</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        </div>
-                                                        <div class="">
-                                                            <h4 class="m-b-0 font-16">Diamond Push up</h4>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>0/0/0</td>
-                                                <td>00:00</td>
-                                                <td>0</td>
-                                                <td>none</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        </div>
-                                                        <div class="">
-                                                            <h4 class="m-b-0 font-16">Pike Push up</h4>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>0/0/0</td>
-                                                <td>00:00</td>
-                                                <td>0</td>
-                                                <td>none</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                       </div>
-                                                        <div class="">
-                                                            <h4 class="m-b-0 font-16">Leg-Raise</h4>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>0/0/0</td>
-                                                <td>00:00</td>
-                                                <td>0</td>
-                                                <td>none</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                       </div>
-                                                        <div class="">
-                                                            <h4 class="m-b-0 font-16">Squats</h4>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>0/0/0</td>
-                                                <td>00:00</td>
-                                                <td>0</td>
-                                                <td>none</td>
-                                            </tr>
+                                        <tbody id="HiiT">
+                                           
                                         </tbody>
                                     </table>
                                 </div>
@@ -334,18 +391,100 @@
                     </div>
                 </div>
         </section>
-    <script src="script.js"></script>
-    <script>
-        // console.log("hello setting")
-        showUserNameDetail()
-        function showUserNameDetail() {
-            var user = GetUser_id();
-            document.getElementById('inputUsername').value = user.username;
-            document.getElementById('inputHeight').value = user.Height;
-            document.getElementById('inputWeight').value = user.Weight;
+        <script src="script.js"></script>
 
-        }
-    </script>
+        <script>
+            var Allscore
+            // console.log("hello setting")
+            showUserNameDetail()
+            function showUserNameDetail() {
+                var user = GetUser_id();
+                document.getElementById('inputUsername').value = user.username;
+                document.getElementById('inputHeight').value = user.Height;
+                document.getElementById('inputWeight').value = user.Weight;
+
+            }
+
+            async function initInDashBoard() {
+
+                init()
+                var AllHIIT
+                var User = GetUser()
+                Allscore = await getScoreById(User._id)
+
+                AllHIIT = Allscore.filter((s) => { return s.NameEx == "HIIT" })
+                AllHIIT.forEach(h => {
+                    if (h.Score == 1) {
+                        h.Score = "Easy"
+                    } else if (h.Score == 2) {
+                        h.Score = "Intermediate"
+                    } else if (h.Score == 3) {
+                        h.Score = "Advance"
+                    } if (h.Status) {
+                        h.Status = "Complete"
+                    } else if (!h.Status) {
+                        h.Status = "Incomplete"
+                    }
+                    var newDate = new Date(h.DateTime)
+                    var newFormatDate = `${newDate.getDate()}/${newDate.getMonth() + 1}/${newDate.getFullYear()}`
+   
+                    if(h.Seconds == 0){
+                        h.Seconds = "--:--"
+                    }else {
+                        h.Seconds = timeset(h.Seconds)
+                    }
+                    // if()
+
+                    document.getElementById('HiiT').innerHTML += `<tr><td> ${h.Score} </td> <td> ${newFormatDate} </td> <td> ${h.Seconds} </td><td> ${h.Status} </td><td> 200 </td></tr>`
+
+                    console.log(h)
+                });
+            }
+            function timeset(time) {
+                var fontNum = 0
+                var backNum = 0
+                while (time > 0) {
+                    if (time >= 60) {
+                        time = time - 60
+                        fontNum++
+                    } else {
+                        backNum = time
+                        time = 0
+                    }
+                }
+                console.log(`${setTwodigit(fontNum)}:${setTwodigit(backNum)}`)
+                console.log(`fontNum`)
+                return `${setTwodigit(fontNum)}:${setTwodigit(backNum)}`
+            }
+            function setTwodigit(num) {
+                var returnNum = "0";
+                if (num < 10) {
+                    if (num == 9) {
+                        return "09"
+                    } if (num == 8) {
+                        return "08"
+                    } if (num == 7) {
+                        return "07"
+                    } if (num == 6) {
+                        return "06"
+                    } if (num == 5) {
+                        return "05"
+                    } if (num == 4) {
+                        return "04"
+                    } if (num == 3) {
+                        return "03"
+                    } if (num == 2) {
+                        return "02"
+                    } if (num == 1) {
+                        return "01"
+                    } if (num == 0) {
+                        return "00"
+                    }
+                } else {
+                    return num
+                }
+            }
+        </script>
 </body>
 
 </html>

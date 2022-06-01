@@ -123,8 +123,8 @@
         <div class="Time , Counter">
             <h1 style="text-align: center;"> Counter : <span id="showCounter">0 </span></h1>
             <button id="TimeBTN" onclick="startTime()"> Start </button>
-            <button id="plusScore" onclick="plusScore('squats')"> plusScore </button>
-            <button onclick="getUserScore()"> getScore </button>
+            <!-- <button id="plusScore" onclick="plusScore('squats')"> plusScore </button>
+            <button onclick="getUserScore()"> getScore </button> -->
             <h1 style="text-align: center;"> Timer : <span id="showTime">0 </span></h1>
         </div>
         <div class="container">
@@ -170,24 +170,24 @@
             return strToJson;
         }
 
-        async function setScore() {
-            var user = GetUser()
-            console.log("Set Score")
-            console.log(user._id)
-            var AlluserScore = await getScoreById(user._id)
-            console.log(AlluserScore)
-            var Score = CountScoreByNameEx(AlluserScore, "squats")
-            document.getElementById("showCounter").innerHTML = Score
-            console.log("Set Score")
-            init();
-        }
+        // async function setScore() {
+        //     var user = GetUser()
+        //     console.log("Set Score")
+        //     console.log(user._id)
+        //     var AlluserScore = await getScoreById(user._id)
+        //     console.log(AlluserScore)
+        //     var Score = CountScoreByNameEx(AlluserScore, "squats")
+        //     document.getElementById("showCounter").innerHTML = Score
+        //     console.log("Set Score")
+        //     init();
+        // }
     </script>
     <script type="module">
         const videoElement = document.getElementsByClassName('input_video')[0];
         const canvasElement = document.getElementsByClassName('output_canvas')[0];
         const canvasCtx = canvasElement.getContext('2d');
         const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
-        const grid = new LandmarkGrid(landmarkContainer);
+        const grid = new LandmarkGrid(landmarkContainer);   
 
         var stage = "down";
         function onResults(results) {
