@@ -12,6 +12,8 @@
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
     <script src="ScoreApi.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -114,7 +116,9 @@
                 <!-- Sales chart -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-6" style="margin-top: 10px;background-color:white" id="chart">
+                    </div>
+                    <div class="col-lg-6">
                         <div class="card" style="margin-top: 10px">
                             <div id="card-body" style="margin-top: 10px">
                                 <div class="d-md-flex align-items-center">
@@ -298,64 +302,58 @@
                         </div>
                     </div>
                     <!-- --------------------------------------------------------------------------------------------------------------------- -->
-                    <div class="col-lg-4">
-                        <div class="card" style="margin-top: 10px">
-                            <div class="card-body">
-                                <h4 class="card-title">Lastest Exercise</h4>
-                                <div class="mt-5 pb-3 d-flex align-items-center">
-                                    <div class="ms-3">
-                                        <h5 class="mb-0 fw-bold">HiiT</h5>
+
+                    <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <div class="row">
+                        <!-- column -->
+                        <div class="col-12">
+                            <div class="card" style="margin-top: 10px">
+                                <div class="card-body">
+                                    <!-- title -->
+                                    <div class="d-md-flex">
+                                        <div>
+                                            <h4 class="card-title">High-Intensity Interval Training</h4>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <div class="dl">
+                                                <select class="form-select shadow-none">
+                                                    <option value="0" selected>Today</option>
+                                                    <option value="1">Weekly</option>
+                                                    <option value="2">Monthly</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="ms-auto">
-                                        <span class="badge bg-light text-muted">none</span>
-                                    </div>
-                                </div>
-                                <div class="py-3 d-flex align-items-center">
-                                    <div class="ms-3">
-                                        <h5 class="mb-0 fw-bold">Endurance</h5>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <span class="badge bg-light text-muted">none</span>
-                                    </div>
-                                </div>
-                                <div class="py-3 d-flex align-items-center">
-                                    <div class="ms-3">
-                                        <h5 class="mb-0 fw-bold">Diamond Push up</h5>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <span class="badge bg-light text-muted">none</span>
-                                    </div>
-                                </div>
-                                <div class="py-3 d-flex align-items-center">
-                                    <div class="ms-3">
-                                        <h5 class="mb-0 fw-bold">Pike Push up</h5>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <span class="badge bg-light text-muted">none</span>
-                                    </div>
-                                </div>
-                                <div class="pt-3 d-flex align-items-center">
-                                    <div class="ms-3">
-                                        <h5 class="mb-0 fw-bold">Leg-Raise</h5>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <span class="badge bg-light text-muted">none</span>
+                                    <!-- title -->
+                                    <div class="table-responsive">
+                                        <table class="table mb-0 table-hover align-middle text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-top-0">Exercise - Type</th>
+                                                    <th class="border-top-0">Date</th>
+                                                    <th class="border-top-0">Duration</th>
+                                                    <th class="border-top-0">Status - Exercise</th>
+                                                    <th class="border-top-0">Calories</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="HiiT">
+
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-                <div class="row">
-                    <!-- column -->
+
+                    <!-- Endurance -->
                     <div class="col-12">
                         <div class="card" style="margin-top: 10px">
                             <div class="card-body">
                                 <!-- title -->
                                 <div class="d-md-flex">
                                     <div>
-                                        <h4 class="card-title">High-Intensity Interval Training</h4>
+                                        <h4 class="card-title">Endurance Training</h4>
                                     </div>
                                     <div class="ms-auto">
                                         <div class="dl">
@@ -377,12 +375,9 @@
                                                 <th class="border-top-0">Duration</th>
                                                 <th class="border-top-0">Status - Exercise</th>
                                                 <th class="border-top-0">Calories</th>
-                                                <!-- <th class="border-top-0">Sales</th> -->
-                                                <!-- <th class="border-top-0">Earnings</th> -->
                                             </tr>
                                         </thead>
-                                        <tbody id="HiiT">
-                                           
+                                        <tbody id="Endurance">
                                         </tbody>
                                     </table>
                                 </div>
@@ -390,10 +385,94 @@
                         </div>
                     </div>
                 </div>
+
+
+
         </section>
         <script src="script.js"></script>
-
         <script>
+            var options = {
+                chart: {
+                    height: 350,
+                    type: "line",
+                    stacked: false
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                colors: ['#99C2A2', '#C5EDAC', '#66C7F4'],
+                series: [
+
+                    {
+                        name: 'Repititions',
+                        type: 'column',
+                        data: [21.1, 23, 33.1, 34, 44.1]
+                    },
+                    {
+                        name: "Duration",
+                        type: 'column',
+                        data: [10, 19, 27, 26, 34]
+                    },
+
+                ],
+                stroke: {
+                    width: [4, 4, 4]
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: "20%"
+                    }
+                },
+                xaxis: {
+                    categories: ["Pull-UP","Push-UP","Squat", "Diamond Push-UP", "Leg raise"]
+                },
+                yaxis: [
+                    {
+                        seriesName: 'Repititions',
+                        axisTicks: {
+                            show: false
+                        },
+                        axisBorder: {
+                            show: false,
+                        },
+                        title: {
+                            text: "Repititions"
+                        }
+                    },
+                    {
+                        seriesName: 'Repititions',
+                        show: false
+                    }, {
+                        opposite: true,
+                        seriesName: 'Line C',
+                        axisTicks: {
+                            show: false
+                        },
+                        axisBorder: {
+                            show: false,
+                        },
+                        title: {
+                            text: "Duration"
+                        }
+                    }
+                ],
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    x: {
+                        show: false
+                    }
+                },
+                legend: {
+                    horizontalAlign: "left",
+                    offsetX: 40
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+            chart.render();
+
             var Allscore
             // console.log("hello setting")
             showUserNameDetail()
@@ -402,9 +481,7 @@
                 document.getElementById('inputUsername').value = user.username;
                 document.getElementById('inputHeight').value = user.Height;
                 document.getElementById('inputWeight').value = user.Weight;
-
             }
-
             async function initInDashBoard() {
 
                 init()
@@ -412,7 +489,8 @@
                 var User = GetUser()
                 Allscore = await getScoreById(User._id)
 
-                AllHIIT = Allscore.filter((s) => { return s.NameEx == "HIIT" })
+                AllHIIT = Allscore.filter((s) => { return s.NameEx == "hiit" })
+
                 AllHIIT.forEach(h => {
                     if (h.Score == 1) {
                         h.Score = "Easy"
@@ -421,24 +499,54 @@
                     } else if (h.Score == 3) {
                         h.Score = "Advance"
                     } if (h.Status) {
-                        h.Status = "Complete"
+                        h.Status = "<span class='badge bg-success text-muted' style='color:white !important' >Complete</span>"
                     } else if (!h.Status) {
-                        h.Status = "Incomplete"
+                        h.Status = "<span class='badge bg-danger text-muted' style='color:white !important'>Incomplete</span>"
                     }
                     var newDate = new Date(h.DateTime)
                     var newFormatDate = `${newDate.getDate()}/${newDate.getMonth() + 1}/${newDate.getFullYear()}`
-   
-                    if(h.Seconds == 0){
+
+                    if (h.Seconds == 0) {
                         h.Seconds = "--:--"
-                    }else {
+                    } else {
                         h.Seconds = timeset(h.Seconds)
                     }
-                    // if()
 
-                    document.getElementById('HiiT').innerHTML += `<tr><td> ${h.Score} </td> <td> ${newFormatDate} </td> <td> ${h.Seconds} </td><td> ${h.Status} </td><td> 200 </td></tr>`
+                    document.getElementById('HiiT').innerHTML += `<tr><td> ${h.Score}</td> <td> ${newFormatDate} </td> <td> ${h.Seconds} </td><td> ${h.Status} </td><td> 200 </td></tr>`
 
                     console.log(h)
                 });
+
+
+                AllEndurnace = Allscore.filter((s) => { return s.NameEx == "endurance" })
+
+                AllEndurnace.forEach(h => {
+                    if (h.Score == 1) {
+                        h.Score = "Easy"
+                    } else if (h.Score == 2) {
+                        h.Score = "Intermediate"
+                    } else if (h.Score == 3) {
+                        h.Score = "Advance"
+                    } if (h.Status) {
+                        h.Status = "<span class='badge bg-success text-muted' style='color:white !important' >Complete</span>"
+                    } else if (!h.Status) {
+                        h.Status = "<span class='badge bg-danger text-muted' style='color:white !important'>Incomplete</span>"
+                    }
+                    var newDate = new Date(h.DateTime)
+                    var newFormatDate = `${newDate.getDate()}/${newDate.getMonth() + 1}/${newDate.getFullYear()}`
+
+                    if (h.Seconds == 0) {
+                        h.Seconds = "--:--"
+                    } else {
+                        h.Seconds = timeset(h.Seconds)
+                    }
+
+                    document.getElementById('Endurance').innerHTML += `<tr><td> ${h.Score}</td> <td> ${newFormatDate} </td> <td> ${h.Seconds} </td><td> ${h.Status} </td><td> 200 </td></tr>`
+
+                    console.log(h)
+                });
+
+
             }
             function timeset(time) {
                 var fontNum = 0

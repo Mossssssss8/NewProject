@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body onload="init()">
+<body onload="initInHistory()">
   <div class="sidebar">
     <div class="logo-details">
       <i class='#'></i>
@@ -36,25 +36,25 @@
       </li>
       <li>
         <a href="Set-mode.html">
-            <i class='bx bx-transfer alt'></i>
-            <span class="links_name">Set mode</span>
+          <i class='bx bx-transfer alt'></i>
+          <span class="links_name">Set mode</span>
         </a>
         <span class="tooltip">Exercise</span>
       </li>
       <li>
-          <a href="HIITmode.html">
-              <i class='bx bx-task'></i>
-              <span class="links_name">HIIT Mode</span>
-          </a>
-          <span class="tooltip">HIIT Workout</span>
+        <a href="HIITmode.html">
+          <i class='bx bx-task'></i>
+          <span class="links_name">HIIT Mode</span>
+        </a>
+        <span class="tooltip">HIIT Workout</span>
       </li>
       <li>
         <a href="Endurance Mode.html">
-            <i class='bx bx-task'></i>
-            <span class="links_name">Endurance Mode</span>
+          <i class='bx bx-task'></i>
+          <span class="links_name">Endurance Mode</span>
         </a>
         <span class="tooltip">Endurance Mode</span>
-    </li>
+      </li>
       <li>
         <a href="Video.html">
           <i class='bx bx-video'></i>
@@ -64,11 +64,11 @@
       </li>
       <li>
         <a href="Video-Stretching.html">
-            <i class='bx bx-video'></i>
-            <span class="links_name">Video-Stretching</span>
+          <i class='bx bx-video'></i>
+          <span class="links_name">Video-Stretching</span>
         </a>
         <span class="tooltip">Video-Stretching</span>
-    </li>
+      </li>
       <li>
         <a href="History.html">
           <i class='bx bx-pie-chart-alt-2'></i>
@@ -125,11 +125,11 @@
         <tbody>
           <td>Pull-up</td>
           <td class="integrations-status">
-            <span class="button label button--xs button--success">0</span>
+            <span id="scorePullup" class="button label button--xs button--success">0</span>
           </td>
           <td></td>
           <td class="integrations-cta">
-            <span class="button button--xs button--primary">00:00</span>
+            <span id="TimePullup" class="button button--xs button--primary">00:00</span>
           </td>
           <td></td>
           <td class="integrations-cta">
@@ -139,54 +139,58 @@
           <tr>
             <td>Diamond Push up</td>
             <td class="integrations-status">
-              <span class="button label button--xs button--success">0</span></td>
-            <td></td>
-            <td class="integrations-cta">
-              <span class="button button--xs button--primary">00:00</span>
+              <span id="scoreDMPushup" class="button label button--xs button--success">0</span>
             </td>
             <td></td>
-          <td class="integrations-cta">
-            <span class="button button--xs button--primary">0/0/0</span>
-          </td>
+            <td class="integrations-cta">
+              <span id="TimeDMPushup" class="button button--xs button--primary">00:00</span>
+            </td>
+            <td></td>
+            <td class="integrations-cta">
+              <span class="button button--xs button--primary">0/0/0</span>
+            </td>
           </tr>
           <tr>
-            <td>Pike Push up</td>
+            <td>Push up</td>
             <td class="integrations-status">
-              <span class="button label button--xs button--success">0</span></td>
-            <td></td>
-            <td class="integrations-cta">
-              <span class="button button--xs button--primary">00:00</span>
+              <span id="scorePushup" class="button label button--xs button--success">0</span>
             </td>
             <td></td>
-          <td class="integrations-cta">
-            <span class="button button--xs button--primary">0/0/0</span>
-          </td>
+            <td class="integrations-cta">
+              <span id="TimePushup" class="button button--xs button--primary">00:00</span>
+            </td>
+            <td></td>
+            <td class="integrations-cta">
+              <span class="button button--xs button--primary">0/0/0</span>
+            </td>
           </tr>
           <tr>
             <td>Leg-Raise</td>
             <td class="integrations-status">
-              <span class="button label button--xs button--success">0</span></td>
-            <td></td>
-            <td class="integrations-cta">
-              <span class="button button--xs button--primary">00:00</span>
+              <span id="scoreLegRaise" class="button label button--xs button--success">0</span>
             </td>
             <td></td>
-          <td class="integrations-cta">
-            <span class="button button--xs button--primary">0/0/0</span>
-          </td>
+            <td class="integrations-cta">
+              <span id="TimeLegraise" class="button button--xs button--primary">00:00</span>
+            </td>
+            <td></td>
+            <td class="integrations-cta">
+              <span class="button button--xs button--primary">0/0/0</span>
+            </td>
           </tr>
           <tr>
             <td>Squats</td>
             <td class="integrations-status">
-              <span class="button label button--xs button--success">0</span></td>
-            <td></td>
-            <td class="integrations-cta">
-              <span class="button button--xs button--primary">00:00</span>
+              <span id="scoreSquats" class="button label button--xs button--success">0</span>
             </td>
             <td></td>
-          <td class="integrations-cta">
-            <span class="button button--xs button--primary">0/0/0</span>
-          </td>
+            <td class="integrations-cta">
+              <span id="Timesquats" class="button button--xs button--primary">00:00</span>
+            </td>
+            <td></td>
+            <td class="integrations-cta">
+              <span class="button button--xs button--primary">0/0/0</span>
+            </td>
           </tr>
         </tbody>
         <tfoot>
@@ -201,7 +205,112 @@
       </div>
     </section>
   </section>
+  <script>
+    async function initInHistory() {
+
+      init()
+      var TimeSquats = 0
+      var TimePullup = 0
+      var TimePushup = 0
+      var TimeLegraise = 0
+      var TimeDMPushup = 0
+
+      var scoreSquats = 0
+      var scorePullup = 0
+      var scorePushup = 0
+      var scoreLegRaise = 0
+      var scoreDMPushup = 0
+
+      var AllHIIT
+      var User = GetUser()
+      Allscore = await getScoreById(User._id)
+
+      Timesquats = CountTimeByNameEx(Allscore, "Squats")
+      TimePullup = CountTimeByNameEx(Allscore, "Pull-Up")
+      TimePushup = CountTimeByNameEx(Allscore, "Push-up")
+      TimeLegraise = CountTimeByNameEx(Allscore, "LegRaise")
+      TimeDMPushup = CountTimeByNameEx(Allscore, "DMPushup")
+
+      scoreSquats = CountScoreByNameEx(Allscore, "Squats")
+      scorePullup = CountScoreByNameEx(Allscore, "Pull-Up")
+      scorePushup = CountScoreByNameEx(Allscore, "Push-up")
+      scoreLegRaise = CountScoreByNameEx(Allscore, "LegRaise")
+      scoreDMPushup = CountScoreByNameEx(Allscore, "DMPushup")
+
+      document.getElementById('scorePullup').innerHTML = scorePullup
+      document.getElementById('scoreDMPushup').innerHTML = scoreDMPushup
+      document.getElementById('scorePushup').innerHTML = scorePushup
+      document.getElementById('scoreLegRaise').innerHTML = scoreLegRaise
+      document.getElementById('scoreSquats').innerHTML = scoreSquats
+
+      document.getElementById('Timesquats').innerHTML = timeset(Timesquats)
+      document.getElementById('TimePullup').innerHTML = timeset(TimePullup)
+      document.getElementById('TimePushup').innerHTML = timeset(TimePushup)
+      document.getElementById('TimeLegraise').innerHTML = timeset(TimeLegraise)
+      document.getElementById('TimeDMPushup').innerHTML = timeset(TimeDMPushup)
+
+
+
+    }
+
+    function timeset(time) {
+      var fontNum = 0
+      var backNum = 0
+      var hours = 0
+
+      while (time > 0) {
+
+        if (fontNum >= 60) {
+          fontNum -= 60
+          hours++
+        }
+        if (time >= 60) {
+          time = time - 60
+          fontNum++
+        } else {
+          backNum = time
+          time = 0
+        }
+      }
+      if (hours > 0) {
+        return `${hours}:${setTwodigit(fontNum)}:${setTwodigit(backNum)}`
+
+      }
+      // console.log(`${setTwodigit(fontNum)}:${setTwodigit(backNum)}`)
+      // console.log(`fontNum`)
+      return `${setTwodigit(fontNum)}:${setTwodigit(backNum)}`
+    }
+    function setTwodigit(num) {
+      var returnNum = "0";
+      if (num < 10) {
+        if (num == 9) {
+          return "09"
+        } if (num == 8) {
+          return "08"
+        } if (num == 7) {
+          return "07"
+        } if (num == 6) {
+          return "06"
+        } if (num == 5) {
+          return "05"
+        } if (num == 4) {
+          return "04"
+        } if (num == 3) {
+          return "03"
+        } if (num == 2) {
+          return "02"
+        } if (num == 1) {
+          return "01"
+        } if (num == 0) {
+          return "00"
+        }
+      } else {
+        return num
+      }
+    }
+  </script>
   <script src="script.js"></script>
+  <script src="ScoreApi.js"></script>
 
 
 </body>

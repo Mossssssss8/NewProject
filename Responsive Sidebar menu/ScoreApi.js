@@ -25,7 +25,7 @@ async function getUserByid(userid) {
 
 async function addLineInScoreDB(ScoreModel) {
     const ScoreApi = `http://localhost:3000/score/`
-
+    ScoreModel.NameEx = ScoreModel.NameEx.toLowerCase();
     var response = await fetch(ScoreApi + "add", {
         method: 'POST',
         headers: {
@@ -46,22 +46,37 @@ async function getScoreById(userId) {
             'Content-Type': 'application/json'
         },
     })
-    var {data} = await response.json()
+    var { data } = await response.json()
     console.log("get in DB")
     return data
+}
+
+
+function CountTimeByNameEx(AllScore, nameEx) {
+    var time = 0
+    AllScore.forEach(s => {
+        
+        if (s.NameEx.toLowerCase() == nameEx.toLowerCase()) {
+            if(s.Seconds != null){
+                time = time + s.Seconds
+            }
+            // time = time + s.Seconds
+        }
+    });
+    return time
 }
 
 function CountScoreByNameEx(AllScore, nameEx) {
     var Score = 0
     AllScore.forEach(S => {
-        if (S.NameEx == nameEx) {
+        if (S.NameEx.toLowerCase() == nameEx.toLowerCase()) {
             Score += S.Score
         }
     });
     return Score
 }
 
-async function plusScore(nameEx){
+async function plusScore(nameEx) {
     var user = GetUser()
     var model = new ScoreModel()
     model.UserId = user._id

@@ -151,6 +151,12 @@
     </section>
 
     <script>
+        var timesquats = 0;
+        var timepullup = 0;
+        var timepushup = 0;
+        var timeLegraise = 0;
+        var timedmpushup = 0;
+        // --------------------------
         var currentScore = 0;
         var timeleft = 0;
         var isStart = false;
@@ -191,7 +197,7 @@
             console.log(timeleft)
             if (Mode == "Easy") {
                 console.log("Easysssss")
-                setTime = 5 
+                setTime = 10 * 60
             } if (Mode == "Intermediate") {
                 setTime = 20 * 60
             } if (Mode == "Advance") {
@@ -332,14 +338,13 @@
                     no-repeat
                 `
             })
-            currentExerise
-            currentScore
             if (currentExerise == 1) {
             }
             var User = GetUser()
             var ScoreModel = {
                 UserId: User._id,
                 NameEx: "",
+                Seconds: null,
                 Score: null,
                 DateTime: new Date(),
                 Status: false
@@ -368,6 +373,7 @@
                     ScoreModel.Score = currentScore
                 }
                 ScoreModel.NameEx = "Squats"
+                ScoreModel.Seconds = timesquats
                 await addLineInScoreDB(HIITModel)
                 await addLineInScoreDB(ScoreModel)
             }
@@ -376,6 +382,7 @@
                     ScoreModel.Score = currentScore
                 }
                 ScoreModel.NameEx = "Pull-Up"
+                ScoreModel.Seconds = timepullup
                 await addLineInScoreDB(ScoreModel)
             }
             if (currentExerise >= 3) {
@@ -383,6 +390,7 @@
                     ScoreModel.Score = currentScore
                 }
                 ScoreModel.NameEx = "Push-Up"
+                ScoreModel.Seconds = timepushup
                 await addLineInScoreDB(ScoreModel)
             }
             if (currentExerise >= 4) {
@@ -390,12 +398,14 @@
                     ScoreModel.Score = currentScore
                 }
                 ScoreModel.NameEx = "Legraise"
+                ScoreModel.Seconds = timeLegraise
                 await addLineInScoreDB(ScoreModel)
             } if (currentExerise >= 5) {
                 if (currentExerise == 5) {
                     ScoreModel.Score = currentScore
                 }
                 ScoreModel.NameEx = "Dmpushup"
+                ScoreModel.Seconds = timedmpushup
                 await addLineInScoreDB(ScoreModel)
             }
         }
@@ -409,6 +419,7 @@
             var ScoreModel = {
                 UserId: User._id,
                 NameEx: "",
+                Seconds: null,
                 Score: null,
                 DateTime: new Date(),
                 Status: true
@@ -435,14 +446,19 @@
             }
             await addLineInScoreDB(HIITModel)
             ScoreModel.NameEx = "Squats"
+            ScoreModel.Seconds = timesquats
             await addLineInScoreDB(ScoreModel)
             ScoreModel.NameEx = "Pull-Up"
+            ScoreModel.Seconds = timepullup
             await addLineInScoreDB(ScoreModel)
             ScoreModel.NameEx = "Push-Up"
+            ScoreModel.Seconds = timepushup
             await addLineInScoreDB(ScoreModel)
             ScoreModel.NameEx = "Legraise"
+            ScoreModel.Seconds = timeLegraise
             await addLineInScoreDB(ScoreModel)
             ScoreModel.NameEx = "Dmpushup"
+            ScoreModel.Seconds = timedmpushup
             await addLineInScoreDB(ScoreModel)
 
         }
@@ -544,6 +560,7 @@
         }
 
         function MainExcercise(nameExercise, poseLandmarks) {
+
             var CurScore = document.getElementById('CurrentScore').innerHTML
             var mode = localStorage.getItem('Mode')
             var round = 0
@@ -561,11 +578,33 @@
                 // alert('Advance')
             }
             if (currentScore % round == 0 && currentScore > 1) {
+                if (currentExerise == 1) {
+                    timesquats = timeleft
+
+                }
+                else if (currentExerise == 2) {
+                    timepullup = timeleft - timesquats
+
+
+                } else if (currentExerise == 3) {
+                    timepushup = timeleft - timesquats - timepullup
+
+
+                } else if (currentExerise == 4) {
+                    timeLegraise = timeleft - timesquats - timepullup -  timepushup
+
+
+                } else if (currentExerise == 5) {
+                    timedmpushup = timeleft - timesquats - timepullup - timepushup - timeLegraise
+
+                }
                 currentExerise++
                 currentScore = 0
                 document.getElementById('CurrentScore').innerHTML = currentScore
 
             }
+
+            // timesquats
             if (currentExerise == 1) {
                 nameExercise = "1"
             } else if (currentExerise == 2) {
@@ -574,8 +613,10 @@
                 nameExercise = "3";
             } else if (currentExerise == 4) {
                 nameExercise = "4";
+            } else if (currentExerise == 5) {
+                nameExercise = "5";
             }
-            else if (currentExerise == 5 && iscomplete == false) {
+            else if (currentExerise == 6 && iscomplete == false) {
                 complete()
                 iscomplete = true
                 ChangeEx("complete", "complete")
@@ -604,7 +645,12 @@
                 }
                 case "4": {
                     CheckSpot(poseLandmarks)
-                    ChangeEx("DMPush-UP", "Squat")
+                    ChangeEx("Leg Raise", "DMPush-UP")
+                    break;
+                }
+                case "5": {
+                    CheckSpot(poseLandmarks)
+                    ChangeEx("DMPush-UP", "--:--")
                     break;
                 }
             }
