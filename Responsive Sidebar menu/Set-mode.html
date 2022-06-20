@@ -10,6 +10,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Boxicons CDN Link -->
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/addons/p5.sound.min.js"></script>
     <script src="https://unpkg.com/ml5@0.4.2/dist/ml5.min.js"></script>
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>\
@@ -40,70 +41,63 @@
                 <input type="text" placeholder="Search...">
                 <span class="tooltip">Search</span>
             </li>
-            <li>
+            <li id="menuDashboard">
                 <a href="index.html">
                     <i class='bx bx-grid-alt'></i>
                     <span class="links_name">Dashboard</span>
                 </a>
                 <span class="tooltip">Dashboard</span>
             </li>
-            <li>
+            <li id="menuSetmode">
                 <a href="Set-mode.html">
                     <i class='bx bx-transfer alt'></i>
                     <span class="links_name">Set mode</span>
                 </a>
                 <span class="tooltip">Exercise</span>
             </li>
-            <li>
+            <li id="menuHiiTmode">
                 <a href="HIITmode.html">
                     <i class='bx bx-task'></i>
                     <span class="links_name">HIIT Mode</span>
                 </a>
                 <span class="tooltip">HIIT Workout</span>
             </li>
-            <li>
+            <li id="menuEndurance">
                 <a href="Endurance Mode.html">
                     <i class='bx bx-task'></i>
                     <span class="links_name">Endurance Mode</span>
                 </a>
                 <span class="tooltip">Endurance Mode</span>
             </li>
-            <!-- <li>
-       <a href="user.html">
-         <i class='bx bx-user' ></i>
-         <span class="links_name">User</span>
-       </a>
-       <span class="tooltip">User</span>
-     </li> -->
-            <li>
+            <li id="menuVideo">
                 <a href="Video.html">
                     <i class='bx bx-video'></i>
                     <span class="links_name">Video</span>
                 </a>
                 <span class="tooltip">Video</span>
             </li>
-            <li>
+            <li id="menuVideoSt">
                 <a href="Video-Stretching.html">
                     <i class='bx bx-video'></i>
                     <span class="links_name">Video-Stretching</span>
                 </a>
                 <span class="tooltip">Video-Stretching</span>
             </li>
-            <li>
+            <li id="menuHistory">
                 <a href="History.html">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="links_name">History</span>
                 </a>
                 <span class="tooltip">History</span>
             </li>
-            <li>
+            <li id="menuSetting">
                 <a href="setting.html">
                     <i class='bx bx-cog'></i>
                     <span class="links_name">Setting</span>
                 </a>
                 <span class="tooltip">Setting</span>
             </li>
-            <li class="profile">
+            <li id="menuProfile" class="profile">
                 <div class="profile-details">
                     <!-- <img src="profile.jpg" alt="profileImg"> -->
                     <div class="name_job">
@@ -135,6 +129,7 @@
     </section>
 
     <script>
+        var user
         var timeleft = 0;
         var isStart = false;
         var timeCountdown
@@ -170,24 +165,54 @@
             return strToJson;
         }
 
-        // async function setScore() {
-        //     var user = GetUser()
-        //     console.log("Set Score")
-        //     console.log(user._id)
-        //     var AlluserScore = await getScoreById(user._id)
-        //     console.log(AlluserScore)
-        //     var Score = CountScoreByNameEx(AlluserScore, "squats")
-        //     document.getElementById("showCounter").innerHTML = Score
-        //     console.log("Set Score")
-        //     init();
-        // }
+        async function setScore() {
+            user = GetUser()
+            init()
+
+            if (Object.keys(user).length === 0) {
+                console.log("Hello")
+                document.getElementById("menuDashboard").setAttribute("style", "pointer-events:none; opacity:0.6;")
+                document.getElementById("menuSetmode").setAttribute("style", "pointer-events:none; opacity:0.6;")
+                document.getElementById("menuHiiTmode").setAttribute("style", "pointer-events:none; opacity:0.6;")
+                document.getElementById("menuEndurance").setAttribute("style", "pointer-events:none; opacity:0.6;")
+                document.getElementById("menuVideo").setAttribute("style", "pointer-events:none; opacity:0.6;")
+                document.getElementById("menuVideoSt").setAttribute("style", "pointer-events:none; opacity:0.6;")
+                document.getElementById("menuVideo").setAttribute("style", "pointer-events:none; opacity:0.6;")
+                document.getElementById("menuHistory").setAttribute("style", "pointer-events:none; opacity:0.6;")
+                document.getElementById("menuSetting").innerHTML = `<a onclick="alertlogin()">
+                    <i class="bx bx-cog"></i>
+                    <span class="links_name">Setting</span>
+                </a> `
+
+            }
+
+
+        }
+        function alertlogin(){
+            Swal.fire({
+                title: "Register",
+                // text: `ต้องผ่านภายใน 10 นาที  ทุกท่าทาง 8 ครั้ง / 1 เซต`,
+                // html: html,
+                icon: 'question',
+                iconHtml: '?',
+                confirmButtonText: 'ตกลง',
+                // showCancelButton: true,
+                showCloseButton: false
+            }).then((result) => {
+                camerastart();
+                document.getElementById("TimeBTN").style.display = "block"
+                SelectedMode(Mode)
+            })
+
+        }
+
     </script>
     <script type="module">
         const videoElement = document.getElementsByClassName('input_video')[0];
         const canvasElement = document.getElementsByClassName('output_canvas')[0];
         const canvasCtx = canvasElement.getContext('2d');
         const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
-        const grid = new LandmarkGrid(landmarkContainer);   
+        const grid = new LandmarkGrid(landmarkContainer);
 
         var stage = "down";
         function onResults(results) {
