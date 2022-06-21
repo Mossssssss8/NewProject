@@ -394,7 +394,14 @@
 .btn-hidden{
     display: none;
 }
-
+.setchangedate{
+    position: absolute;
+    width: 300px !important;
+    margin-right: 0px ;
+    top: 520px;
+    right: 0%;
+    z-index: 1;
+}
 @media (max-width: 420px) {
     .sidebar li .tooltip {
         display: none;

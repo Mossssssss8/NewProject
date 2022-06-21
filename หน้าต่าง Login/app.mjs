@@ -20,7 +20,6 @@ function loginWithGuest() {
         Height: "0",
     }
 
-
     localStorage.setItem("User_Ex", JSON.stringify(GuestUser))
     location.href = "../Responsive Sidebar menu/Set-mode.html"
 }

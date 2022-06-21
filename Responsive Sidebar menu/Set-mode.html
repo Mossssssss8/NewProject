@@ -169,7 +169,7 @@
             user = GetUser()
             init()
 
-            if (Object.keys(user).length === 0) {
+            if (Object.keys(user).length === 0 || user.username == "Guest") {
                 console.log("Hello")
                 document.getElementById("menuDashboard").setAttribute("style", "pointer-events:none; opacity:0.6;")
                 document.getElementById("menuSetmode").setAttribute("style", "pointer-events:none; opacity:0.6;")
