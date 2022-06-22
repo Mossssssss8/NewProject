@@ -19,7 +19,6 @@ function loginWithGuest() {
         Weight: "0",
         Height: "0",
     }
-
     localStorage.setItem("User_Ex", JSON.stringify(GuestUser))
     location.href = "../Responsive Sidebar menu/Set-mode.html"
 }
@@ -27,3 +26,19 @@ function loginWithGuest() {
 function init() {
     localStorage.setItem("User_Ex", "");
 }
+
+Swal.fire({
+    title: title,
+    // text: `ต้องผ่านภายใน 10 นาที  ทุกท่าทาง 8 ครั้ง / 1 เซต`,
+    html: html,
+    icon: 'question',
+    iconHtml: '?',
+    confirmButtonText: 'ตกลง',
+    // showCancelButton: true,
+    showCloseButton: false
+}).then((result) => {
+    camerastart();
+    document.getElementById("TimeBTN").style.display = "block"
+    SelectedMode(Mode)
+})
+timeleft = 0;

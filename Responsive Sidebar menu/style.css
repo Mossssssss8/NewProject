@@ -1,6 +1,7 @@
 /* Google Font Link */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -283,7 +284,7 @@
 }
 
 .head_content {
-    background-image: url('../หน้าต่าง Login/img/home-bg.svg'); 
+    background-image: url('../หน้าต่าง Login/img/home-bg.svg');
     background-position: center center;
     background-size: cover;
     color: #fff;
@@ -296,6 +297,7 @@
     height: calc(60vh - 100px);
     min-height: 400px;
 }
+
 .head_content .text {
     display: flex;
     align-items: center;
@@ -306,13 +308,14 @@
     top: 0;
     bottom: 0;
     font-size: 100px;
+    font-weight: normal;
     color: #fff;
     font-family: "Poppins", sans-serif;
 }
 
 .head_content_index {
-    background-image: url('../หน้าต่าง Login/img/gradient-01-w.svg'); 
-    opacity: 0.5 !important;
+    background-image: url('../หน้าต่าง Login/img/gradient-01-w.svg');
+    opacity: 1 !important;
     background-position: center center;
     background-size: cover;
     color: #fff;
@@ -336,12 +339,72 @@
     top: 0;
     bottom: 0;
     font-size: 100px;
+    letter-spacing: 0.2em;
     color: #fff;
     font-family: "Poppins", sans-serif;
 }
 
+.head_content_index .text span {
+    opacity: 0;
+    display: inline-block;
+    animation: animate 1s linear forwards;
+
+}
+
+@keyframes animate {
+    0% {
+        opacity: 0;
+        transform: rotateY(90deg);
+        filter: blur(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotateY(0deg);
+        filter: blur(0);
+
+    }
+
+}
+
+.head_content_index .text span:nth-child(1) {
+    animation-delay: 1s;
+}
+
+.head_content_index .text span:nth-child(2) {
+    animation-delay: 1.5s;
+}
+
+.head_content_index .text span:nth-child(3) {
+    animation-delay: 1.75s;
+}
+
+.head_content_index .text span:nth-child(4) {
+    animation-delay: 2s;
+}
+
+.head_content_index .text span:nth-child(5) {
+    animation-delay: 2.5s;
+}
+
+.head_content_index .text span:nth-child(6) {
+    animation-delay: 2.75s;
+}
+
+.head_content_index .text span:nth-child(7) {
+    animation-delay: 3s;
+}
+
+.head_content_index .text span:nth-child(8) {
+    animation-delay: 3.5s;
+}
+
+.head_content_index .text span:nth-child(9) {
+    animation-delay: 3.75s;
+}
+
 .head_content_setting {
-    background-image: url('../หน้าต่าง Login/img/630x1200.png'); 
+    background-image: url('../หน้าต่าง Login/img/630x1200.png');
     background-position: center center;
     background-size: cover;
     color: #fff;
@@ -354,6 +417,7 @@
     height: calc(60vh - 100px);
     min-height: 500px;
 }
+
 .head_content_setting .text {
     display: flex;
     align-items: center;
@@ -366,7 +430,8 @@
     font-size: 100px;
     font-family: "Poppins", sans-serif;
 }
-.overlay {
+
+/* .overlay {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -376,34 +441,108 @@
     width: 100%;
     opacity: 0;
     transition: .5s ease;
-    
+
 }
 
-.head_content:hover .overlay{
+.head_content:hover .overlay {
     opacity: 1;
 }
 
-.head_content_index:hover .overlay{
+.head_content_index:hover .overlay {
     opacity: 1;
 }
 
-.head_content_Video:hover .overlay{
+.head_content_Video:hover .overlay {
     opacity: 1;
-}
+} */
 
-.btn-hidden{
+.btn-hidden {
+    margin: 0;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     display: none;
 }
-.setchangedate{
+
+.setchangedate {
     position: absolute;
     width: 300px !important;
-    margin-right: 0px ;
+    margin-right: 0px;
     top: 520px;
     right: 0%;
     z-index: 1;
 }
+
 @media (max-width: 420px) {
     .sidebar li .tooltip {
         display: none;
     }
 }
+
+.ButtinEasy {
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    padding: 12px 36px;
+    margin: 10px 0;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    background: linear-gradient(90deg, #0162c8, #55e7fc);
+}
+
+.ButtinIntermediate {
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    padding: 12px 36px;
+    margin: 10px 0;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    background: linear-gradient(90deg, #755bea, #ff72c0);
+}
+
+.ButtinAdvance {
+    justify-content: center;
+    align-items: center;
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    padding: 12px 36px;
+    margin: 10px 0;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    background: linear-gradient(90deg, #E1B550, #EA5B5B);
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.textDashboard {
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+}
+
+/* .first-section {
+    background: #000;
+} */

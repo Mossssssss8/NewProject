@@ -127,9 +127,11 @@
                 <button id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
                 <button class="btn-hidden" onclick="getUserScore()"> getScore </button>
             </div>
-            <button id="btn-Easy" onclick="Setmode('Easy')"> Easy </button>
-            <button id="btn-Intermediate" onclick="Setmode('Intermediate')"> Intermediate </button>
-            <button id="btn-Advance" onclick="Setmode('Advance')"> Advance </button>
+            <div class="center">
+                <button class="ButtinEasy" id="btn-Easy" onclick="Setmode('Easy')"> Easy </button>
+                <button class="ButtinIntermediate" id="btn-Intermediate" onclick="Setmode('Intermediate')">Intermediate</button>
+                <button class="ButtinAdvance" id="btn-Advance" onclick="Setmode('Advance')"> Advance </button>
+            </div>
             <h1 style="text-align: center;"> Timer : <span id="showTime">0 </span></h1>
             <div class="Current , Exercise">
                 <div style="display: flex;width: 100%;" class="grid">
@@ -204,7 +206,7 @@
             console.log(timeleft)
             if (Mode == "Easy") {
                 // console.log("Easysssss")
-                setTime = 5
+                setTime = 15 * 60
             } if (Mode == "Intermediate") {
                 setTime = 20 * 60
             } if (Mode == "Advance") {

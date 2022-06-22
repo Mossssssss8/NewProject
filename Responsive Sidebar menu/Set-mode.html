@@ -111,8 +111,8 @@
     </div>
     <section class="home-section" onload="setScore()">
         <!-- <div class="text">Set mode</div> -->
-        <button type="button" class="btn btn-secondary btn-lg" href="#">HIIT Mode</button>
-        <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button>
+        <!-- <button type="button" class="btn btn-secondary btn-lg" href="#">HIIT Mode</button>
+        <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button> -->
 
         <div class="Time , Counter">
             <h1 style="text-align: center;"> Counter : <span id="showCounter">0 </span></h1>
@@ -185,14 +185,11 @@
                 </a> `
 
             }
-
-
         }
         function alertlogin(){
             Swal.fire({
                 title: "Register",
-                // text: `ต้องผ่านภายใน 10 นาที  ทุกท่าทาง 8 ครั้ง / 1 เซต`,
-                // html: html,
+                text: 'Please Register or Login !! ',
                 icon: 'question',
                 iconHtml: '?',
                 confirmButtonText: 'ตกลง',
@@ -203,7 +200,6 @@
                 document.getElementById("TimeBTN").style.display = "block"
                 SelectedMode(Mode)
             })
-
         }
 
     </script>
@@ -272,9 +268,7 @@
             height: 720
         });
         camera.start();
-
-
-
+        
         // ============================================================================== Pull-UP =================================================================================== // 
         // ตรวจจับท่า Pull-Up
         function getPosePullup(poseLandmarks) {
