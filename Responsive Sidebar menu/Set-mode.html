@@ -36,7 +36,7 @@
             <i class='bx bx-menu' id="btn"></i>
         </div>
         <ul class="nav-list" style="margin-left: -30px;">
-            <li>
+            <li id="menuSearch">
                 <i class='bx bx-search'></i>
                 <input type="text" placeholder="Search...">
                 <span class="tooltip">Search</span>
@@ -109,7 +109,7 @@
             </li>
         </ul>
     </div>
-    <section class="home-section" onload="setScore()">
+    <section class="home-sectionindex" onload="setScore()">
         <!-- <div class="text">Set mode</div> -->
         <!-- <button type="button" class="btn btn-secondary btn-lg" href="#">HIIT Mode</button>
         <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button> -->
@@ -171,6 +171,8 @@
 
             if (Object.keys(user).length === 0 || user.username == "Guest") {
                 console.log("Hello")
+                document.getElementById("menuSearch").setAttribute("style", "pointer-events:none; opacity:0.6;")
+                document.getElementById("btn").setAttribute("style", "pointer-events:none; opacity:0.6;")
                 document.getElementById("menuDashboard").setAttribute("style", "pointer-events:none; opacity:0.6;")
                 document.getElementById("menuSetmode").setAttribute("style", "pointer-events:none; opacity:0.6;")
                 document.getElementById("menuHiiTmode").setAttribute("style", "pointer-events:none; opacity:0.6;")
