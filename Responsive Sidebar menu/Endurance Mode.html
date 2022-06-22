@@ -125,6 +125,7 @@
             <div>
                 <button class="btn-hidden" id="TimeBTN" onclick="startTime()"> Start </button>
                 <button id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
+                <button id="sdsdsdsdsd" onclick="Incomplete()"> Incomplete </button>
                 <button class="btn-hidden" onclick="getUserScore()"> getScore </button>
             </div>
             <div class="center">
@@ -172,23 +173,24 @@
         function startTime() {
             if (isStart == false) {
                 iscomplete = false
-
+                disabledLi(false)
                 isStart = true;
                 timeCountdown = setInterval(countdown, 1000)
-                document.getElementById("TimeBTN").innerHTML = "Restart"
+                document.getElementById("TimeBTN").innerHTML = "Exit"
                 timeleft = 0
                 timeleft2 = 0
                 currentExerise = 1
                 document.getElementById('CurrentScore').innerHTML = 0
             } else {
                 Swal.fire({
-                    title: 'Do you want to restart?',
+                    title: 'Do you want to Exit?',
                     showCancelButton: true,
                     confirmButtonText: 'Yes',
                     icon: "question"
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
+                        disabledLi(true)
                         isStart = false;
                         document.getElementById("TimeBTN").innerHTML = "Start"
                         clearTimeout(timeCountdown);
@@ -206,7 +208,7 @@
             console.log(timeleft)
             if (Mode == "Easy") {
                 // console.log("Easysssss")
-                setTime = 15 * 60
+                setTime = 10 * 60
             } if (Mode == "Intermediate") {
                 setTime = 20 * 60
             } if (Mode == "Advance") {
@@ -347,6 +349,7 @@
             }
         }
         async function Incomplete() {
+            disabledLi(true)
             Swal.fire({
                 title: 'Incomplete Workout',
                 text: 'Incomplete Workout Code:101 Timeout',
@@ -384,12 +387,15 @@
             if (Mode == "Easy") {
                 HIITModel.Score = 1
                 ScoreModel.Score = 8
+                HIITModel.Seconds = 10 * 60
             } if (Mode == "Intermediate") {
                 HIITModel.Score = 2
                 ScoreModel.Score = 12
+                HIITModel.Seconds = 20 * 60
             } if (Mode == "Advance") {
                 HIITModel.Score = 3
                 ScoreModel.Score = 15
+                HIITModel.Seconds = 30 * 60
             }
             if (currentExerise >= 1) {
                 if (currentExerise == 1) {
@@ -433,6 +439,7 @@
             }
         }
         async function complete() {
+            disabledLi(true)
             Swal.fire(
                 'complete Workout',
                 'complete Workout',
@@ -601,11 +608,6 @@
 
         }
 
-        function MainExcercise(poseLandmarks) {
-
-
-        }
-
         function MainExcercise(nameExercise, poseLandmarks) {
             var CurScore = document.getElementById('CurrentScore').innerHTML
             var mode = localStorage.getItem('Mode')
@@ -625,6 +627,26 @@
                 // alert('Advance')
             }
             if (currentScore % round == 0 && currentScore > 1) {
+                if (currentExerise == 1) {
+                    timesquats = timeleft
+
+                }
+                else if (currentExerise == 2) {
+                    timepullup = timeleft - timesquats
+
+
+                } else if (currentExerise == 3) {
+                    timepushup = timeleft - timesquats - timepullup
+
+
+                } else if (currentExerise == 4) {
+                    timeLegraise = timeleft - timesquats - timepullup - timepushup
+
+
+                } else if (currentExerise == 5) {
+                    timedmpushup = timeleft - timesquats - timepullup - timepushup - timeLegraise
+
+                }
                 currentExerise++
                 currentScore = 0
                 document.getElementById('CurrentScore').innerHTML = currentScore

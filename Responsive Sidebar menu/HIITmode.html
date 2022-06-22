@@ -120,7 +120,7 @@
         <!-- <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button> -->
 
         <div class="Time , Counter">
-            <h1 style="text-align: center; display: none;"> Counter : <span id="showCounter">0 </span></h1>
+            <h1 style="text-align: center;"> Counter : <span id="showCounter">0 </span></h1>
             <div class="center">
                 <button class="ButtinEasy" id="btn-Easy" onclick="Setmode('Easy')"> Easy </button>
                 <button class="ButtinIntermediate" id="btn-Intermediate"
@@ -172,17 +172,19 @@
                 iscomplete = false
                 isStart = true;
                 timeCountdown = setInterval(countdown, 1000)
-                document.getElementById("TimeBTN").innerHTML = "Restart"
+                document.getElementById("TimeBTN").innerHTML = "Exit"
                 timeleft = 0
+                disabledLi(false)
             } else {
                 Swal.fire({
-                    title: 'Do you want to restart?',
+                    title: 'Do you want to Exit?',
                     showCancelButton: true,
                     confirmButtonText: 'Yes',
                     icon: "question"
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
+                        disabledLi(true)
                         isStart = false;
                         document.getElementById("TimeBTN").innerHTML = "Start"
                         clearTimeout(timeCountdown);
@@ -202,7 +204,7 @@
             console.log(timeleft)
             if (Mode == "Easy") {
                 console.log("Easysssss")
-                setTime = 10 * 60
+                setTime = 5
             } if (Mode == "Intermediate") {
                 setTime = 20 * 60
             } if (Mode == "Advance") {
@@ -329,6 +331,7 @@
             }
         }
         async function Incomplete() {
+            disabledLi(true)
             Swal.fire({
                 title: 'Incomplete Workout',
                 text: 'Incomplete Workout Code:101 Timeout',
@@ -366,12 +369,15 @@
             if (Mode == "Easy") {
                 HIITModel.Score = 1
                 ScoreModel.Score = 8
+                HIITModel.Seconds = 10 * 60
             } if (Mode == "Intermediate") {
                 HIITModel.Score = 2
                 ScoreModel.Score = 12
+                HIITModel.Seconds = 20 * 60
             } if (Mode == "Advance") {
                 HIITModel.Score = 3
                 ScoreModel.Score = 15
+                HIITModel.Seconds = 30 * 60
             }
             if (currentExerise >= 1) {
                 if (currentExerise == 1) {
@@ -415,6 +421,7 @@
             }
         }
         async function complete() {
+            disabledLi(true)
             Swal.fire(
                 'complete Workout',
                 'complete Workout',
@@ -436,7 +443,6 @@
                 Seconds: timeleft,
                 DateTime: new Date(),
                 Status: true
-
             }
             var Mode = localStorage.getItem("Mode")
             if (Mode == "Easy") {
@@ -710,7 +716,7 @@
             var wristRight = poseLandmarks[16];
             var elbowRight = poseLandmarks[14];
             var shoulderRight = poseLandmarks[12];
-            var angle = Pullup_calculate_angle(wristRight,elbowRight,shoulderRight);
+            var angle = Pullup_calculate_angle(wristRight, elbowRight, shoulderRight);
 
             countScorePullup(angle, poseLandmarks);
         }
@@ -737,7 +743,7 @@
             }
         }
         // คำนวณท่าทาง PullUP และ คำนวณเพื่อจะ Counter
-        function Pullup_calculate_angle(wristRight,elbowRight,shoulderRight ) {
+        function Pullup_calculate_angle(wristRight, elbowRight, shoulderRight) {
             var a = [wristRight.x, wristRight.y];
             var b = [elbowRight.x, elbowRight.y];
             var c = [shoulderRight.x, shoulderRight.y];
@@ -754,21 +760,66 @@
         // ============================================================================== Pushup =================================================================================== // 
         // ท่า Pushup 
         function getPosePushup(poseLandmarks) {
-            var wristRight = poseLandmarks[16];
-            var elbowRight = poseLandmarks[14];
             var shoulderRight = poseLandmarks[12];
-            
+            var elbowRight = poseLandmarks[14];
+            var wristRight = poseLandmarks[16];
+
             var angle = Pushup_calculate_angle(shoulderRight, elbowRight, wristRight);
 
             countScorePushup(angle, poseLandmarks);
         }
         // ตรวจสอบท่าคำนวณ Pushup 
-        async function countScorePushup(angle, poseLandmarks) {
+        async function countScorePushup(angle, poseLandmarks) {     
+                if (angle > 160) {
+                    stage = "down"
+                }
+                if (angle < 100 && stage == "down") {
+                    var counter = document.getElementById("showCounter").innerHTML;
+                    var currentex = document.getElementById("CurrentEx").innerHTML;
+                    document.getElementById("CurrentEx").innerHTML = "Push-UP";
+                    console.log("counter : " + counter);
+                    counter++;
+                    stage = "up";
+                    // success
+
+                    // change score
+                    document.getElementById("showCounter").innerHTML = counter;
+                    await plusScore("push-up")
+                    PlusCurrentScore()
+                    console.log(poseLandmarks)
+                }    
+        }
+        function Pushup_calculate_angle(shoulder, elbow, wrist) {
+            var a = [shoulder.x, shoulder.y];
+            var b = [elbow.x, elbow.y];
+            var c = [wrist.x, wrist.y];
+
+            var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+            var angle = Math.abs(radians * 180.0 / Math.PI)
+
+            if (angle > 180.0) {
+                angle = 360 - angle
+            }
+            return angle;
+        }
+        // ============================================================================== Legraise =================================================================================== // 
+        // ท่า Legraise
+        function getPoseLegraise(poseLandmarks) {
+            var shoulderRight = poseLandmarks[12];
+            var elbowRight = poseLandmarks[14];
+            var wristRight = poseLandmarks[16];
+
+            var angle = Legraise_calculate_angle(shoulderRight, elbowRight, wristRight);
+
+            countScoreLegraise(angle, poseLandmarks);
+        }
+        // ตรวจสอบท่าคำนวณ Pushup 
+        async function countScoreLegraise(angle, poseLandmarks) {
             if (CheckSpot(poseLandmarks)) {
                 if (angle > 160) {
                     stage = "down"
                 }
-                if (angle < 60 && stage == "down") {
+                if (angle < 100 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
                     var currentex = document.getElementById("CurrentEx").innerHTML;
                     document.getElementById("CurrentEx").innerHTML = "Push-UP";
@@ -785,10 +836,54 @@
                 }
             }
         }
-        function Pushup_calculate_angle(wrist, elbow, shoulder) {
-            var a = [wrist.x, shoulder.y];
+        function Pushup_calculate_angle(shoulder, elbow, wrist) {
+            var a = [shoulder.x, shoulder.y];
             var b = [elbow.x, elbow.y];
-            var c = [shoulder.x, wrist.y];
+            var c = [wrist.x, wrist.y];
+
+            var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+            var angle = Math.abs(radians * 180.0 / Math.PI)
+
+            if (angle > 180.0) {
+                angle = 360 - angle
+            }
+            return angle;
+        }
+
+        function getPosePushup(poseLandmarks) {
+            var shoulderRight = poseLandmarks[12];
+            var elbowRight = poseLandmarks[14];
+            var wristRight = poseLandmarks[16];
+
+            var angle = Pushup_calculate_angle(shoulderRight, elbowRight, wristRight);
+
+            countScorePushup(angle, poseLandmarks);
+        }
+        // ตรวจสอบท่าคำนวณ Pushup 
+        async function countScorePushup(angle, poseLandmarks) {     
+                if (angle > 160) {
+                    stage = "down"
+                }
+                if (angle < 100 && stage == "down") {
+                    var counter = document.getElementById("showCounter").innerHTML;
+                    var currentex = document.getElementById("CurrentEx").innerHTML;
+                    document.getElementById("CurrentEx").innerHTML = "Push-UP";
+                    console.log("counter : " + counter);
+                    counter++;
+                    stage = "up";
+                    // success
+
+                    // change score
+                    document.getElementById("showCounter").innerHTML = counter;
+                    await plusScore("push-up")
+                    PlusCurrentScore()
+                    console.log(poseLandmarks)
+                }    
+        }
+        function Pushup_calculate_angle(shoulder, elbow, wrist) {
+            var a = [shoulder.x, shoulder.y];
+            var b = [elbow.x, elbow.y];
+            var c = [wrist.x, wrist.y];
 
             var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
             var angle = Math.abs(radians * 180.0 / Math.PI)

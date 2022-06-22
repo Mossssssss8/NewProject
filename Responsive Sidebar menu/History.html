@@ -118,7 +118,7 @@
             <th data-sort="cta"></th>
             <th data-sort="status">Timer</th>
             <th data-sort="cta"></th>
-            <th data-sort="status">Date</th>
+            <th data-sort="status">Calories</th>
             <th data-sort="cta"></th>
           </tr>
         </thead>
@@ -133,7 +133,7 @@
           </td>
           <td></td>
           <td class="integrations-cta">
-            <span class="button button--xs button--primary">0/0/0</span>
+            <span id="calPullup"  class="button button--xs button--primary">0/0/0</span>
           </td>
           </tr>
           <tr>
@@ -147,7 +147,7 @@
             </td>
             <td></td>
             <td class="integrations-cta">
-              <span class="button button--xs button--primary">0/0/0</span>
+              <span id="calDMPushup" class="button button--xs button--primary">0/0/0</span>
             </td>
           </tr>
           <tr>
@@ -161,7 +161,7 @@
             </td>
             <td></td>
             <td class="integrations-cta">
-              <span class="button button--xs button--primary">0/0/0</span>
+              <span id="calPushup" class="button button--xs button--primary">0/0/0</span>
             </td>
           </tr>
           <tr>
@@ -175,7 +175,7 @@
             </td>
             <td></td>
             <td class="integrations-cta">
-              <span class="button button--xs button--primary">0/0/0</span>
+              <span id="calLegraise" class="button button--xs button--primary">0/0/0</span>
             </td>
           </tr>
           <tr>
@@ -189,7 +189,7 @@
             </td>
             <td></td>
             <td class="integrations-cta">
-              <span class="button button--xs button--primary">0/0/0</span>
+              <span id="calsquats" class="button button--xs button--primary">0/0/0</span>
             </td>
           </tr>
         </tbody>
@@ -249,9 +249,13 @@
       document.getElementById('TimeLegraise').innerHTML = timeset(TimeLegraise)
       document.getElementById('TimeDMPushup').innerHTML = timeset(TimeDMPushup)
 
-
+      document.getElementById('calsquats').innerHTML = calcal(Timesquats,1)
+      document.getElementById('calPullup').innerHTML = calcal(TimePullup,3)
+      document.getElementById('calPushup').innerHTML = calcal(TimePushup,2)
+      document.getElementById('calLegraise').innerHTML = calcal(TimeLegraise,2)
+      document.getElementById('calDMPushup').innerHTML = calcal(TimeDMPushup,2)
+      
     }
-
     function timeset(time) {
       var fontNum = 0
       var backNum = 0
@@ -306,6 +310,45 @@
       } else {
         return num
       }
+    }
+    function calcal(second, Mode) {
+
+      var user = GetUser()
+
+      var kilocal
+      var bmr
+      var letcal
+      var lbm
+
+      if (user.gender.toLocaleLowerCase() == "male") {
+        letcal = 31
+        lbm = 0.32810 * (user.Weight) + (0.33929 * (user.Height)) - 29.5336
+
+
+      } else if (user.gender.toLocaleLowerCase() == "female") {
+        letcal = 27
+        lbm = 0.29569 * (user.Weight) + (0.42813 * (user.Height)) - 43.2933
+      }
+      bmr = 370 + (21.6 * lbm)
+
+      kilocal = bmr / 24
+
+      var min = second * 0.0166666667
+      var calmode
+
+      if (Mode == 1) {
+        calmode = 0.5
+      } else if (Mode == 2) {
+        calmode = 0.7
+      } else if (Mode == 3) {
+        calmode = 1
+      }
+      var result = (kilocal * min) * calmode
+
+      // var Inresult = result + Inresult
+
+      return result.toFixed(2);
+
     }
   </script>
   <script src="script.js"></script>

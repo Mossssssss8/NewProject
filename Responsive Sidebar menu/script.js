@@ -28,7 +28,7 @@ function GetUser_id() {
     return JSON.parse(localStorage.getItem("User_Ex"))
 }
 
-async function getUserByid (userid){
+async function getUserByid(userid) {
     var response = await fetch(UserApi + "get/" + userid, {
         method: 'GET',
         headers: {
@@ -43,7 +43,7 @@ async function getUserByid (userid){
 }
 async function init() {
     const user = localStorage.getItem("User_Ex");
-    var userjson = JSON.parse(user) 
+    var userjson = JSON.parse(user)
     getUserByid(userjson._id)
     console.log(user)
     console.log(location.search)
@@ -112,4 +112,16 @@ function alertMessage() {
 
 }
 
+function disabledLi(isOpen) {
+    var a = document.querySelectorAll("li")
+    a.forEach((i) => {
+        if (!isOpen) {
+            i.style.pointerEvents = "none"
+            i.style.opacity = 0.6;
+        }else{
+            i.style.pointerEvents = ""
+            i.style.opacity = 1;
+        }
 
+    })
+}

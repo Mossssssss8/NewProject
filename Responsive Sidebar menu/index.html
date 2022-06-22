@@ -107,7 +107,7 @@
         <section class="first-section">
             <div class="head_content_index">
                 <div class="overlay">
-                    <div class="text">      
+                    <div class="text">
                         <span>D</span>
                         <span>A</span>
                         <span>S</span>
@@ -140,7 +140,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6" style="margin-top: 10px; background-color:white" id="chart1">
-                        
+
                     </div>
                     <!-- --------------------------------------------------------------------------------------------------------------------- -->
 
@@ -153,9 +153,10 @@
                                     <!-- title -->
                                     <div class="d-md-flex">
                                         <div>
-                                            <h4 style="text-transform:uppercase" class="card-title">HIIT Mode Traing</h4>
+                                            <h4 style="text-transform:uppercase" class="card-title">HIIT Mode Traing
+                                            </h4>
                                         </div>
-                                        
+
                                     </div>
                                     <!-- title -->
                                     <div class="table-responsive">
@@ -186,11 +187,12 @@
                                 <!-- title -->
                                 <div class="d-md-flex">
                                     <div>
-                                        <h4 style="text-transform:uppercase" class="card-title">Endurance Mode Training</h4>
+                                        <h4 style="text-transform:uppercase" class="card-title">Endurance Mode Training
+                                        </h4>
                                     </div>
                                     <div class="ms-auto">
                                         <div class="dl">
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -350,7 +352,7 @@
                 if (isRederchart) {
                     document.querySelector("#chart").innerHTML = "";
                     document.querySelector("#chart1").innerHTML = "";
-                }else{
+                } else {
                     isRederchart = true;
                 }
                 chart.render();
@@ -535,20 +537,25 @@
                 forshow = Allscore.filter((s) => {
                     var showMode
                     var showTime
+                    var showStatus
                     var tomoment = moment(s.DateTime)
+                    var Fullround
                     if (s.NameEx == "hiit" && tomoment > now) {
                         var newDate = new Date(s.DateTime)
                         var newFormatDate = `${newDate.getDate()}/${newDate.getMonth() + 1}/${newDate.getFullYear()}`
                         if (s.Score == 1) {
                             showMode = "Easy"
+                            Fullround = 8 * 5
                         } else if (s.Score == 2) {
                             showMode = "Intermediate"
+                            Fullround = 12 * 5
                         } else if (s.Score == 3) {
                             showMode = "Advance"
+                            Fullround = 15 * 5
                         } if (s.Status) {
-                            s.Status = "<span class='badge bg-success text-muted' style='color:white !important' >Complete</span>"
+                            showStatus = "<span class='badge bg-success text-muted' style='color:white !important' >Complete</span>"
                         } else if (!s.Status) {
-                            s.Status = "<span class='badge bg-danger text-muted' style='color:white !important'>Incomplete</span>"
+                            showStatus = "<span class='badge bg-danger text-muted addMore'  style='color:white !important' title='Incomplete : Timeout'>Incomplete</span>"
                         }
 
                         if (s.Seconds == 0) {
@@ -556,7 +563,21 @@
                         } else {
                             showTime = timeset(s.Seconds)
                         }
-                        document.getElementById('HiiT').innerHTML += `<tr><td> ${showMode}</td> <td> ${newFormatDate} </td> <td> ${showTime} </td><td> ${s.Status} </td><td> ${calcal(s.Seconds, s.Score)} </td></tr>`
+                        var percent =1;
+                        if(!s.Status){
+                            var Allrep = GetRepByTime(s.createdAt , Allscore)
+                            console.log("Allrep")
+                            console.log(Allrep)
+                            var allscore= 0;
+                            Allrep.forEach((f)=>{
+                                allscore += parseInt(f.Score)
+                            })
+                            percent = allscore / Fullround
+                            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% " + percent)
+                        }
+                        var TotalCal = calcal(s.Seconds, s.Score);
+
+                        document.getElementById('HiiT').innerHTML += `<tr><td> ${showMode}</td> <td> ${newFormatDate} </td> <td> ${showTime} </td><td> ${showStatus} </td><td> ${ (parseFloat(percent) * parseFloat(TotalCal)).toFixed(2) } </td></tr>`
                         return s
                     }
                 })
@@ -564,27 +585,45 @@
                 forshow = Allscore.filter((s) => {
                     var showMode
                     var showTime
+                    var showStatus
                     var tomoment = moment(s.DateTime)
+                    var Fullround
                     if (s.NameEx == "endurance" && tomoment > now) {
                         var newDate = new Date(s.DateTime)
                         var newFormatDate = `${newDate.getDate()}/${newDate.getMonth() + 1}/${newDate.getFullYear()}`
                         if (s.Score == 1) {
                             showMode = "Easy"
+                            Fullround = 8 * 5
                         } else if (s.Score == 2) {
                             showMode = "Intermediate"
+                            Fullround = 12 * 5
                         } else if (s.Score == 3) {
                             showMode = "Advance"
+                            Fullround = 15 * 5
                         } if (s.Status) {
-                            s.Status = "<span class='badge bg-success text-muted' style='color:white !important' >Complete</span>"
+                            showStatus = "<span class='badge bg-success text-muted' style='color:white !important' >Complete</span>"
                         } else if (!s.Status) {
-                            s.Status = "<span class='badge bg-danger text-muted' style='color:White !important'>Incomplete</span>"
+                            showStatus = "<span class='badge bg-danger text-muted addMore'  style='color:white !important' title='Incomplete : Timeout'>Incomplete</span>"
                         }
                         if (s.Seconds == 0) {
                             showTime = "--:--"
                         } else {
                             showTime = timeset(s.Seconds)
                         }
-                        document.getElementById('Endurance').innerHTML += `<tr><td> ${showMode}</td> <td> ${newFormatDate} </td> <td> ${showTime} </td><td> ${s.Status} </td><td> ${calcal(s.Seconds, s.Score)} </td></tr>`
+                        var percent =1;
+                        if(!s.Status){
+                            var Allrep = GetRepByTime(s.createdAt , Allscore)
+                            console.log("Allrep")
+                            console.log(Allrep)
+                            var allscore= 0;
+                            Allrep.forEach((f)=>{
+                                allscore += parseInt(f.Score)
+                            })
+                            percent = allscore / Fullround
+                            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% " + percent)
+                        }
+                        var TotalCal = calcal(s.Seconds, s.Score);
+                        document.getElementById('Endurance').innerHTML += `<tr><td> ${showMode}</td> <td> ${newFormatDate} </td> <td> ${showTime} </td><td> ${showStatus} </td><td> ${(parseFloat(percent) * parseFloat(TotalCal)).toFixed(2)} </td></tr>`
                         return s
                     }
 
@@ -637,8 +676,29 @@
                     calmode = 1
                 }
                 var result = (kilocal * min) * calmode
+
+                // var Inresult = result + Inresult
+
                 return result.toFixed(2);
 
+            }
+            function GetRepByTime(time,Allscore) {
+                var a = moment(time)
+                var b = moment(time)
+                var c = moment(time)
+                var user = GetUser()
+                var forReturn
+                b.subtract(15, "second")
+                c.add(15, "second")
+
+                forReturn = Allscore.filter((s) => {
+                    var stime = moment(s.createdAt)
+
+                    if (b < stime && stime < c && s.NameEx.toLowerCase() != "hiit") {
+                        return s
+                    }
+                })
+                return forReturn
             }
         </script>
 </body>

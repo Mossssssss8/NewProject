@@ -543,6 +543,22 @@
     text-transform: uppercase;
 }
 
+
+.addMore {
+    border: none;
+    width: 100px;
+    height: 20px;
+    background-color: #eee;
+    transition: all ease-in-out 0.2s;
+    cursor: pointer;
+}
+
+
+/* .addMore:hover {
+    border: 1px solid #888;
+    background-color: #ddd;
+} */
+
 /* .first-section {
     background: #000;
 } */

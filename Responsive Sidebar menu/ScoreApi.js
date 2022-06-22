@@ -1,6 +1,7 @@
 
 const ScoreApi = "http://localhost:3000/score/"
 
+
 class ScoreModel {
     UserId = null
     NameEx = null

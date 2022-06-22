@@ -1,0 +1,12 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(-30deg ,#33ccff ,#81d5ff,#ffccff,#81d5ff);
+}
+.container{
+    width: 90%;
+    height: 85vh;
+    background: rgba(255, 255, 255,. 4);
+}
