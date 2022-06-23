@@ -113,7 +113,6 @@
         <!-- <div class="text">Set mode</div> -->
         <!-- <button type="button" class="btn btn-secondary btn-lg" href="#">HIIT Mode</button>
         <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button> -->
-
         <div class="Time , Counter">
             <h1 style="text-align: center;"> Counter : <span id="showCounter">0 </span></h1>
             <button id="TimeBTN" onclick="startTime()"> Start </button>
@@ -121,11 +120,21 @@
             <button onclick="getUserScore()"> getScore </button> -->
             <h1 style="text-align: center;"> Timer : <span id="showTime">0 </span></h1>
         </div>
-        <div class="container">
-            <video class="input_video"></video>
-            <canvas class="output_canvas" width="1280px" height="720px"></canvas>
-            <div class="landmark-grid-container"></div>
-        </div>
+        <main>
+            <section class="">
+                <video class="input_video glass"
+                    style="margin-right: 500px;margin-top: -155px; margin-left: 350px;"></video>
+                <div>
+                    <canvas class="output_canvas" style="display: none;" width="1280px" height="720px"></canvas>
+                </div>
+                <div class="landmark-grid-container" style="display: none;"></div>
+                <div class="gmae">
+                    <div class="status"></div>
+                        <h1> Exercise</h1>
+                </div>
+            </section>
+        </main>
+
     </section>
 
     <script>
@@ -188,7 +197,7 @@
 
             }
         }
-        function alertlogin(){
+        function alertlogin() {
             Swal.fire({
                 title: "Register",
                 text: 'Please Register or Login !! ',
@@ -270,7 +279,9 @@
             height: 720
         });
         camera.start();
-        
+        currentExerise = 1
+        getPoseSquats(poseLandmarks)
+
         // ============================================================================== Pull-UP =================================================================================== // 
         // ตรวจจับท่า Pull-Up
         function getPosePullup(poseLandmarks) {
@@ -426,13 +437,17 @@
                 }
                 if (angle < 75 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
+                    var currentex = document.getElementById("CurrentEx").innerHTML;
+                    document.getElementById("CurrentEx").innerHTML = "Squats";
                     console.log("counter : " + counter);
                     counter++;
                     stage = "up";
                     // success
+
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
                     await plusScore("Squats");
+                    PlusCurrentScore()
                     console.log(poseLandmarks)
                 }
             }

@@ -148,7 +148,8 @@
                     <div class="row">
                         <!-- column -->
                         <div class="col-12">
-                            <div class="card" style="margin-top: 10px ; margin-left: 1px; margin-right: -25px;">
+                            <div class="card"
+                                style="margin-top: 10px ; margin-left: 1px; margin-right: -25px; background: rgba(255, 255, 255, 0.5);">
                                 <div class="card-body">
                                     <!-- title -->
                                     <div class="d-md-flex">
@@ -163,11 +164,13 @@
                                         <table class="table mb-0 table-hover align-middle text-nowrap">
                                             <thead>
                                                 <tr class="textDashboard">
-                                                    <th class="border-top-0">Exercise - Type</th>
-                                                    <th class="border-top-0">Date</th>
-                                                    <th class="border-top-0">Duration</th>
-                                                    <th class="border-top-0">Status - Exercise</th>
-                                                    <th class="border-top-0">Calories</th>
+                                                    <th style="font-size: 110% " class="border-top-0">Exercise - Type
+                                                    </th>
+                                                    <th style="font-size: 110% " class="border-top-0">Date</th>
+                                                    <th style="font-size: 110% " class="border-top-0">Duration</th>
+                                                    <th style="font-size: 110% " class="border-top-0">Status - Exercise
+                                                    </th>
+                                                    <th style="font-size: 110% " class="border-top-0">Calories</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="HiiT">
@@ -182,7 +185,8 @@
 
                     <!-- Endurance -->
                     <div class="col-12">
-                        <div class="card" style="margin-top: 10px ; margin-left: 1px;">
+                        <div class="card"
+                            style="margin-top: 10px ; margin-left: 1px; background: rgba(255, 255, 255, 0.5);">
                             <div class="card-body">
                                 <!-- title -->
                                 <div class="d-md-flex">
@@ -201,11 +205,11 @@
                                     <table class="table mb-0 table-hover align-middle text-nowrap">
                                         <thead>
                                             <tr class="textDashboard">
-                                                <th class="border-top-0">Exercise - Type</th>
-                                                <th class="border-top-0">Date</th>
-                                                <th class="border-top-0">Duration</th>
-                                                <th class="border-top-0">Status - Exercise</th>
-                                                <th class="border-top-0">Calories</th>
+                                                <th style="font-size: 110% " class="border-top-0">Exercise - Type</th>
+                                                <th style="font-size: 110% " class="border-top-0">Date</th>
+                                                <th style="font-size: 110% " class="border-top-0">Duration</th>
+                                                <th style="font-size: 110% " class="border-top-0">Status - Exercise</th>
+                                                <th style="font-size: 110% " class="border-top-0">Calories</th>
                                             </tr>
                                         </thead>
                                         <tbody id="Endurance">
@@ -563,13 +567,13 @@
                         } else {
                             showTime = timeset(s.Seconds)
                         }
-                        var percent =1;
-                        if(!s.Status){
-                            var Allrep = GetRepByTime(s.createdAt , Allscore)
+                        var percent = 1;
+                        if (!s.Status) {
+                            var Allrep = GetRepByTime(s.createdAt, Allscore)
                             console.log("Allrep")
                             console.log(Allrep)
-                            var allscore= 0;
-                            Allrep.forEach((f)=>{
+                            var allscore = 0;
+                            Allrep.forEach((f) => {
                                 allscore += parseInt(f.Score)
                             })
                             percent = allscore / Fullround
@@ -577,7 +581,7 @@
                         }
                         var TotalCal = calcal(s.Seconds, s.Score);
 
-                        document.getElementById('HiiT').innerHTML += `<tr><td> ${showMode}</td> <td> ${newFormatDate} </td> <td> ${showTime} </td><td> ${showStatus} </td><td> ${ (parseFloat(percent) * parseFloat(TotalCal)).toFixed(2) } </td></tr>`
+                        document.getElementById('HiiT').innerHTML += `<tr><td> ${showMode}</td> <td> ${newFormatDate} </td> <td> ${showTime} </td><td> ${showStatus} </td><td> ${(parseFloat(percent) * parseFloat(TotalCal)).toFixed(2)} </td></tr>`
                         return s
                     }
                 })
@@ -610,13 +614,13 @@
                         } else {
                             showTime = timeset(s.Seconds)
                         }
-                        var percent =1;
-                        if(!s.Status){
-                            var Allrep = GetRepByTime(s.createdAt , Allscore)
+                        var percent = 1;
+                        if (!s.Status) {
+                            var Allrep = GetRepByTime(s.createdAt, Allscore)
                             console.log("Allrep")
                             console.log(Allrep)
-                            var allscore= 0;
-                            Allrep.forEach((f)=>{
+                            var allscore = 0;
+                            Allrep.forEach((f) => {
                                 allscore += parseInt(f.Score)
                             })
                             percent = allscore / Fullround
@@ -682,7 +686,7 @@
                 return result.toFixed(2);
 
             }
-            function GetRepByTime(time,Allscore) {
+            function GetRepByTime(time, Allscore) {
                 var a = moment(time)
                 var b = moment(time)
                 var c = moment(time)

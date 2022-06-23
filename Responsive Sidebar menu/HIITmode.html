@@ -146,11 +146,16 @@
                 <h1>Current score : <span id="CurrentScore">0</span></h1>
             </div>
 
-            <div class="container">
-                <video class="input_video"></video>
-                <canvas class="output_canvas" width="1280px" height="720px"></canvas>
-                <div class="landmark-grid-container"></div>
-            </div>
+            <main>
+                <section class="">
+                    <video class="input_video glass"
+                        style="margin-right: 500px;margin-top: -155px; margin-left: 350px;"></video>
+                    <div><canvas class="output_canvas" style="display: none;" width="1280px" height="720px"></canvas>
+                    </div>
+                    <div class="landmark-grid-container" style="display: none;"></div>
+                </section>
+            </main>
+
     </section>
 
     <script>
@@ -204,7 +209,7 @@
             console.log(timeleft)
             if (Mode == "Easy") {
                 console.log("Easysssss")
-                setTime = 5
+                setTime = 10 * 60
             } if (Mode == "Intermediate") {
                 setTime = 20 * 60
             } if (Mode == "Advance") {
@@ -769,25 +774,25 @@
             countScorePushup(angle, poseLandmarks);
         }
         // ตรวจสอบท่าคำนวณ Pushup 
-        async function countScorePushup(angle, poseLandmarks) {     
-                if (angle > 160) {
-                    stage = "down"
-                }
-                if (angle < 100 && stage == "down") {
-                    var counter = document.getElementById("showCounter").innerHTML;
-                    var currentex = document.getElementById("CurrentEx").innerHTML;
-                    document.getElementById("CurrentEx").innerHTML = "Push-UP";
-                    console.log("counter : " + counter);
-                    counter++;
-                    stage = "up";
-                    // success
+        async function countScorePushup(angle, poseLandmarks) {
+            if (angle > 160) {
+                stage = "down"
+            }
+            if (angle < 100 && stage == "down") {
+                var counter = document.getElementById("showCounter").innerHTML;
+                var currentex = document.getElementById("CurrentEx").innerHTML;
+                document.getElementById("CurrentEx").innerHTML = "Push-UP";
+                console.log("counter : " + counter);
+                counter++;
+                stage = "up";
+                // success
 
-                    // change score
-                    document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore("push-up")
-                    PlusCurrentScore()
-                    console.log(poseLandmarks)
-                }    
+                // change score
+                document.getElementById("showCounter").innerHTML = counter;
+                await plusScore("push-up")
+                PlusCurrentScore()
+                console.log(poseLandmarks)
+            }
         }
         function Pushup_calculate_angle(shoulder, elbow, wrist) {
             var a = [shoulder.x, shoulder.y];
@@ -860,25 +865,25 @@
             countScorePushup(angle, poseLandmarks);
         }
         // ตรวจสอบท่าคำนวณ Pushup 
-        async function countScorePushup(angle, poseLandmarks) {     
-                if (angle > 160) {
-                    stage = "down"
-                }
-                if (angle < 100 && stage == "down") {
-                    var counter = document.getElementById("showCounter").innerHTML;
-                    var currentex = document.getElementById("CurrentEx").innerHTML;
-                    document.getElementById("CurrentEx").innerHTML = "Push-UP";
-                    console.log("counter : " + counter);
-                    counter++;
-                    stage = "up";
-                    // success
+        async function countScorePushup(angle, poseLandmarks) {
+            if (angle > 160) {
+                stage = "down"
+            }
+            if (angle < 100 && stage == "down") {
+                var counter = document.getElementById("showCounter").innerHTML;
+                var currentex = document.getElementById("CurrentEx").innerHTML;
+                document.getElementById("CurrentEx").innerHTML = "Push-UP";
+                console.log("counter : " + counter);
+                counter++;
+                stage = "up";
+                // success
 
-                    // change score
-                    document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore("push-up")
-                    PlusCurrentScore()
-                    console.log(poseLandmarks)
-                }    
+                // change score
+                document.getElementById("showCounter").innerHTML = counter;
+                await plusScore("push-up")
+                PlusCurrentScore()
+                console.log(poseLandmarks)
+            }
         }
         function Pushup_calculate_angle(shoulder, elbow, wrist) {
             var a = [shoulder.x, shoulder.y];
