@@ -56,9 +56,9 @@ async function getScoreById(userId) {
 function CountTimeByNameEx(AllScore, nameEx) {
     var time = 0
     AllScore.forEach(s => {
-        
+
         if (s.NameEx.toLowerCase() == nameEx.toLowerCase()) {
-            if(s.Seconds != null){
+            if (s.Seconds != null) {
                 time = time + s.Seconds
             }
             // time = time + s.Seconds
@@ -102,4 +102,21 @@ async function setScore() {
     document.getElementById("showCounter").innerHTML = Score
     console.log("Set Score")
     init();
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        Toast.fire({
+            icon: 'success',
+            title: 'Signed in successfully'
+        })
+    
+
 }
