@@ -11,6 +11,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -128,50 +129,151 @@
                 <!-- <a href="#scrollto"><img src="../หน้าต่าง Login/img/ex2.jpg"></a></div> -->
         </section>
         <section>
-            <div class="video" style="margin-top: 35px;">
-
-                <video id="videoPlayer" width="33%" controls muted="muted" autoplay>
+            <!-- <div class="mySlides fade" style="margin-top: 35px; ">
+                <video id="videoPlayer" width="600px" controls muted="muted" autoplay>
                     <source src="./Video-Stream/DiamondPU.mp4" type="video/mp4">
                 </video>
-                <video id="videoPlayer" width="33%" controls muted="muted" autoplay>
+                <video id="videoPlayer" width="600px" controls muted="muted" autoplay>
                     <source src="./Video-Stream/PikePush-UP.mp4" type="video/mp4">
                 </video>
-                <video id="videoPlayer" width="33%" controls muted="muted" autoplay>
+                <video id="videoPlayer" width="600px" controls muted="muted" autoplay>
                     <source src="./Video-Stream/Leg-Raise.mp4" type="video/mp4">
                 </video>
-                <video id="videoPlayer" width="33%" controls muted="muted" autoplay>
+                <video id="videoPlayer" width="600px" controls muted="muted" autoplay>
                     <source src="./Video-Stream/Dumbell Curl.mp4" type="video/mp4">
                 </video>
-                <video id="videoPlayer" width="33%" controls muted="muted" autoplay>
+                <video id="videoPlayer" width="600px" controls muted="muted" autoplay>
                     <source src="./Video-Stream/DumbellShoulderPress.mp4" type="video/mp4">
                 </video>
-                <!-- <video id="videoPlayer" width="600" controls muted="muted" autoplay>
-                <source src="./Video-Stream/Squats.mp4" type="video/mp4"> 
-            </video> -->
+                <video id="videoPlayer" width="600px" controls muted="muted" autoplay>
+                    <source src="./Video-Stream/Squats.mp4" type="video/mp4">
+                </video>
+                <video id="videoPlayer" width="600px" controls muted="muted" autoplay>
+                    <source src="./Video-Stream/PullUP.mp4" type="video/mp4">
+                </video> -->
+
+            <div class="slideshow-container">
+
+                <div class="mySlides fade">
+                    <div class="numbertext">1 / 7</div>
+                    <video id="videoPlayer" width="1000px" controls muted="muted" autoplay>
+                        <source src="./Video-Stream/DiamondPU.mp4" type="video/mp4">
+                    </video>
+                    <!-- <div class="text">Caption Text</div> -->
+                </div>
+
+                <div class="mySlides fade">
+                    <div class="numbertext">2 / 7</div>
+                    <video id="videoPlayer" width="1000px" controls muted="muted" autoplay>
+                        <source src="./Video-Stream/PikePush-UP.mp4" type="video/mp4">
+                    </video>
+                    <!-- <div class="text">Caption Two</div> -->
+                </div>
+
+                <div class="mySlides fade">
+                    <div class="numbertext">3 / 7</div>
+                    <video id="videoPlayer" width="1000px" controls muted="muted" autoplay>
+                        <source src="./Video-Stream/Leg-Raise.mp4" type="video/mp4">
+                    </video>
+                    <!-- <div class="text">Caption Three</div> -->
+                </div>
+                <div class="mySlides fade">
+                    <div class="numbertext">4 / 7</div>
+                    <video id="videoPlayer" width="1000px" controls muted="muted" autoplay>
+                        <source src="./Video-Stream/Dumbell Curl.mp4" type="video/mp4">
+                    </video>
+                    <!-- <div class="text">Caption Three</div> -->
+                </div>
+                <div class="mySlides fade">
+                    <div class="numbertext">5 / 7</div>
+                    <video id="videoPlayer" width="1000px" controls muted="muted" autoplay>
+                        <source src="./Video-Stream/DumbellShoulderPress.mp4" type="video/mp4">
+                    </video>
+                    <!-- <div class="text">Caption Three</div> -->
+                </div>
+                <div class="mySlides fade">
+                    <div class="numbertext">6 / 7</div>
+                    <video id="videoPlayer" width="1000px" controls muted="muted" autoplay>
+                        <source src="./Video-Stream/Squats.mp4" type="video/mp4">
+                    </video>
+                    <!-- <div class="text">Caption Three</div> -->
+                </div>
+                <div class="mySlides fade">
+                    <div class="numbertext">7 / 7</div>
+                    <video id="videoPlayer" width="1000px" controls muted="muted" autoplay>
+                        <source src="./Video-Stream/PullUP.mp4" type="video/mp4">
+                    </video>
+                    <!-- <div class="text">Caption Three</div> -->
+                </div>
+
+                <a class="prev w3-button w3-black w3-display-left" onclick="plusSlides(-1)">❮</a>
+                <a class="next w3-button w3-black w3-display-right" onclick="plusSlides(1)">❯</a>
+
+            </div>
+            <br>
+
+            <div style="text-align:center">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+                <span class="dot" onclick="currentSlide(6)"></span>
+                <span class="dot" onclick="currentSlide(7)"></span>
+            </div>
         </section>
     </section>
     <script src="script.js"></script>
     <script>
-        var html = `<video id="videoPlayer" width="800px" height="700px" controls muted="muted" autoplay>
-                    <source src="./Video-Stream/PullUP.mp4" type="video/mp4">
-                </video>`
-        Swal.fire({
-            // title: title,
-            // text: `ต้องผ่านภายใน 10 นาที  ทุกท่าทาง 8 ครั้ง / 1 เซต`,
-            html: html,
-            imageHeight: 1500,
-            width: '900px',
-            // Image : new Image(800,1500),
-            // icon: ,
-            // iconHtml: '?',
-            confirmButtonText: 'ตกลง',
-            // showCancelButton: true,
-            showCloseButton: false
-        }).then((result) => {
-            // camerastart();
-            // document.getElementById("TimeBTN").style.display = "block"
-            // SelectedMode(Mode)
-        })
+        // var html = `<video id="videoPlayer" width="800px" height="700px" controls muted="muted" autoplay>
+        //                 <source src="./Video-Stream/DiamondPU.mp4" type="video/mp4">
+        //             </video>`
+        // // var html = `<video id="videoPlayer" width="800px" height="700px" controls muted="muted" autoplay>
+        // //             <source src="./Video-Stream/PullUP.mp4" type="video/mp4">
+        // //         </video>`
+        // Swal.fire({
+        //     // title: ท่าควยไรวะ,
+        //     // text: `ท่าควยไรวะ`,
+        //     html: html,
+        //     imageHeight: 1500,
+        //     width: '900px',
+        //     // Image : new Image(800,1500),
+        //     // icon: ,
+        //     // iconHtml: '?',
+        //     confirmButtonText: 'ตกลง',
+        //     // showCancelButton: true,
+        //     showCloseButton: false
+        // }).then((result) => {
+        //     // camerastart();
+        //     // document.getElementById("TimeBTN").style.display = "block"
+        //     // SelectedMode(Mode)
+        // })
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "contents";
+            dots[slideIndex - 1].className += " active";
+        }
     </script>
 </body>
 
