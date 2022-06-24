@@ -115,8 +115,10 @@
         <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button> -->
         <div class="Time , Counter">
             <h1 class='text-cout'> Counter : <span id="showCounter">0 </span></h1>
-            <h1 class="text-rep"> Rep : <span id="showCounter">0 </span></h1>
+            <h1 class="text-rep"> Rep : <span id="showRep">0 </span></h1>
             <button class="btn-start" id="TimeBTN" onclick="startTime()"> Start </button>
+            <button style="display: flex;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
+
             <!-- <button id="plusScore" onclick="plusScore('squats')"> plusScore </button>
             <button onclick="getUserScore()"> getScore </button> -->
             <h1 class="text-timer"> Timer : <span id="showTime">0 </span></h1>
@@ -139,6 +141,7 @@
         var timeleft = 0;
         var isStart = false;
         var timeCountdown
+        var currentScore = 0
         function startTime() {
             if (isStart == false) {
                 isStart = true;
@@ -158,6 +161,11 @@
                 document.getElementById("showTime").innerHTML = timeleft;
                 timeleft++;
             }
+        }
+
+        function PlusCurrentScore() {
+            currentScore++;
+            document.getElementById("showCounter").innerHTML = currentScore
         }
         async function getUserScore() {
             const UserApi = "http://localhost:3000/user/"
@@ -297,13 +305,20 @@
                 }
                 if (angle < 50 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
+                    var reb = document.getElementById("showRep").innerHTML;
                     console.log("counter : " + counter);
                     counter++;
                     stage = "up";
+                    if(counter == 8){
+                        reb ++;
+                        counter = 0;
+                    }
                     // success
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
+                    document.getElementById("showRep").innerHTML = reb;
                     await plusScore("Pull-Up");
+                    PlusCurrentScore()
                     console.log(poseLandmarks)
 
                 }

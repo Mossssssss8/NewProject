@@ -656,17 +656,6 @@ main {
     margin-right: 5px;
 }
 
-<<<<<<< HEAD
-.textrep {
-    
-    box-sizing: border-box;
-    font-size: 500;
-    color: #252839;
-    min-height: 10vh;
-    -webkit-text-stroke: 0.24vw #383d52;
-    text-transform: uppercase;
-}
-=======
 * {
     box-sizing: border-box
 }
@@ -832,4 +821,3 @@ video {
 body{
     overflow-x: hidden;
 }
->>>>>>> d79d090c2f51e90c4f6dbd1500d75ca25c534b0d
