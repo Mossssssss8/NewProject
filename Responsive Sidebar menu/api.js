@@ -95,7 +95,7 @@ async function login() {
         location.href = "../Responsive Sidebar menu/index.html?LoginSucessfully"
     } else {
         Swal.fire(
-            'Invalid Username or Password!',
+            'กรุณาตรวจสอบ Username และ Password!',
             '',
             'error'
         )

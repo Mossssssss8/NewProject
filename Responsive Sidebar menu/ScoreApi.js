@@ -104,7 +104,7 @@ async function setScore() {
     init();
         const Toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: 'top',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
@@ -115,7 +115,10 @@ async function setScore() {
         })
         Toast.fire({
             icon: 'success',
-            title: 'Signed in successfully'
+            title: 'โปรดเลือกระดับความ ง่าย - ยาก ในการออกกำลังกาย',
+            text :'',
+            width:'700px'
+        
         })
     
 

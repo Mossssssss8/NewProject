@@ -245,7 +245,7 @@
                             data: []
                         },
                         {
-                            name: "Duration",
+                            name: "Duration(Minute)",
                             type: 'column',
                             data: []
                         },
@@ -345,11 +345,16 @@
 
                 options.series[0].data = myscore
 
-                mytime.push(TimePullup)
-                mytime.push(TimePushup)
-                mytime.push(Timesquats)
-                mytime.push(TimeDMPushup)
-                mytime.push(TimeLegraise)
+
+
+
+
+                mytime.push(SecToMin(TimePullup))
+                mytime.push(SecToMin(TimePushup))
+                mytime.push(SecToMin(Timesquats))
+                mytime.push(SecToMin(TimeDMPushup))
+                mytime.push(SecToMin(TimeLegraise))
+
 
                 options.series[1].data = mytime
                 var chart = new ApexCharts(document.querySelector("#chart"), options);
@@ -360,6 +365,10 @@
                     isRederchart = true;
                 }
                 chart.render();
+            }
+            function SecToMin(Seconds) {
+                var minute = parseInt(Seconds / 60)
+                return `${minute}.${Seconds % 60}`
             }
             function Getallscore1() {
                 var options1 = {

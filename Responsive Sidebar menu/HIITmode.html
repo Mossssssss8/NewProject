@@ -126,35 +126,41 @@
                 <button class="ButtinIntermediate btnspace" id="btn-Intermediate"
                     onclick="Setmode('Intermediate')">Intermediate</button>
                 <button class="ButtinAdvance btnspace" id="btn-Advance" onclick="Setmode('Advance')"> Advance </button>
-                <h1 style="text-align: center; display: none;"> Timer : <span id="showTime">0 </span></h1>
-                <button class="btn-hidden" id="TimeBTN" onclick="startTime()"> Start </button>
+                <button style="margin-top: 40px;" class="ButtinEasy btn-hidden" id="TimeBTN" onclick="startTime()">
+                    Start </button>
             </div>
             <div>
-                <button id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
+                <button style="display: flex;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
                 <button class="btn-hidden" onclick="getUserScore()"> getScore </button>
             </div>
 
-            <div class="Current , Exercise" style="display: none;">
+            <div class="Current , Exercise ">
                 <div style="width: 100%;" class="grid">
                     <div class="g-col-6">
-                        <h1> Current Exercise : <span id="CurrentEx">.</span></h1>
+                        <div style="margin-left: 46%;" class="g-col-6">
+                            <h2 style="margin-right: 100px; display: none;"> Next Exercise : <span id="NextEx"> </span>
+                            </h2>
+                        </div>
                     </div>
-                    <div style="margin-left: 46%;" class="g-col-6">
-                        <h2 style="margin-right: 100px; display: none;"> Next Exercise : <span id="NextEx"> </span></h2>
-                    </div>
+                    <h1 data-text="Repititions :"
+                        style="margin-left: 450px ;margin-top: 830px; margin-right: 50px; position: absolute;"
+                        class="textrep">Repititions <span id="CurrentScore">: 0</span></h1>
+                    <h1 style="margin-left: 810px ;margin-top: 830px; margin-right: 50px; position: absolute;"
+                        class="textrep"> Timer : <span id="showTime">0 </span></h1>
+                    <main>
+                        <h1 style="margin-top: 760px; margin-right: -590px; position:absolute;" class="textrep"><span
+                                id="CurrentEx">
+                            </span></h1>
+                        <video class="input_video glass"
+                            style="margin-right: 400px ;margin-top: -10px; margin-left: 350px;">
+                        </video>
+                        <div><canvas class="output_canvas" style="display: none;" width="1280px"
+                                height="720px"></canvas>
+                        </div>
+                        <div class="landmark-grid-container" style="display: none;"></div>
+                    </main>
                 </div>
-                <h1>Current score : <span id="CurrentScore">0</span></h1>
-            </div>
 
-            <main>
-                <section class="">
-                    <video class="input_video glass"
-                        style="margin-right: 500px;margin-top: -10px; margin-left: 350px;"></video>
-                    <div><canvas class="output_canvas" style="display: none;" width="1280px" height="720px"></canvas>
-                    </div>
-                    <div class="landmark-grid-container" style="display: none;"></div>
-                </section>
-            </main>
 
     </section>
 
@@ -182,10 +188,11 @@
                 disabledLi(false)
             } else {
                 Swal.fire({
-                    title: 'Do you want to Exit?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes',
-                    icon: "question"
+                    title: 'ออกจากการออกกำลังกาย ?',
+                    text: 'ระบบจะไม่ทำการบันทึกลงฐานข้อมูล',
+                    showCancelButton: 'ยกเลิก',
+                    confirmButtonText: 'Accept',
+                    icon: "error"
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
@@ -209,7 +216,7 @@
             console.log(timeleft)
             if (Mode == "Easy") {
                 console.log("Easysssss")
-                setTime = 10 * 60
+                setTime = 15
             } if (Mode == "Intermediate") {
                 setTime = 20 * 60
             } if (Mode == "Advance") {

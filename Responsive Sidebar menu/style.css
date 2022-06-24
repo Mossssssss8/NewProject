@@ -305,6 +305,8 @@
 } */
 
 
+
+
 .sidebar.open~.home-section {
     left: 250px;
     width: calc(100% - 250px);
@@ -614,33 +616,44 @@
 main {
     min-height: 100vh;
     background: linear-gradient(to right top, #65dfc9), #6cdbeb;
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 
 .glass {
-    
+
     background: white;
     min-height: 80vh;
-    width: 60%;
+    width: 1000px;
     background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
     border-radius: 2rem;
 }
 
-.glassbox{
+.glassbox {
     z-index: 1;
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     background: white;
     min-height: 5vh;
-    width: 30%;
-    height: 8%;
+    width: 550px;
+    height: 80px;
     background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
     border-radius: 2rem;
 }
-.btnspace{
+
+.btnspace {
     margin-right: 5px;
+}
+
+.textrep {
+    
+    box-sizing: border-box;
+    font-size: 500;
+    color: #252839;
+    min-height: 10vh;
+    -webkit-text-stroke: 0.24vw #383d52;
+    text-transform: uppercase;
 }
