@@ -118,7 +118,13 @@
             <h1 class="text-rep"> Rep : <span id="showRep">0 </span></h1>
             <button class="btn-start" id="TimeBTN" onclick="startTime()"> Start </button>
             <button style="display: flex;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
-
+            <div class="btn-ex">
+                <button id="TimeBTN" onclick="ChangenumEx(1)"> Pull-UP </button>
+                <button id="TimeBTN" onclick="ChangenumEx(2)"> Diamond-Push-Up </button>
+                <button id="TimeBTN" onclick="ChangenumEx(3)"> Push-Up </button>
+                <button id="TimeBTN" onclick="ChangenumEx(4)"> Legraise </button>
+                <button id="TimeBTN" onclick="ChangenumEx(5)"> Squats </button>
+            </div>
             <!-- <button id="plusScore" onclick="plusScore('squats')"> plusScore </button>
             <button onclick="getUserScore()"> getScore </button> -->
             <h1 class="text-timer"> Timer : <span id="showTime">0 </span></h1>
@@ -130,7 +136,7 @@
             </div>
             <div class="landmark-grid-container" style="display: none;"></div>
             <div>
-                <h1 class="gmae"> Exercise : </h1>
+                <h1 class="gmae"> Exercise :<span id="showNameEx">....</span> </h1>
             </div>
         </section>
 
@@ -142,6 +148,7 @@
         var isStart = false;
         var timeCountdown
         var currentScore = 0
+        var rep = 0
         function startTime() {
             if (isStart == false) {
                 isStart = true;
@@ -158,7 +165,7 @@
                 clearTimeout(timeleft);
                 document.getElementById("showTime").innerHTML = 0;
             } else {
-                document.getElementById("showTime").innerHTML = timeleft;
+                document.getElementById("showTime").innerHTML = timeset(timeleft);
                 timeleft++;
             }
         }
@@ -166,6 +173,60 @@
         function PlusCurrentScore() {
             currentScore++;
             document.getElementById("showCounter").innerHTML = currentScore
+            if(currentScore == 8){
+                rep++;
+                currentScore = 0;
+                document.getElementById("showRep").innerHTML = rep
+            }
+        }
+        function ChangenameEx(shownameEx) {
+            document.getElementById("showNameEx").innerHTML = shownameEx;
+        }
+        function timeset(time) {
+            var fontNum = 0
+            var backNum = 0
+            while (time > 0) {
+                if (time >= 60) {
+                    time = time - 60
+                    fontNum++
+                } else {
+                    backNum = time
+                    time = 0
+                }
+
+            }
+
+            console.log(`${setTwodigit(fontNum)}:${setTwodigit(backNum)}`)
+            console.log(`fontNum`)
+            return `${setTwodigit(fontNum)}:${setTwodigit(backNum)}`
+        }
+        function setTwodigit(num) {
+            var returnNum = "0";
+            if (num < 10) {
+                if (num == 9) {
+                    return "09"
+                } if (num == 8) {
+                    return "08"
+                } if (num == 7) {
+                    return "07"
+                } if (num == 6) {
+                    return "06"
+                } if (num == 5) {
+                    return "05"
+                } if (num == 4) {
+                    return "04"
+                } if (num == 3) {
+                    return "03"
+                } if (num == 2) {
+                    return "02"
+                } if (num == 1) {
+                    return "01"
+                } if (num == 0) {
+                    return "00"
+                }
+            } else {
+                return num
+            }
         }
         async function getUserScore() {
             const UserApi = "http://localhost:3000/user/"
@@ -219,12 +280,13 @@
         }
 
     </script>
-    <script type="module">
+    <script>
         const videoElement = document.getElementsByClassName('input_video')[0];
         const canvasElement = document.getElementsByClassName('output_canvas')[0];
         const canvasCtx = canvasElement.getContext('2d');
         const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
         const grid = new LandmarkGrid(landmarkContainer);
+        var nameEx = 0
 
         var stage = "down";
         function onResults(results) {
@@ -256,7 +318,21 @@
             canvasCtx.restore();
 
             getPoseSquats(results.poseLandmarks)
-
+            if (nameEx == 1) {
+                getPosePullup(results.poseLandmarks)
+            }
+            if (nameEx == 2) {
+                getPosePushup(results.poseLandmarks)
+            }
+            if (nameEx == 3) {
+                getPosePushup(results.poseLandmarks)
+            }
+            if (nameEx == 4) {
+                getPoseLegRaise(results.poseLandmarks)
+            }
+            if (nameEx == 5) {
+                getPoseSquats(results.poseLandmarks)
+            }
 
             grid.updateLandmarks(results.poseWorldLandmarks);
         }
@@ -284,8 +360,28 @@
             height: 720
         });
         camera.start();
+
         currentExerise = 1
-        getPoseSquats(poseLandmarks)
+        // getPoseSquats(poseLandmarks)
+        getPosePullup(poseLandmarks)
+        function ChangenumEx(num) {
+            nameEx = num;
+            if (num == 1) {
+                ChangenameEx('Pull-up')
+            }
+            if (num == 2) {
+                ChangenameEx('Diamond-Push-Up')
+            }
+            if (num == 3) {
+                ChangenameEx('Push-up')
+            }
+            if (num == 4) {
+                ChangenameEx('LegRaise')
+            }
+            if (num == 5) {
+                ChangenameEx('Squats')
+            }
+        }
 
         // ============================================================================== Pull-UP =================================================================================== // 
         // ตรวจจับท่า Pull-Up
@@ -309,8 +405,8 @@
                     console.log("counter : " + counter);
                     counter++;
                     stage = "up";
-                    if(counter == 8){
-                        reb ++;
+                    if (counter == 8) {
+                        reb++;
                         counter = 0;
                     }
                     // success
