@@ -275,12 +275,11 @@
     position: relative;
     background: linear-gradient(-30deg, #33ccff, #81d5ff, #ffccff, #81d5ff);
     min-height: 100vh;
-    top: 0;
+    top: 0px;
     left: 78px;
-    width: calc(100% - 78px);
+    width: calc(1920px - 78px);
     transition: all 0.5s ease;
     z-index: 2;
-    margin-top: -25px;
 }
 
 /* .home-sectionindex:before{
@@ -770,4 +769,53 @@ video {
     .text {
         font-size: 11px
     }
+}
+
+.position_video {
+    margin-top: 50px;
+    margin-left: 500px;
+    position: relative;
+}
+
+.text-cout {
+    position: absolute;
+    text-align: left;
+    margin-left: 520px;
+    margin-top: 60px;
+}
+
+.text-timer {
+    position: absolute;
+    /* text-align: right; */
+    /* margin-top: 40px; */
+    /* margin-right: 20px; */
+    margin-left: 1120px;
+}
+
+.gmae {
+    position: relative;
+    text-align: left;
+    /* margin-left: 700px; */
+    margin-top: 10px;
+}
+
+.btn-start {
+    position: relative;
+    margin-top: 30px;
+    margin-left: 890px;
+}
+.text-rep{
+    position: absolute;
+    margin-top: 60px;
+    margin-left: 850px;
+
+}
+
+.Time{
+    position: relative;
+    margin-top: -25px;
+}
+
+body{
+    overflow-x: hidden;
 }
