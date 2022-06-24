@@ -109,31 +109,28 @@
             </li>
         </ul>
     </div>
-    <section class="home-sectionindex" onload="setScore()">
+    <section class="home-section" onload="setScore()">
         <!-- <div class="text">Set mode</div> -->
         <!-- <button type="button" class="btn btn-secondary btn-lg" href="#">HIIT Mode</button>
         <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button> -->
         <div class="Time , Counter">
-            <h1 style="text-align: center;"> Counter : <span id="showCounter">0 </span></h1>
-            <button id="TimeBTN" onclick="startTime()"> Start </button>
+            <h1 class='text-cout'> Counter : <span id="showCounter">0 </span></h1>
+            <h1 class="text-rep"> Rep : <span id="showCounter">0 </span></h1>
+            <button class="btn-start" id="TimeBTN" onclick="startTime()"> Start </button>
             <!-- <button id="plusScore" onclick="plusScore('squats')"> plusScore </button>
             <button onclick="getUserScore()"> getScore </button> -->
-            <h1 style="text-align: center;"> Timer : <span id="showTime">0 </span></h1>
+            <h1 class="text-timer"> Timer : <span id="showTime">0 </span></h1>
         </div>
-        <main>
-            <section class="">
-                <video class="input_video glass"
-                    style="margin-right: 500px;margin-top: -155px; margin-left: 350px;"></video>
-                <div>
-                    <canvas class="output_canvas" style="display: none;" width="1280px" height="720px"></canvas>
-                </div>
-                <div class="landmark-grid-container" style="display: none;"></div>
-                <div class="gmae">
-                    <div class="status"></div>
-                        <h1> Exercise</h1>
-                </div>
-            </section>
-        </main>
+        <section class="position_video">
+            <video class="input_video glass"></video>
+            <div>
+                <canvas class="output_canvas" style="display: none;" width="1280px" height="720px"></canvas>
+            </div>
+            <div class="landmark-grid-container" style="display: none;"></div>
+            <div>
+                <h1 class="gmae"> Exercise : </h1>
+            </div>
+        </section>
 
     </section>
 
