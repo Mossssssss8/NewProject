@@ -118,7 +118,6 @@ async function setScore() {
             title: 'โปรดเลือกระดับความ ง่าย - ยาก ในการออกกำลังกาย',
             text :'',
             width:'700px'
-        
         })
     
 
