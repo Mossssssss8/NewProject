@@ -548,6 +548,22 @@
     }
 }
 
+.ButtinStart {
+
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    padding: 12px 36px;
+    margin: 10px 0;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    background: linear-gradient(90deg, #b001c8, #9ae1ff);
+}
+
 .ButtinEasy {
 
     justify-content: center;
@@ -631,9 +647,8 @@ main {
 
 
 .glass {
-
     background: white;
-    min-height: 80vh;
+    min-height: 500px;
     width: 1000px;
     background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
     border-radius: 2rem;
@@ -652,8 +667,50 @@ main {
     border-radius: 2rem;
 }
 
+.glassboxStatus {
+    margin-left: 600px;
+    margin-top: -350px;
+    background: white;
+    min-height: 5vh;
+    width: 550px;
+    height: 80px;
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+    border-radius: 2rem;
+}
+
+.textRep {
+    margin-left: 0px;
+    margin-top: -390px;
+    margin-right: 50px;
+    position: absolute;
+}
+
+.textTime {
+    margin-left: 800px;
+    margin-top: -390px;
+    margin-right: 50px;
+    position: absolute;
+
+}
+
+.textExercies {
+    margin-left: 1100px;
+    margin-top: -390px;
+    margin-right: 50px;
+    position: absolute;
+}
+
 .btnspace {
     margin-right: 5px;
+}
+
+.textcolor {
+    box-sizing: border-box;
+    font-size: 500;
+    color: #252839;
+    min-height: 10vh;
+    -webkit-text-stroke: 0.24vw #383d52;
+    text-transform: uppercase;
 }
 
 * {
@@ -806,18 +863,19 @@ video {
     margin-top: 30px;
     margin-left: 890px;
 }
-.text-rep{
+
+.text-rep {
     position: absolute;
     margin-top: 60px;
     margin-left: 850px;
 
 }
 
-.Time{
+.Time {
     position: relative;
     margin-top: -25px;
 }
 
-body{
+body {
     overflow-x: hidden;
 }

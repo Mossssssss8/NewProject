@@ -126,8 +126,8 @@
                 <button class="ButtinIntermediate btnspace" id="btn-Intermediate"
                     onclick="Setmode('Intermediate')">Intermediate</button>
                 <button class="ButtinAdvance btnspace" id="btn-Advance" onclick="Setmode('Advance')"> Advance </button>
-                <button style="margin-top: 40px;" class="ButtinEasy btn-hidden" id="TimeBTN" onclick="startTime()">
-                    Start </button>
+                <button style="margin-top: 35px;" class="ButtinStart btn-hidden" id="TimeBTN" onclick="startTime()">
+                    Start Training </button>
             </div>
             <div>
                 <button style="display: flex;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
@@ -142,26 +142,24 @@
                             </h2>
                         </div>
                     </div>
-                    <h1 data-text="Repititions :"
-                        style="margin-left: 450px ;margin-top: 830px; margin-right: 50px; position: absolute;"
-                        class="textrep">Repititions <span id="CurrentScore">: 0</span></h1>
-                    <h1 style="margin-left: 810px ;margin-top: 830px; margin-right: 50px; position: absolute;"
-                        class="textrep"> Timer : <span id="showTime">0 </span></h1>
-                    <main>
-                        <h1 style="margin-top: 760px; margin-right: -590px; position:absolute;" class="textrep"><span
-                                id="CurrentEx">
+                    <div>
+                        <main>
+                            <video class="input_video glass"
+                                style="margin-right: 400px ;margin-top: -250px; margin-left: 350px;">
+                            </video>
+                            <div><canvas class="output_canvas" style="display: none;" width="1280px"
+                                    height="720px"></canvas>
+                            </div>
+                            <div class="landmark-grid-container" style="display: none;"></div>
+                        </main>
+                    </div>
+                    <div class="textcolor glassboxStatus">
+                        <h1 data-text="Repititions :" class="textRep">Repititions <span id="CurrentScore">:
+                                0</span></h1>
+                        <h1 class=" textTime"> Timer : <span id="showTime">0 </span></h1>
+                        <h1 class=" textExercies">. <span id="CurrentEx">
                             </span></h1>
-                        <video class="input_video glass"
-                            style="margin-right: 400px ;margin-top: -10px; margin-left: 350px;">
-                        </video>
-                        <div><canvas class="output_canvas" style="display: none;" width="1280px"
-                                height="720px"></canvas>
-                        </div>
-                        <div class="landmark-grid-container" style="display: none;"></div>
-                    </main>
-                </div>
-
-
+                    </div>
     </section>
 
     <script>
@@ -183,7 +181,7 @@
                 iscomplete = false
                 isStart = true;
                 timeCountdown = setInterval(countdown, 1000)
-                document.getElementById("TimeBTN").innerHTML = "Exit"
+                document.getElementById("TimeBTN").innerHTML = "Exit Training"
                 timeleft = 0
                 disabledLi(false)
             } else {
@@ -198,7 +196,7 @@
                     if (result.isConfirmed) {
                         disabledLi(true)
                         isStart = false;
-                        document.getElementById("TimeBTN").innerHTML = "Start"
+                        document.getElementById("TimeBTN").innerHTML = "Start Training"
                         clearTimeout(timeCountdown);
                         // isStart = false;
                         // document.getElementById("TimeBTN").innerHTML = "Start"
@@ -216,7 +214,7 @@
             console.log(timeleft)
             if (Mode == "Easy") {
                 console.log("Easysssss")
-                setTime = 15
+                setTime = 10 * 60
             } if (Mode == "Intermediate") {
                 setTime = 20 * 60
             } if (Mode == "Advance") {
@@ -496,15 +494,6 @@
 
             return strToJson;
         }
-
-        // async function setScore() {
-
-        //     // var userScore = await getUserScore()
-        //     // userScore.squatsScore
-        //     // document.getElementById("showCounter").innerHTML = userScore.squatsScore
-        //     // console.log("Set Score")
-        //     // init();
-        // }
 
         function PlusCurrentScore() {
             currentScore++;
