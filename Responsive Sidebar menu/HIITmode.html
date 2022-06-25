@@ -144,8 +144,7 @@
                     </div>
                     <div>
                         <main>
-                            <video class="input_video glass"
-                                style="margin-right: 400px ;margin-top: -250px; margin-left: 350px;">
+                            <video class="input_video glass center">
                             </video>
                             <div><canvas class="output_canvas" style="display: none;" width="1280px"
                                     height="720px"></canvas>
@@ -153,11 +152,11 @@
                             <div class="landmark-grid-container" style="display: none;"></div>
                         </main>
                     </div>
-                    <div class="textcolor glassboxStatus">
-                        <h1 data-text="Repititions :" class="textRep">Repititions <span id="CurrentScore">:
+                    <div class="glassboxStatus center">
+                        <h1 data-text="Repititions" class=" textcolor textRep">Repititions : <span id="CurrentScore">
                                 0</span></h1>
-                        <h1 class=" textTime"> Timer : <span id="showTime">0 </span></h1>
-                        <h1 class=" textExercies">. <span id="CurrentEx">
+                        <h1 class=" textcolor textTime"> Timer : <span id="showTime">0 </span></h1>
+                        <h1 class=" textcolor1 textExercies"> <span id="CurrentEx">
                             </span></h1>
                     </div>
     </section>
@@ -177,6 +176,14 @@
         var currentExerise = 1
         var iscomplete = false
         function startTime() {
+            Swal.fire({
+                position: ' ',
+                icon: 'success',
+                title: 'เริ่มออกกำลังกาย',
+                text: 'ข้อควร : กรุณาให้กล้องเห็นทั้งร่างกาย!',
+                showConfirmButton: false,
+                timer: 2000
+            })
             if (isStart == false) {
                 iscomplete = false
                 isStart = true;
@@ -213,7 +220,6 @@
             var setTime = 0;
             console.log(timeleft)
             if (Mode == "Easy") {
-                console.log("Easysssss")
                 setTime = 10 * 60
             } if (Mode == "Intermediate") {
                 setTime = 20 * 60
@@ -289,14 +295,14 @@
                 // console.log(Mode)
                 title = "ระดับ Beginner"
                 html = `ต้องผ่านภายใน 10 นาที ทุกท่าทาง 8 ครั้ง / 1 เซต <br>
-                    Pull UP , Push-UP , Pike Push-UP , Leg Raise , Squats`
+                Squats , Pull-UP , Push-UP , Leg Raise , DMPush-UP`
             }
             if (Mode == "Intermediate") {
                 localStorage.setItem("Mode", "Intermediate")
                 console.log("Intermediate")
                 title = "ระดับ Intermediate"
                 html = `ต้องผ่านภายใน 20 นาที ทุกท่าทาง 12 ครั้ง / 1 เซต <br>
-                    Pull UP , Push-UP , Pike Push-UP , Leg Raise , Squats`
+                Squats , Pull-UP , Push-UP , Leg Raise , DMPush-UP`
             }
             if (Mode == "Advance") {
                 localStorage.setItem("Mode", "Advance")
@@ -304,7 +310,7 @@
                 Mode = "Advance"
                 title = "ระดับ Advance"
                 html = `ต้องผ่านภายใน 30 นาที ทุกท่าทาง 15 ครั้ง / 1 เซต <br>
-                    Pull UP , Push-UP , Pike Push-UP , Leg Raise , Squats`
+                Squats , Pull-UP , Push-UP , Leg Raise , DMPush-UP`
             }
             Swal.fire({
                 title: title,
@@ -433,8 +439,8 @@
         async function complete() {
             disabledLi(true)
             Swal.fire(
-                'complete Workout',
-                'complete Workout',
+                'เสร็จสิ้นการออกกำลังกาย',
+                'คุณสามารถดูสถิติการออกกำลังได้ที่ DASHBOARD',
                 'success'
             )
             var User = GetUser()
@@ -631,7 +637,7 @@
                 ChangeEx("complete", "complete")
                 isStart = false;
                 clearTimeout(timeCountdown);
-                document.getElementById("TimeBTN").innerHTML = "Start"
+                document.getElementById("TimeBTN").innerHTML = "Start Training"
                 currentExerise = 1
             }
 
@@ -653,18 +659,17 @@
                     break;
                 }
                 case "4": {
-                    CheckSpot(poseLandmarks)
+                    getPoseLegraise(poseLandmarks)
                     ChangeEx("Leg Raise", "DMPush-UP")
                     break;
                 }
                 case "5": {
-                    CheckSpot(poseLandmarks)
+                    getPoseDMPushup(poseLandmarks)
                     ChangeEx("DMPush-UP", "--:--")
                     break;
                 }
             }
         }
-
         // ============================================================================== Squats =================================================================================== // 
         // ท่า Squats 
         function getPoseSquats(poseLandmarks) {
@@ -735,7 +740,6 @@
                     counter++;
                     stage = "up";
                     // success
-
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
                     await plusScore("Pullup");
@@ -807,24 +811,23 @@
         // ============================================================================== Legraise =================================================================================== // 
         // ท่า Legraise
         function getPoseLegraise(poseLandmarks) {
-            var shoulderRight = poseLandmarks[12];
-            var elbowRight = poseLandmarks[14];
-            var wristRight = poseLandmarks[16];
-
-            var angle = Legraise_calculate_angle(shoulderRight, elbowRight, wristRight);
+            var AnkleRight = poseLandmarks[28];
+            var kneeRight = poseLandmarks[26];
+            var hipRight = poseLandmarks[24];
+            var angle = Legraise_calculate_angle(AnkleRight, kneeRight, hipRight);
 
             countScoreLegraise(angle, poseLandmarks);
         }
         // ตรวจสอบท่าคำนวณ Pushup 
         async function countScoreLegraise(angle, poseLandmarks) {
             if (CheckSpot(poseLandmarks)) {
-                if (angle > 160) {
+                if (angle > 170) {
                     stage = "down"
                 }
-                if (angle < 100 && stage == "down") {
+                if (angle < 160 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
                     var currentex = document.getElementById("CurrentEx").innerHTML;
-                    document.getElementById("CurrentEx").innerHTML = "Push-UP";
+                    document.getElementById("CurrentEx").innerHTML = "legraise";
                     console.log("counter : " + counter);
                     counter++;
                     stage = "up";
@@ -832,16 +835,16 @@
 
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore("push-up")
+                    await plusScore("legraise")
                     PlusCurrentScore()
                     console.log(poseLandmarks)
                 }
             }
         }
-        function Pushup_calculate_angle(shoulder, elbow, wrist) {
-            var a = [shoulder.x, shoulder.y];
-            var b = [elbow.x, elbow.y];
-            var c = [wrist.x, wrist.y];
+        function Legraise_calculate_angle(AnkleRight, kneeRight, hipRight) {
+            var a = [AnkleRight.x, AnkleRight.y];
+            var b = [kneeRight.x, kneeRight.y];
+            var c = [hipRight.x, hipRight.y];
 
             var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
             var angle = Math.abs(radians * 180.0 / Math.PI)
@@ -852,17 +855,19 @@
             return angle;
         }
 
-        function getPosePushup(poseLandmarks) {
+        // ============================================================================== DMPushUP =================================================================================== // 
+        // ท่า Legraise
+        function getPoseDMPushup(poseLandmarks) {
             var shoulderRight = poseLandmarks[12];
             var elbowRight = poseLandmarks[14];
             var wristRight = poseLandmarks[16];
 
-            var angle = Pushup_calculate_angle(shoulderRight, elbowRight, wristRight);
+            var angle = DMPushup_calculate_angle(shoulderRight, elbowRight, wristRight);
 
-            countScorePushup(angle, poseLandmarks);
+            countScoreDMPushup(angle, poseLandmarks);
         }
         // ตรวจสอบท่าคำนวณ Pushup 
-        async function countScorePushup(angle, poseLandmarks) {
+        async function countScoreDMPushup(angle, poseLandmarks) {
             if (angle > 160) {
                 stage = "down"
             }
@@ -877,7 +882,7 @@
 
                 // change score
                 document.getElementById("showCounter").innerHTML = counter;
-                await plusScore("push-up")
+                await plusScore("dmpushup")
                 PlusCurrentScore()
                 console.log(poseLandmarks)
             }

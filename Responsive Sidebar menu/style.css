@@ -565,7 +565,6 @@
 }
 
 .ButtinEasy {
-
     justify-content: center;
     align-items: center;
     font-family: 'Poppins', sans-serif;
@@ -647,6 +646,7 @@ main {
 
 
 .glass {
+    margin-top: 340px;
     background: white;
     min-height: 500px;
     width: 1000px;
@@ -668,34 +668,33 @@ main {
 }
 
 .glassboxStatus {
-    margin-left: 600px;
-    margin-top: -350px;
+    margin-top: 680px;
     background: white;
     min-height: 5vh;
-    width: 550px;
+    width: 1000px;
     height: 80px;
     background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
     border-radius: 2rem;
 }
 
 .textRep {
-    margin-left: 0px;
-    margin-top: -390px;
+    margin-left: 50px;
+    margin-top: 20px;
     margin-right: 50px;
     position: absolute;
 }
 
 .textTime {
-    margin-left: 800px;
-    margin-top: -390px;
+    margin-left: 400px;
+    margin-top: 20px;
     margin-right: 50px;
     position: absolute;
 
 }
 
 .textExercies {
-    margin-left: 1100px;
-    margin-top: -390px;
+    margin-left: 750px;
+    margin-top: 20px;
     margin-right: 50px;
     position: absolute;
 }
@@ -709,9 +708,19 @@ main {
     font-size: 500;
     color: #252839;
     min-height: 10vh;
-    -webkit-text-stroke: 0.24vw #383d52;
+    -webkit-text-stroke: 0.24vw #080e27;
     text-transform: uppercase;
 }
+
+.textcolor1 {
+    box-sizing: border-box;
+    font-size: 500;
+    color: #252839;
+    min-height: 10vh;
+    -webkit-text-stroke:0.24vw #611237;
+    text-transform: uppercase;
+}
+
 
 * {
     box-sizing: border-box
