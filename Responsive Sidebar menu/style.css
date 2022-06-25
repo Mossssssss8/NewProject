@@ -534,10 +534,10 @@
 }
 
 .setchangedate {
-    position: absolute;
+    position: relative;
     width: 300px !important;
     margin-right: 0px;
-    top: 520px;
+    top: -360px;
     right: 0%;
     z-index: 1;
 }
