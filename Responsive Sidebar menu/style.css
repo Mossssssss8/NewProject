@@ -717,7 +717,7 @@ main {
     font-size: 500;
     color: #252839;
     min-height: 10vh;
-    -webkit-text-stroke:0.24vw #611237;
+    -webkit-text-stroke: 0.24vw #611237;
     text-transform: uppercase;
 }
 
@@ -840,8 +840,8 @@ video {
 }
 
 .position_video {
-    margin-top: 50px;
-    margin-left: 500px;
+    margin-top: -250px;
+    margin-left: 400px;
     position: relative;
 }
 
@@ -855,7 +855,7 @@ video {
 .text-timer {
     position: absolute;
     /* text-align: right; */
-    /* margin-top: 40px; */
+    margin-top: 60px;
     /* margin-right: 20px; */
     margin-left: 1120px;
 }
@@ -887,4 +887,13 @@ video {
 
 body {
     overflow-x: hidden;
+}
+
+.btn-container {
+    position: absolute;
+    margin-left: 200px;
+    margin-top: 200px;
+}
+.btn-ex{
+    margin-top: 10px;;
 }
