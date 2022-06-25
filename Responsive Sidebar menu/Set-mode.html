@@ -116,18 +116,33 @@
         <div class="Time , Counter">
             <h1 class='text-cout'> Counter : <span id="showCounter">0 </span></h1>
             <h1 class="text-rep"> Rep : <span id="showRep">0 </span></h1>
+            <h1 class="text-timer"> Timer : <span id="showTime">0 </span></h1>
             <button class="btn-start" id="TimeBTN" onclick="startTime()"> Start </button>
-            <button style="display: flex;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
-            <div class="btn-ex">
-                <button id="TimeBTN" onclick="ChangenumEx(1)"> Pull-UP </button>
-                <button id="TimeBTN" onclick="ChangenumEx(2)"> Diamond-Push-Up </button>
-                <button id="TimeBTN" onclick="ChangenumEx(3)"> Push-Up </button>
-                <button id="TimeBTN" onclick="ChangenumEx(4)"> Legraise </button>
-                <button id="TimeBTN" onclick="ChangenumEx(5)"> Squats </button>
+
+            <!-- <button style="display: flex;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button> -->
+            <div class="btn-container">
+                <div class="btn-ex">
+                    <button id="" onclick="ChangenumEx(1)"> Pull-UP </button>
+                </div>
+                <div class="btn-ex">
+                    <button id="" onclick="ChangenumEx(2)"> Diamond-Push-Up </button>
+                </div>
+                <div class="btn-ex">
+                    <button id="" onclick="ChangenumEx(3)"> Push-Up </button>
+                </div>
+                <div class="btn-ex">
+                    <button id="" onclick="ChangenumEx(4)"> Legraise </button>
+                </div>
+                <div class="btn-ex">
+                    <button id="" onclick="ChangenumEx(5)"> Squats </button>
+                </div>
             </div>
+            <!-- <button id="TimeBTN" onclick="ChangenumEx(2)"> Diamond-Push-Up </button>
+            <button id="TimeBTN" onclick="ChangenumEx(3)"> Push-Up </button>
+            <button id="TimeBTN" onclick="ChangenumEx(4)"> Legraise </button>
+            <button id="TimeBTN" onclick="ChangenumEx(5)"> Squats </button> -->
             <!-- <button id="plusScore" onclick="plusScore('squats')"> plusScore </button>
             <button onclick="getUserScore()"> getScore </button> -->
-            <h1 class="text-timer"> Timer : <span id="showTime">0 </span></h1>
         </div>
         <section class="position_video">
             <video class="input_video glass"></video>
@@ -173,7 +188,7 @@
         function PlusCurrentScore() {
             currentScore++;
             document.getElementById("showCounter").innerHTML = currentScore
-            if(currentScore == 8){
+            if (currentScore == 8) {
                 rep++;
                 currentScore = 0;
                 document.getElementById("showRep").innerHTML = rep
