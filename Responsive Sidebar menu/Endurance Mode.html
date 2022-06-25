@@ -120,37 +120,45 @@
         <!-- <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button> -->
 
         <div class="Time , Counter">
-            <h1 style="text-align: center;"> Counter : <span id="showCounter">0 </span></h1>
-
+            <h1 style="text-align: center; display: none;"> Counter : <span id="showCounter">0 </span></h1>
+            <div class="center glassbox">
+                <button class="ButtinEasy btnspace" id="btn-Easy" onclick="Setmode('Easy')"> Easy </button>
+                <button class="ButtinIntermediate btnspace" id="btn-Intermediate"
+                    onclick="Setmode('Intermediate')">Intermediate</button>
+                <button class="ButtinAdvance btnspace" id="btn-Advance" onclick="Setmode('Advance')"> Advance </button>
+                <button style="margin-top: 35px;" class="ButtinStart btn-hidden" id="TimeBTN" onclick="startTime()">
+                    Start Training </button>
+            </div>
             <div>
-                <button class="btn-hidden" id="TimeBTN" onclick="startTime()"> Start </button>
-                <button id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
-                <button id="sdsdsdsdsd" onclick="Incomplete()"> Incomplete </button>
+                <button style="display: none;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
                 <button class="btn-hidden" onclick="getUserScore()"> getScore </button>
             </div>
-            <div class="center">
-                <button class="ButtinEasy" id="btn-Easy" onclick="Setmode('Easy')"> Easy </button>
-                <button class="ButtinIntermediate" id="btn-Intermediate" onclick="Setmode('Intermediate')">Intermediate</button>
-                <button class="ButtinAdvance" id="btn-Advance" onclick="Setmode('Advance')"> Advance </button>
-            </div>
-            <h1 style="text-align: center;"> Timer : <span id="showTime">0 </span></h1>
-            <div class="Current , Exercise">
-                <div style="display: flex;width: 100%;" class="grid">
-                    <div class="g-col-6">
-                        <h1> Current Exercise : <span id="CurrentEx">.</span></h1>
-                    </div>
-                    <div style="margin-left: 46%;" class="g-col-6">
-                        <h1 style="margin-right: 0px;"> Next Exercise : <span id="NextEx">.</span></h1>
-                    </div>
-                </div>
-                <h1>Current score : <span id="CurrentScore">0</span></h1>
-            </div>
 
-            <div class="container">
-                <video class="input_video"></video>
-                <canvas class="output_canvas" width="1280px" height="720px"></canvas>
-                <div class="landmark-grid-container"></div>
-            </div>
+            <div class="Current , Exercise ">
+                <div style="width: 100%;" class="grid">
+                    <div class="g-col-6">
+                        <div style="margin-left: 46%;" class="g-col-6">
+                            <h2 style="margin-right: 100px; display: none;"> Next Exercise : <span id="NextEx"> </span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div>
+                        <main>
+                            <video class="input_video glass center">
+                            </video>
+                            <div><canvas class="output_canvas" style="display: none;" width="1280px"
+                                    height="720px"></canvas>
+                            </div>
+                            <div class="landmark-grid-container" style="display: none;"></div>
+                        </main>
+                    </div>
+                    <div class="glassboxStatus center">
+                        <h1 data-text="Repititions" class=" textcolor textRep">Repititions : <span id="CurrentScore">
+                                0</span></h1>
+                        <h1 class=" textcolor textTime"> Time : <span id="showTime">0 </span></h1>
+                        <h1 class=" textcolor1 textExercies"> <span id="CurrentEx">
+                            </span></h1>
+                    </div>
     </section>
 
     <script>
@@ -171,6 +179,14 @@
         var currentExerise = 1
         var iscomplete = false
         function startTime() {
+            Swal.fire({
+                position: ' ',
+                icon: 'success',
+                title: 'เริ่มออกกำลังกาย',
+                text: 'ข้อควร : กรุณาให้กล้องเห็นทั้งร่างกาย!',
+                showConfirmButton: false,
+                timer: 2000
+            })
             if (isStart == false) {
                 iscomplete = false
                 disabledLi(false)
@@ -297,14 +313,14 @@
                 // console.log(Mode)
                 title = "ระดับ Beginner"
                 html = `ต้องผ่านภายใน 10 นาที ทุกท่าทาง 8 ครั้ง / 1 เซต <br>
-                    Pull UP , Push-UP , Pike Push-UP , Leg Raise , Squats`
+                Squats , Pull-UP , Push-UP , DMPush-UP`
             }
             if (Mode == "Intermediate") {
                 localStorage.setItem("Mode", "Intermediate")
                 console.log("Intermediate")
                 title = "ระดับ Intermediate"
                 html = `ต้องผ่านภายใน 20 นาที ทุกท่าทาง 12 ครั้ง / 1 เซต <br>
-                    Pull UP , Push-UP , Pike Push-UP , Leg Raise , Squats`
+                Squats , Pull-UP , Push-UP , DMPush-UP`
             }
             if (Mode == "Advance") {
                 localStorage.setItem("Mode", "Advance")
@@ -312,7 +328,7 @@
                 Mode = "Advance"
                 title = "ระดับ Advance"
                 html = `ต้องผ่านภายใน 30 นาที ทุกท่าทาง 15 ครั้ง / 1 เซต <br>
-                    Pull UP , Push-UP , Pike Push-UP , Leg Raise , Squats`
+                Squats , Pull-UP , Push-UP , DMPush-UP`
             }
             Swal.fire({
                 title: title,
@@ -422,13 +438,6 @@
                 ScoreModel.Seconds = timepushup
                 await addLineInScoreDB(ScoreModel)
             }
-            // if (currentExerise >= 4) {
-            //     if (currentExerise == 4) {
-            //         ScoreModel.Score = currentScore
-            //     }
-            //     ScoreModel.NameEx = "Legraise"
-            //     ScoreModel.Seconds = timeLegraise
-            //     await addLineInScoreDB(ScoreModel)
             if (currentExerise >= 4) {
                 if (currentExerise == 4) {
                     ScoreModel.Score = currentScore
@@ -441,8 +450,8 @@
         async function complete() {
             disabledLi(true)
             Swal.fire(
-                'complete Workout',
-                'complete Workout',
+                'เสร็จสิ้นการออกกำลังกาย',
+                'คุณสามารถดูสถิติการออกกำลังได้ที่ DASHBOARD',
                 'success'
             )
             var User = GetUser()
@@ -491,7 +500,8 @@
         function break15sec() {
             Swal.fire({
                 icon: 'success',
-                title: 'Break 15 secoud',
+                title:'พักระหว่างท่าออกกำลังกาย',
+                text: 'คุณมีเวลาพักระหว่างท่า 15 วินาที',
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -680,22 +690,22 @@
             switch (nameExercise) {
                 case "1": {
                     getPoseSquats(poseLandmarks)
-                    ChangeEx("ท่า1", "ท่า2")
+                    ChangeEx("Squats", "Pull-UP")
                     break;
                 }
                 case "2": {
                     getPosePullup(poseLandmarks)
-                    ChangeEx("ท่า2", "ท่า3")
+                    ChangeEx("Pull-UP", "Push UP")
                     break;
                 }
                 case "3": {
-                    Pullup_calculate_angle(poseLandmarks)
-                    ChangeEx("ท่า3", "ท่า4")
+                    getPosePushup(poseLandmarks)
+                    ChangeEx("Push UP", "DMPush-UP")
                     break;
                 }
                 case "4": {
                     CheckSpot(poseLandmarks)
-                    ChangeEx("ท่า4", "ท่า5")
+                    ChangeEx("DMPush-UP", "--:--")
                     break;
                 }
             }
@@ -725,10 +735,10 @@
                     counter++;
                     stage = "up";
                     // success
-
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore();
+                    await plusScore("Squats");
+                    PlusCurrentScore()
                     console.log(poseLandmarks)
                 }
             }
@@ -751,8 +761,10 @@
         // ============================================================================== Pull-UP =================================================================================== // 
         // ตรวจจับท่า Pull-Up
         function getPosePullup(poseLandmarks) {
-
-            var angle = Pullup_calculate_angle(poseLandmarks);
+            var wristRight = poseLandmarks[16];
+            var elbowRight = poseLandmarks[14];
+            var shoulderRight = poseLandmarks[12];
+            var angle = Pullup_calculate_angle(wristRight, elbowRight, shoulderRight);
 
             countScorePullup(angle, poseLandmarks);
         }
@@ -763,28 +775,115 @@
                     stage = "down"
                 }
                 if (angle < 50 && stage == "down") {
-                    document.getElementById("CurrentEx").innerHTML = "Pull up";
                     var counter = document.getElementById("showCounter").innerHTML;
+                    var currentex = document.getElementById("CurrentEx").innerHTML;
+                    document.getElementById("CurrentEx").innerHTML = "Pull-UP";
                     console.log("counter : " + counter);
                     counter++;
                     stage = "up";
                     // success
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore();
+                    await plusScore("Pullup");
+                    PlusCurrentScore()
                     console.log(poseLandmarks)
                 }
-
             }
         }
-        // คำนวณท่าทาง PullUP และ คำนวณเพื่อจะ Counter
-        function Pullup_calculate_angle(poseLandmarks) {
-            var wristRight = poseLandmarks[16];
-            var elbowRight = poseLandmarks[14];
-            var shoulderRight = poseLandmarks[12];
+        function Pullup_calculate_angle(wristRight, elbowRight, shoulderRight) {
             var a = [wristRight.x, wristRight.y];
             var b = [elbowRight.x, elbowRight.y];
             var c = [shoulderRight.x, shoulderRight.y];
+
+            var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+            var angle = Math.abs(radians * 180.0 / Math.PI)
+
+            if (angle > 180.0) {
+                angle = 360 - angle
+            }
+            return angle;
+        }
+
+        // ============================================================================== Pushup =================================================================================== // 
+        // ท่า Pushup 
+        function getPosePushup(poseLandmarks) {
+            var shoulderRight = poseLandmarks[12];
+            var elbowRight = poseLandmarks[14];
+            var wristRight = poseLandmarks[16];
+
+            var angle = Pushup_calculate_angle(shoulderRight, elbowRight, wristRight);
+
+            countScorePushup(angle, poseLandmarks);
+        }
+        // ตรวจสอบท่าคำนวณ Pushup 
+        async function countScorePushup(angle, poseLandmarks) {
+            if (angle > 160) {
+                stage = "down"
+            }
+            if (angle < 100 && stage == "down") {
+                var counter = document.getElementById("showCounter").innerHTML;
+                var currentex = document.getElementById("CurrentEx").innerHTML;
+                document.getElementById("CurrentEx").innerHTML = "Push-UP";
+                console.log("counter : " + counter);
+                counter++;
+                stage = "up";
+                // success
+
+                // change score
+                document.getElementById("showCounter").innerHTML = counter;
+                await plusScore("push-up")
+                PlusCurrentScore()
+                console.log(poseLandmarks)
+            }
+        }
+        function Pushup_calculate_angle(shoulder, elbow, wrist) {
+            var a = [shoulder.x, shoulder.y];
+            var b = [elbow.x, elbow.y];
+            var c = [wrist.x, wrist.y];
+
+            var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+            var angle = Math.abs(radians * 180.0 / Math.PI)
+
+            if (angle > 180.0) {
+                angle = 360 - angle
+            }
+            return angle;
+        }
+
+        function getPoseDMPushup(poseLandmarks) {
+            var shoulderRight = poseLandmarks[12];
+            var elbowRight = poseLandmarks[14];
+            var wristRight = poseLandmarks[16];
+
+            var angle = DMPushup_calculate_angle(shoulderRight, elbowRight, wristRight);
+
+            countScoreDMPushup(angle, poseLandmarks);
+        }
+        // ตรวจสอบท่าคำนวณ Pushup 
+        async function countScoreDMPushup(angle, poseLandmarks) {
+            if (angle > 160) {
+                stage = "down"
+            }   
+            if (angle < 100 && stage == "down") {
+                var counter = document.getElementById("showCounter").innerHTML;
+                var currentex = document.getElementById("CurrentEx").innerHTML;
+                document.getElementById("CurrentEx").innerHTML = "Push-UP";
+                console.log("counter : " + counter);
+                counter++;
+                stage = "up";
+                // success
+
+                // change score
+                document.getElementById("showCounter").innerHTML = counter;
+                await plusScore("dmpushup")
+                PlusCurrentScore()
+                console.log(poseLandmarks)
+            }
+        }
+        function DMPushup_calculate_angle(shoulder, elbow, wrist) {
+            var a = [shoulder.x, shoulder.y];
+            var b = [elbow.x, elbow.y];
+            var c = [wrist.x, wrist.y];
 
             var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
             var angle = Math.abs(radians * 180.0 / Math.PI)

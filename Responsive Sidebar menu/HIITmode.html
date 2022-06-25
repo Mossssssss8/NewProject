@@ -130,7 +130,7 @@
                     Start Training </button>
             </div>
             <div>
-                <button style="display: flex;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
+                <button style="display: none;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button>
                 <button class="btn-hidden" onclick="getUserScore()"> getScore </button>
             </div>
 
@@ -887,7 +887,7 @@
                 console.log(poseLandmarks)
             }
         }
-        function Pushup_calculate_angle(shoulder, elbow, wrist) {
+        function DMPushup_calculate_angle(shoulder, elbow, wrist) {
             var a = [shoulder.x, shoulder.y];
             var b = [elbow.x, elbow.y];
             var c = [wrist.x, wrist.y];
