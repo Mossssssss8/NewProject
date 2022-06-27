@@ -127,10 +127,11 @@
                 <!-- ============================================================== -->
                 <!-- Sales chart -->
                 <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-lg-6" style="margin-top: 10px; background: rgba(255, 255, 255, 0.5);" id="chart">
-                    </div>
-                    <div class="col-lg-6" style="margin-top: 10px; background: rgba(255, 255, 255, 0.5);" id="chart1">
+                <div class="row" >
+                    <div style="display: flex; justify-content: center;">
+                        <div class="col-lg-6" style="margin-top: 20px; background: rgba(255, 255, 255, 0.5);"
+                            id="chart">
+                        </div>
                     </div>
                     <div class="ms-auto setchangedate">
                         <div class="dl">
@@ -148,7 +149,7 @@
                         <!-- column -->
                         <div class="col-12">
                             <div class="card"
-                                style="margin-top: 10px ; margin-left: 1px; margin-right: -25px; background: rgba(255, 255, 255, 0.5);">
+                                style="margin-top: 5px ; margin-left: 1px; margin-right: -25px; background: rgba(255, 255, 255, 0.5);">
                                 <div class="card-body">
                                     <!-- title -->
                                     <div class="d-md-flex">
@@ -181,7 +182,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Endurance -->
                     <div class="col-12">
                         <div class="card"
@@ -359,7 +359,7 @@
                 var chart = new ApexCharts(document.querySelector("#chart"), options);
                 if (isRederchart) {
                     document.querySelector("#chart").innerHTML = "";
-                    document.querySelector("#chart1").innerHTML = "";
+                    // document.querySelector("#chart1").innerHTML = "";
                 } else {
                     isRederchart = true;
                 }
@@ -389,9 +389,9 @@
                     labels: ['TEAM A', 'TEAM B', 'TEAM C', 'TEAM D']
                 };
 
-                var chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
+                // var chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
 
-                chart1.render();
+                // chart1.render();
             }
             // Getallscore()
             // Getallscore1()

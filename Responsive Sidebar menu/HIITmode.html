@@ -811,38 +811,38 @@
         // ============================================================================== Legraise =================================================================================== // 
         // ท่า Legraise
         function getPoseLegraise(poseLandmarks) {
-            var AnkleRight = poseLandmarks[28];
+            var ankleRight = poseLandmarks[28];
             var kneeRight = poseLandmarks[26];
             var hipRight = poseLandmarks[24];
-            var angle = Legraise_calculate_angle(AnkleRight, kneeRight, hipRight);
+
+            var angle = Legraise_calculate_angle(ankleRight, kneeRight, hipRight);
 
             countScoreLegraise(angle, poseLandmarks);
         }
         // ตรวจสอบท่าคำนวณ Pushup 
         async function countScoreLegraise(angle, poseLandmarks) {
-            if (CheckSpot(poseLandmarks)) {
-                if (angle > 170) {
-                    stage = "down"
-                }
-                if (angle < 160 && stage == "down") {
-                    var counter = document.getElementById("showCounter").innerHTML;
-                    var currentex = document.getElementById("CurrentEx").innerHTML;
-                    document.getElementById("CurrentEx").innerHTML = "legraise";
-                    console.log("counter : " + counter);
-                    counter++;
-                    stage = "up";
-                    // success
 
-                    // change score
-                    document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore("legraise")
-                    PlusCurrentScore()
-                    console.log(poseLandmarks)
-                }
+            if (angle > 150) {
+                stage = "down"
+            }
+            if (angle < 120 && stage == "down") {
+                var counter = document.getElementById("showCounter").innerHTML;
+                var currentex = document.getElementById("CurrentEx").innerHTML;
+                document.getElementById("CurrentEx").innerHTML = "legraise";
+                console.log("counter : " + counter);
+                counter++;
+                stage = "up";
+                // Success
+
+                // Change Score
+                document.getElementById("showCounter").innerHTML = counter;
+                await plusScore("legraise")
+                PlusCurrentScore()
+                console.log(poseLandmarks)
             }
         }
-        function Legraise_calculate_angle(AnkleRight, kneeRight, hipRight) {
-            var a = [AnkleRight.x, AnkleRight.y];
+        function Legraise_calculate_angle(ankleRight, kneeRight, hipRight) {
+            var a = [ankleRight.x, ankleRight.y];
             var b = [kneeRight.x, kneeRight.y];
             var c = [hipRight.x, hipRight.y];
 
@@ -878,9 +878,9 @@
                 console.log("counter : " + counter);
                 counter++;
                 stage = "up";
-                // success
+                // Success
 
-                // change score
+                // Change score
                 document.getElementById("showCounter").innerHTML = counter;
                 await plusScore("dmpushup")
                 PlusCurrentScore()
@@ -911,7 +911,18 @@
             }
             return isCorrect;
         }
+        // ตรวจสอบเท้าของ User ท่า Squats
+        // function CheckSpotLeft(poseLandmarks) {
+        //     var AnkleLeft = poseLandmarks[28];
+        //     var kneeLeft = poseLandmarks[26];
+        //     var hipLeft = poseLandmarks[24];
 
+        //     var correctPercent = 0.68;
+        //     if (AnkleLeft.visibility > correctPercent && kneeLeft.visibility > correctPercent && hipLeft > correctPercent) {
+        //         isCorrect = true;
+        //     }
+        //     return isCorrect;
+        // }
         function ChangeEx(currentEx, nextEx) {
             document.getElementById("CurrentEx").innerHTML = currentEx;
             document.getElementById("NextEx").innerHTML = nextEx;
