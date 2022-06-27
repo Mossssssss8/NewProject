@@ -621,6 +621,14 @@
     transform: translate(-50%, -50%);
 }
 
+.center-setmode {
+    margin: 0;
+    top: 0;
+    left: 0;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 .textDashboard {
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
@@ -868,6 +876,7 @@ video {
 }
 
 .btn-start {
+    z-index: 1;
     position: relative;
     align-items: center;
     margin-top: 30px;
@@ -910,7 +919,7 @@ body {
     align-items: center;
 }
 
-.btn-sty{
+.btn-sty {
     align-items: center;
     display: inline-block;
     font-family: 'Poppins', sans-serif;

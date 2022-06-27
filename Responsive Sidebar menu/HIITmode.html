@@ -742,7 +742,7 @@
                     // success
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore("Pullup");
+                    await plusScore("Pull-up");
                     PlusCurrentScore()
                     console.log(poseLandmarks)
                 }
@@ -822,10 +822,12 @@
         // ตรวจสอบท่าคำนวณ Pushup 
         async function countScoreLegraise(angle, poseLandmarks) {
 
-            if (angle > 150) {
+            // angle 
+            if (angle > 175) {
+                console.log("ankle :", angle)
                 stage = "down"
             }
-            if (angle < 120 && stage == "down") {
+            if (angle < 160 && stage == "down") {
                 var counter = document.getElementById("showCounter").innerHTML;
                 var currentex = document.getElementById("CurrentEx").innerHTML;
                 document.getElementById("CurrentEx").innerHTML = "legraise";

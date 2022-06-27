@@ -117,12 +117,11 @@
             <h1 class='text-cout'> Counter : <span id="showCounter">0 </span></h1>
             <h1 class="text-rep"> Rep : <span id="showRep">0 </span></h1>
             <h1 class="text-timer"> Timer : <span id="showTime">0 </span></h1>
-            <button class="btn-start" id="TimeBTN" onclick="startTime()"> Start </button>
-
+            <button class=" btn-start" id="TimeBTN" onclick="startTime()"> Start </button>
             <!-- <button style="display: flex;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button> -->
             <div class="btn-container">
                 <div class="btn-ex">
-                    <button class="btn-sty"id="" onclick="ChangenumEx(1)"> Pull-UP </button>
+                    <button class="btn-sty" id="" onclick="ChangenumEx(1)"> Pull-UP </button>
                 </div>
                 <div class="btn-ex">
                     <button class="btn-sty" id="" onclick="ChangenumEx(2)"> Diamond-Push-Up </button>
@@ -332,20 +331,26 @@
                 { color: '#FF0000', lineWidth: 2 });
             canvasCtx.restore();
 
-            getPoseSquats(results.poseLandmarks)
+            // getPoseSquats(results.poseLandmarks)
             if (nameEx == 1) {
+                console.log("Pullup")
                 getPosePullup(results.poseLandmarks)
+                console.log(results.poseLandmarks)
             }
             if (nameEx == 2) {
+                console.log("pushup")
                 getPosePushup(results.poseLandmarks)
             }
             if (nameEx == 3) {
+                console.log("dmpushup")
                 getPosePushup(results.poseLandmarks)
             }
             if (nameEx == 4) {
+                console.log("Legraise")
                 getPoseLegRaise(results.poseLandmarks)
             }
             if (nameEx == 5) {
+                console.log("Squats")
                 getPoseSquats(results.poseLandmarks)
             }
 
@@ -377,8 +382,8 @@
         camera.start();
 
         currentExerise = 1
-        // getPoseSquats(poseLandmarks)
-        getPosePullup(poseLandmarks)
+        // getPosePullup(poseLandmarks)
+
         function ChangenumEx(num) {
             nameEx = num;
             if (num == 1) {
@@ -420,14 +425,12 @@
                     console.log("counter : " + counter);
                     counter++;
                     stage = "up";
-                    if (counter == 8) {
-                        reb++;
-                        counter = 0;
-                    }
+
                     // success
                     // change score
-                    document.getElementById("showCounter").innerHTML = counter;
+
                     document.getElementById("showRep").innerHTML = reb;
+                    document.getElementById("showCounter").innerHTML = counter;
                     await plusScore("Pull-Up");
                     PlusCurrentScore()
                     console.log(poseLandmarks)
@@ -449,8 +452,6 @@
             }
             return angle;
         }
-
-
         // ============================================================================== PushUP =================================================================================== // 
         // ท่า Push-Up
         function getPosePushup(poseLandmarks) {
