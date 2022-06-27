@@ -646,6 +646,7 @@
 
 main {
     min-height: 100vh;
+    height: 900px;
     background: linear-gradient(to right top, #65dfc9), #6cdbeb;
     display: flex;
     align-items: center;
@@ -663,6 +664,19 @@ main {
 }
 
 .glassbox {
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    min-height: 5vh;
+    width: 550px;
+    height: 80px;
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+    border-radius: 2rem;
+}
+
+.glassbox-start {
     z-index: 1;
     display: flex;
     align-items: center;
@@ -695,8 +709,8 @@ main {
     justify-content: center;
     background: white;
     min-height: 5vh;
-    width: 350px;
-    height: 440px;
+    width: 990px;
+    height: 90px;
     background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
     border-radius: 2rem;
 }
@@ -725,8 +739,8 @@ main {
 
 .container-glassbox-numEx{
     position: absolute;
-    margin-top: 120px;
-    margin-left: 40px;
+    margin-top: 690px;
+    margin-left: 400px;
 
 }
 
@@ -955,19 +969,13 @@ body {
 
 .btn-container {
     position: absolute;
-    margin-left: 90px;
-    margin-top: 120px;
+    margin-left: 420px;
+    margin-top: 700px;
 }
 
 .btn-ex {
-    margin-top: 10px;
     position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.btn-center {
-    margin-left: 50px;
+    margin-left: 140px;
 }
 
 .btn-sty {
@@ -987,5 +995,11 @@ body {
 }
 
 .container-main{
-    margin-left: 60px;
+    margin-top: -25px;
+    height: 900px;
+}
+
+.container-main-ex{
+    margin-left: -400px;
+    margin-top: -95px;
 }
