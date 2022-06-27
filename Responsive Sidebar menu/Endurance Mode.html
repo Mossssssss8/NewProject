@@ -192,23 +192,23 @@
                 disabledLi(false)
                 isStart = true;
                 timeCountdown = setInterval(countdown, 1000)
-                document.getElementById("TimeBTN").innerHTML = "Exit"
+                document.getElementById("TimeBTN").innerHTML = "Exit Training"
                 timeleft = 0
                 timeleft2 = 0
                 currentExerise = 1
                 document.getElementById('CurrentScore').innerHTML = 0
             } else {
                 Swal.fire({
-                    title: 'Do you want to Exit?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes',
-                    icon: "question"
+                    title: 'ออกจากการออกกำลังกาย ?',
+                    text: 'ระบบจะไม่ทำการบันทึกลงฐานข้อมูล',
+                    showCancelButton: 'ยกเลิก',
+                    confirmButtonText: 'Accept',
+                    icon: "error"
                 }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
                         disabledLi(true)
                         isStart = false;
-                        document.getElementById("TimeBTN").innerHTML = "Start"
+                        document.getElementById("TimeBTN").innerHTML = "Start Training"
                         clearTimeout(timeCountdown);
                         clearTimeout(timeCountdown2);
                         document.getElementById('showTime').innerHTML = '00:00'

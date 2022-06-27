@@ -199,16 +199,12 @@
                     confirmButtonText: 'Accept',
                     icon: "error"
                 }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
                         disabledLi(true)
                         isStart = false;
                         document.getElementById("TimeBTN").innerHTML = "Start Training"
                         clearTimeout(timeCountdown);
-                        // isStart = false;
-                        // document.getElementById("TimeBTN").innerHTML = "Start"
                         clearTimeout(timeCountdown);
-                        // clearTimeout(timeCountdown2);
                         document.getElementById('showTime').innerHTML = '00:00'
                     }
                 })
