@@ -675,6 +675,32 @@ main {
     border-radius: 2rem;
 }
 
+.glassbox-ex {
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    min-height: 5vh;
+    width: 640px;
+    height: 80px;
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+    border-radius: 2rem;
+}
+
+.glassbox-num-ex {
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    min-height: 5vh;
+    width: 350px;
+    height: 440px;
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+    border-radius: 2rem;
+}
+
 .glassboxStatus {
     margin-top: 680px;
     background: white;
@@ -683,6 +709,25 @@ main {
     height: 80px;
     background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
     border-radius: 2rem;
+}
+
+.glassbox-container-start {
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 650px;
+}
+
+.container-glassbox-ex {
+    position: relative;
+    margin-top: 10px;
+
+}
+
+.container-glassbox-numEx{
+    position: absolute;
+    margin-top: 120px;
+    margin-left: 40px;
+
 }
 
 .textRep {
@@ -869,10 +914,11 @@ video {
 }
 
 .gmae {
-    position: relative;
+    position: absolute;
     text-transform: uppercase;
     text-align: left;
-    margin-top: 10px;
+    margin-left: 20px;
+    margin-top: -65px;
 }
 
 .btn-start {
@@ -909,14 +955,19 @@ body {
 
 .btn-container {
     position: absolute;
-    margin-left: 120px;
-    margin-top: 140px;
+    margin-left: 90px;
+    margin-top: 120px;
 }
 
 .btn-ex {
     margin-top: 10px;
+    position: relative;
     display: flex;
     align-items: center;
+}
+
+.btn-center {
+    margin-left: 50px;
 }
 
 .btn-sty {
@@ -933,4 +984,8 @@ body {
     letter-spacing: 2px;
     border-radius: 40px;
     background: linear-gradient(360deg, #E1B550, #EA5B5B);
+}
+
+.container-main{
+    margin-left: 60px;
 }

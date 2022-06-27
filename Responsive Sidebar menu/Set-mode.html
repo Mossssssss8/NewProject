@@ -113,47 +113,60 @@
         <!-- <div class="text">Set mode</div> -->
         <!-- <button type="button" class="btn btn-secondary btn-lg" href="#">HIIT Mode</button>
         <button type="button" class="btn btn-secondary btn-lg" href="#">Endurance Mode</button> -->
-        <div class="Time , Counter">
-            <h1 class='text-cout'> Counter : <span id="showCounter">0 </span></h1>
-            <h1 class="text-rep"> Rep : <span id="showRep">0 </span></h1>
-            <h1 class="text-timer"> Timer : <span id="showTime">0 </span></h1>
-            <button class=" btn-start" id="TimeBTN" onclick="startTime()"> Start </button>
-            <!-- <button style="display: flex;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button> -->
-            <div class="btn-container">
-                <div class="btn-ex">
-                    <button class="btn-sty" id="" onclick="ChangenumEx(1)"> Pull-UP </button>
+        <div class="container-main">
+            <div class="Time , Counter">
+                <h1 class='text-cout'> Counter : <span id="showCounter">0 </span></h1>
+                <h1 class="text-rep"> Rep : <span id="showRep">0 </span></h1>
+                <h1 class="text-timer"> Timer : <span id="showTime">0 </span></h1>
+                <div class="glassbox-container-start">
+                    <div class="glassbox">
+                    </div>
                 </div>
-                <div class="btn-ex">
-                    <button class="btn-sty" id="" onclick="ChangenumEx(2)"> Diamond-Push-Up </button>
+                <button class="btn-start" id="TimeBTN" onclick="startTime()"> Start </button>
+                <!-- <button style="display: flex;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button> -->
+                <div class="container-glassbox-numEx">
+                    <div class="glassbox-num-ex">
+                    </div>
                 </div>
-                <div class="btn-ex">
-                    <button class="btn-sty" id="" onclick="ChangenumEx(3)"> Push-Up </button>
+                <div class="btn-container">
+                    <div class="btn-ex btn-center">
+                        <button class="btn-sty" id="" onclick="ChangenumEx(1)"> Pull-UP </button>
+                    </div>
+                    <div class="btn-ex">
+                        <button class="btn-sty" id="" onclick="ChangenumEx(2)"> Diamond-Push-Up </button>
+                    </div>
+                    <div class="btn-ex btn-center">
+                        <button class="btn-sty" id="" onclick="ChangenumEx(3)"> Push-Up </button>
+                    </div>
+                    <div class="btn-ex btn-center">
+                        <button class="btn-sty" id="" onclick="ChangenumEx(4)"> Legraise </button>
+                    </div>
+                    <div class="btn-ex btn-center">
+                        <button class="btn-sty" id="" onclick="ChangenumEx(5)"> Squats </button>
+                    </div>
                 </div>
-                <div class="btn-ex">
-                    <button class="btn-sty" id="" onclick="ChangenumEx(4)"> Legraise </button>
-                </div>
-                <div class="btn-ex">
-                    <button class="btn-sty" id="" onclick="ChangenumEx(5)"> Squats </button>
-                </div>
-            </div>
-            <!-- <button id="TimeBTN" onclick="ChangenumEx(2)"> Diamond-Push-Up </button>
+                <!-- <button id="TimeBTN" onclick="ChangenumEx(2)"> Diamond-Push-Up </button>
             <button id="TimeBTN" onclick="ChangenumEx(3)"> Push-Up </button>
             <button id="TimeBTN" onclick="ChangenumEx(4)"> Legraise </button>
             <button id="TimeBTN" onclick="ChangenumEx(5)"> Squats </button> -->
-            <!-- <button id="plusScore" onclick="plusScore('squats')"> plusScore </button>
+                <!-- <button id="plusScore" onclick="plusScore('squats')"> plusScore </button>
             <button onclick="getUserScore()"> getScore </button> -->
+            </div>
+            <section class="position_video">
+                <video class="input_video glass"></video>
+                <div>
+                    <canvas class="output_canvas" style="display: none;" width="1280px" height="720px"></canvas>
+                </div>
+                <div class="landmark-grid-container" style="display: none;"></div>
+                <div>
+                    <div class="container-glassbox-ex">
+                        <div class="glassbox-ex">
+                        </div>
+                    </div>
+                    <h1 class="gmae"> Exercise : <span id="showNameEx"> </span> </h1>
+                </div>
+            </section>
         </div>
-        <section class="position_video">
-            <video class="input_video glass"></video>
-            <div>
-                <canvas class="output_canvas" style="display: none;" width="1280px" height="720px"></canvas>
-            </div>
-            <div class="landmark-grid-container" style="display: none;"></div>
-            <div>
-                <h1 class="gmae"> Exercise :<span id="showNameEx">...</span> </h1>
-            </div>
-        </section>
-
     </section>
 
     <script>
