@@ -120,7 +120,8 @@
                                 <!-- Profile picture help block-->
                                 <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                                 <!-- Profile picture upload button-->
-                                <button class="btn btn-primary" type="button">Upload new image</button>
+                                <button class="btn btn-primary" style="display: none;" type="button">Upload new
+                                    image</button>
                             </div>
                         </div>
                     </div>
@@ -189,7 +190,7 @@
                     user.Height = document.getElementById('inputHeight').value;
                     user.Weight = document.getElementById('inputWeight').value;
                     var a = /^[0-9]+$/
-                    if (!a.test(user.Height) || !a.test(user.Weight)) {
+                    if (!a.test(user.Height) || !a.test(user.Weight) || user.Height > 250 || user.Height < 100 || user.Weight > 500 || user.Weight < 30) {
                         Swal.fire(
                             'มึงใส่ควยไรเควิน',
                             'เดี๋ยวกูซัดให้ด้วย!',

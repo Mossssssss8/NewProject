@@ -89,9 +89,10 @@ async function init() {
 
 function logout() {
     Swal.fire({
-        title: 'Do you want to logout?',
+        title: 'ต้องการออกจากระบบ ?',
         showCancelButton: true,
-        confirmButtonText: 'Yes',
+        cancelButtonText: 'ยกเลิก',
+        confirmButtonText: 'ตกลง',
         icon: "question"
     }).then((result) => {
         /* Read more about isConfirmed, isDenied below */

@@ -252,10 +252,10 @@
                 clearTimeout(timeCountdown2);
                 timeCountdown = setInterval(countdown, 1000)
                 timeleft2 = 0
-                document.getElementById('showTime').innerHTML = '00:00'
+                document.getElementById('showSecond').innerHTML = '00:00'
             } else {
                 isStop = true;
-                document.getElementById("showTime").innerHTML = timeset(time - timeleft2);
+                document.getElementById("showSecond").innerHTML = timeset(time - timeleft2);
                 timeleft2++;
                 // console.log(timeleft)
             }
@@ -506,12 +506,25 @@
         }
         function break15sec() {
             isStop = true;
-            Swal.fire({
-                icon: 'success',
-                title: 'พักระหว่างท่าออกกำลังกาย',
-                text: 'คุณมีเวลาพักระหว่างท่า 15 วินาที',
+
+            const Toast = Swal.mixin({
+                toast: true,
                 showConfirmButton: false,
-                timer: 1500
+                timer: 15000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    // toast.addEventListener('mouseenter', Swal.stopTimer)
+                    // toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                html: '<h3 id="showSecond">  </h3>',
+                icon: 'info',
+                title: 'พักระหว่างท่า 15 วินาที',
+                // text: 'คุณมีเวลาพักระหว่างท่า 15 วินาที',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 15000
             })
         }
         async function getUserScore() {
