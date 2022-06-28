@@ -127,17 +127,7 @@
                         </div>
                         <button class="btn-start" id="TimeBTN" onclick="startTime()"> Start </button>
                         <!-- <button style="display: flex;" id="plusScore" onclick="PlusCurrentScore()"> plusScore </button> -->
-                        <div class="container-glassbox-numEx">
-                            <div class="glassbox-num-ex">
-                            </div>
-                        </div>
-                        <div class="btn-container">
-                            <button class="btn-sty" id="" onclick="ChangenumEx(1)"> Pull-UP </button>
-                            <button class="btn-sty" id="" onclick="ChangenumEx(2)"> Diamond-Push-Up </button>
-                            <button class="btn-sty" id="" onclick="ChangenumEx(3)"> Push-Up </button>
-                            <button class="btn-sty" id="" onclick="ChangenumEx(4)"> Legraise </button>
-                            <button class="btn-sty" id="" onclick="ChangenumEx(5)"> Squats </button>
-                        </div>
+
                         <!-- <button id="TimeBTN" onclick="ChangenumEx(2)"> Diamond-Push-Up </button>
             <button id="TimeBTN" onclick="ChangenumEx(3)"> Push-Up </button>
             <button id="TimeBTN" onclick="ChangenumEx(4)"> Legraise </button>
@@ -157,6 +147,19 @@
                                     </div>
                                 </div>
                                 <h1 class="gmae"> Exercise : <span id="showNameEx"> </span> </h1>
+                                <div class="main-glassNunEx">
+                                    <div class="container-glassbox-numEx">
+                                        <div class="glassbox-num-ex">
+                                        </div>
+                                    </div>
+                                    <div class="btn-container">
+                                        <button class="btn-sty" id="" onclick="ChangenumEx(1)"> Pull-UP </button>
+                                        <button class="btn-sty" id="" onclick="ChangenumEx(2)"> Diamond-Push-Up</button>
+                                        <button class="btn-sty" id="" onclick="ChangenumEx(3)"> Push-Up </button>
+                                        <button class="btn-sty" id="" onclick="ChangenumEx(4)"> Legraise </button>
+                                        <button class="btn-sty" id="" onclick="ChangenumEx(5)"> Squats </button>
+                                    </div>
+                                </div>
                             </div>
                         </section>
                     </div>
@@ -196,7 +199,7 @@
         function PlusCurrentScore() {
             currentScore++;
             document.getElementById("showCounter").innerHTML = currentScore
-            if (currentScore == 8) {
+            if (currentScore >= 8) {
                 rep++;
                 currentScore = 0;
                 document.getElementById("showRep").innerHTML = rep
@@ -410,6 +413,10 @@
             if (num == 5) {
                 ChangenameEx('Squats')
             }
+            currentScore = 0
+            rep = 0
+            document.getElementById("showCounter").innerHTML = currentScore
+            document.getElementById("showRep").innerHTML = rep
         }
 
         // ============================================================================== Pull-UP =================================================================================== // 
@@ -432,15 +439,15 @@
                     var counter = document.getElementById("showCounter").innerHTML;
                     var reb = document.getElementById("showRep").innerHTML;
                     console.log("counter : " + counter);
-                    counter++;
+                    // counter++;
                     stage = "up";
 
                     // success
                     // change score
 
-                    document.getElementById("showRep").innerHTML = reb;
-                    document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore("Pull-Up");
+                    // document.getElementById("showRep").innerHTML = reb;
+                    // document.getElementById("showCounter").innerHTML = counter;
+                    // await plusScore("Pull-Up");
                     PlusCurrentScore()
                     console.log(poseLandmarks)
 
@@ -480,12 +487,13 @@
                 if (angle < 110 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
                     console.log("counter : " + counter);
-                    counter++;
+                    // counter++;
                     stage = "up";
                     // success
                     // change score
-                    document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore("Push-Up");
+                    // document.getElementById("showCounter").innerHTML = counter;
+                    PlusCurrentScore()
+                    // await plusScore("Push-Up");
                     console.log(poseLandmarks)
 
                 }
@@ -526,12 +534,13 @@
                 if (angle < 160 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
                     console.log("counter : " + counter);
-                    counter++;
+                    // counter++;
                     stage = "up";
                     // success
                     // change score
-                    document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore("Legraise");
+                    // document.getElementById("showCounter").innerHTML = counter;
+                    PlusCurrentScore()
+                    // await plusScore("Legraise");
                     console.log(poseLandmarks)
 
                 }
@@ -573,13 +582,13 @@
                     var currentex = document.getElementById("CurrentEx").innerHTML;
                     document.getElementById("CurrentEx").innerHTML = "Squats";
                     console.log("counter : " + counter);
-                    counter++;
+                    // counter++;
                     stage = "up";
                     // success
 
                     // change score
-                    document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore("Squats");
+                    // document.getElementById("showCounter").innerHTML = counter;
+                    // await plusScore("Squats");
                     PlusCurrentScore()
                     console.log(poseLandmarks)
                 }

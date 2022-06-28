@@ -738,9 +738,8 @@ main {
 }
 
 .container-glassbox-numEx{
-    position: absolute;
-    margin-top: 690px;
-    margin-left: 400px;
+    position: relative;
+    margin-top: 10px;
 
 }
 
@@ -968,9 +967,9 @@ body {
 }
 
 .btn-container {
-    position: absolute;
-    margin-left: 420px;
-    margin-top: 700px;
+    position: relative;
+    margin-left: 20px;
+    margin-top: -85px;
 }
 
 .btn-ex {
@@ -996,10 +995,9 @@ body {
 
 .container-main{
     margin-top: -25px;
-    height: 900px;
+    height: 950px;
 }
 
 .container-main-ex{
     margin-left: -400px;
-    margin-top: -95px;
 }
