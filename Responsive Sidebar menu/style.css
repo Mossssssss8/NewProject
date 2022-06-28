@@ -469,6 +469,9 @@
 .head_content_index .text span:nth-child(15) {
     animation-delay: 5.75s;
 }
+.head_content_index .text span:nth-child(16) {
+    animation-delay: 6s;
+}
 
 .head_content_setting {
     background-image: url('../หน้าต่าง Login/img/630x1200.png');
