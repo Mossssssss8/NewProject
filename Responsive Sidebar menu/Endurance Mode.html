@@ -176,6 +176,7 @@
         var isStart = false;
         var timeCountdown
         var timeCountdown2
+        var isStop = false;
         var currentExerise = 1
         var iscomplete = false
         function startTime() {
@@ -246,12 +247,14 @@
         function countdown2() {
             var time = 15
             if (timeleft2 >= time) {
+                isStop = false;
                 clearTimeout(timeCountdown);
                 clearTimeout(timeCountdown2);
                 timeCountdown = setInterval(countdown, 1000)
                 timeleft2 = 0
                 document.getElementById('showTime').innerHTML = '00:00'
             } else {
+                isStop = true;
                 document.getElementById("showTime").innerHTML = timeset(time - timeleft2);
                 timeleft2++;
                 // console.log(timeleft)
@@ -453,7 +456,11 @@
                 'เสร็จสิ้นการออกกำลังกาย',
                 'คุณสามารถดูสถิติการออกกำลังได้ที่ DASHBOARD',
                 'success'
-            )
+
+            ).then((result) => {
+                console.log("complete , complete, complete")
+                location.reload();
+            })
             var User = GetUser()
             var ScoreModel = {
                 UserId: User._id,
@@ -498,9 +505,10 @@
             await addLineInScoreDB(ScoreModel)
         }
         function break15sec() {
+            isStop = true;
             Swal.fire({
                 icon: 'success',
-                title:'พักระหว่างท่าออกกำลังกาย',
+                title: 'พักระหว่างท่าออกกำลังกาย',
                 text: 'คุณมีเวลาพักระหว่างท่า 15 วินาที',
                 showConfirmButton: false,
                 timer: 1500
@@ -545,8 +553,11 @@
             init();
         }
         function PlusCurrentScore() {
-            currentScore++;
-            document.getElementById("CurrentScore").innerHTML = currentScore
+            if (timeleft > 0 && isStop == false) {
+                currentScore++;
+                document.getElementById("CurrentScore").innerHTML = currentScore
+            }
+
         }
     </script>
     <script>
@@ -704,7 +715,7 @@
                     break;
                 }
                 case "4": {
-                    CheckSpot(poseLandmarks)
+                    getPoseDMPushup(poseLandmarks)
                     ChangeEx("DMPush-UP", "--:--")
                     break;
                 }
@@ -863,7 +874,7 @@
         async function countScoreDMPushup(angle, poseLandmarks) {
             if (angle > 160) {
                 stage = "down"
-            }   
+            }
             if (angle < 100 && stage == "down") {
                 var counter = document.getElementById("showCounter").innerHTML;
                 var currentex = document.getElementById("CurrentEx").innerHTML;

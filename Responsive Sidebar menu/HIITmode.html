@@ -439,7 +439,11 @@
                 'เสร็จสิ้นการออกกำลังกาย',
                 'คุณสามารถดูสถิติการออกกำลังได้ที่ DASHBOARD',
                 'success'
-            )
+
+            ).then((result) => {
+                console.log("complete , complete, complete")
+                location.reload();
+            })
             var User = GetUser()
             var ScoreModel = {
                 UserId: User._id,
@@ -499,8 +503,11 @@
         }
 
         function PlusCurrentScore() {
-            currentScore++;
-            document.getElementById("CurrentScore").innerHTML = currentScore
+            if (timeleft > 0) {
+                currentScore++;
+                document.getElementById("CurrentScore").innerHTML = currentScore
+            }
+
         }
     </script>
     <script>
