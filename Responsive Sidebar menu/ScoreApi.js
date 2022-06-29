@@ -113,8 +113,8 @@ async function setScore() {
             }
         })
         Toast.fire({
-            icon: 'success',
-            title: 'โปรดเลือกระดับความ ง่าย - ยาก ในการออกกำลังกาย',
+            icon: 'info',
+            title: ' Notification : โปรดเลือกระดับความ ง่าย - ยาก ในการออกกำลังกาย',
             text :'',
             width:'700px'
         })

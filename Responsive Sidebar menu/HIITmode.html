@@ -29,9 +29,11 @@
 <body onload="setScore() ">
     <div class="sidebar">
         <div class="logo-details">
-            <i class='#'></i>
-            <div class="logo_name">Human Pose</div>
-            <i class='bx bx-menu' id="btn"></i>
+            <li style="margin-left: 50px;">
+                <i class='#'></i>
+                <div class="logo_name"></div>
+                <i class='bx bx-menu' id="btn"></i>
+            </li>
         </div>
         <ul class="nav-list" style="margin-left: -30px;">
             <li>
@@ -201,12 +203,13 @@
                     icon: "error"
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        clearTimeout(timeCountdown);
+                        clearTimeout(timeCountdown);
                         disabledLi(true)
                         isStart = false;
-                        document.getElementById("TimeBTN").innerHTML = "Start Training"
-                        clearTimeout(timeCountdown);
-                        clearTimeout(timeCountdown);
-                        document.getElementById('showTime').innerHTML = '00:00'
+                        location.reload();
+                        // document.getElementById("TimeBTN").innerHTML = "Start Training"
+                        // document.getElementById('showTime').innerHTML = '00:00'
                     }
                 })
             }
