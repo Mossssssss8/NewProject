@@ -818,11 +818,15 @@
         // ============================================================================== Legraise =================================================================================== // 
         // ท่า Legraise
         function getPoseLegraise(poseLandmarks) {
-            var ankleRight = poseLandmarks[28];
-            var kneeRight = poseLandmarks[26];
             var hipRight = poseLandmarks[24];
+            var kneeRight = poseLandmarks[26];
+            var ankleRight = poseLandmarks[28];
+            
+            var hipLeft = poseLandmarks[23];
+            var kneeLeft = poseLandmarks[25];
+            var AnkleLeft = poseLandmarks[27];
 
-            var angle = Legraise_calculate_angle(ankleRight, kneeRight, hipRight);
+            var angle = Legraise_calculate_angle(hipRight, kneeRight, ankleRight,hipLeft,kneeLeft,AnkleLeft);
 
             countScoreLegraise(angle, poseLandmarks);
         }
@@ -830,11 +834,11 @@
         async function countScoreLegraise(angle, poseLandmarks) {
 
             // angle 
-            if (angle > 175) {
+            if (angle > 170) {
                 console.log("ankle :", angle)
                 stage = "down"
             }
-            if (angle < 160 && stage == "down") {
+            if (angle < 165 && stage == "down") {
                 var counter = document.getElementById("showCounter").innerHTML;
                 var currentex = document.getElementById("CurrentEx").innerHTML;
                 document.getElementById("CurrentEx").innerHTML = "legraise";
@@ -842,7 +846,6 @@
                 counter++;
                 stage = "up";
                 // Success
-
                 // Change Score
                 document.getElementById("showCounter").innerHTML = counter;
                 await plusScore("legraise")
@@ -850,12 +853,18 @@
                 console.log(poseLandmarks)
             }
         }
-        function Legraise_calculate_angle(ankleRight, kneeRight, hipRight) {
+        function Legraise_calculate_angle(ankleRight, kneeRight, hipRight,hipLeft,kneeLeft,AnkleLeft) {
             var a = [ankleRight.x, ankleRight.y];
             var b = [kneeRight.x, kneeRight.y];
             var c = [hipRight.x, hipRight.y];
 
+            var d = [hipLeft.x,hipLeft.y];
+            var e = [kneeLeft.x, kneeLeft.y];
+            var f = [AnkleLeft.x, AnkleLeft.y];
+
             var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+            var radians = Math.atan2(f[1] - e[1], f[0] - e[0]) - Math.atan2(d[1] - e[1], d[0] - e[0]);
+            
             var angle = Math.abs(radians * 180.0 / Math.PI)
 
             if (angle > 180.0) {

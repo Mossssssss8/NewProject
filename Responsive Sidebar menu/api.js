@@ -25,44 +25,52 @@ async function UserRegister() {
     var alertRequire = [];
     !modeluser.username ? alertRequire.push("username") : "";
     !modeluser.password ? alertRequire.push("password") : "";
+
     !modeluser.email ? alertRequire.push("email") : "";
     !modeluser.age ? alertRequire.push("age") : "";
     !modeluser.gender ? alertRequire.push("gender") : "";
     !modeluser.Height ? alertRequire.push("Height") : "";
     !modeluser.Weight ? alertRequire.push("Weight") : "";
 
-    var alertText = "";
-    if (alertRequire.length > 0) {
-        alertRequire.forEach((element, index) => {
-            index != 0 ? alertText += ", " : "";
-            alertText += element;
-            console.log(index)
-        })
+    if (modeluser.password.length < 8) {
         Swal.fire(
-            'Please Enter ' + alertText,
+            'Password is too Short',
             '',
             'warning'
         )
     } else {
-        const response = await fetch(UserApi + "add", {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(modeluser)
-        })
-        Swal.fire({
-            title: "Register Successfully",
-            confirmButtonText: 'OK',
-            icon: "success"
-        }).then((result) => {
-            location.href = "./index.html"
-        })
-        return response.json()
+
+        var alertText = "";
+        if (alertRequire.length > 0) {
+            alertRequire.forEach((element, index) => {
+                index != 0 ? alertText += ", " : "";
+                alertText += element;
+                console.log(index)
+            })
+            Swal.fire(
+                'Please Enter ' + alertText,
+                '',
+                'warning'
+            )
+        } else {
+            const response = await fetch(UserApi + "add", {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(modeluser)
+            })
+            Swal.fire({
+                title: "Register Successfully",
+                confirmButtonText: 'OK',
+                icon: "success"
+            }).then((result) => {
+                location.href = "./index.html"
+            })
+            return response.json()
+        }
     }
-
-
 
 }
 async function getAllUser() {
@@ -106,7 +114,7 @@ async function login() {
 }
 
 async function updateUser(user) {
-    var response = await fetch(UserApi+`update/${user._id}`, {
+    var response = await fetch(UserApi + `update/${user._id}`, {
         method: 'PUT',
         mode: 'cors',
         headers: {

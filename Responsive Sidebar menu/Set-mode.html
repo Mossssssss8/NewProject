@@ -422,7 +422,7 @@
         // ============================================================================== Pull-UP =================================================================================== // 
         // ตรวจจับท่า Pull-Up
         function getPosePullup(poseLandmarks) {
-            var wristRight = poseLandmarks[16];
+            var wristRight = poseLandmarks[16].visibility ;
             var elbowRight = poseLandmarks[14];
             var shoulderRight = poseLandmarks[12];
             var angle = Pullup_calculate_angle(wristRight, elbowRight, shoulderRight);
@@ -521,7 +521,12 @@
             var hipRight = poseLandmarks[24];
             var kneeRight = poseLandmarks[26];
             var AnkleRight = poseLandmarks[28];
-            var angle = Legraise_calculate_angle(hipRight, kneeRight, AnkleRight);
+
+            var hipLeft = poseLandmarks[23];
+            var kneeLeft = poseLandmarks[25];
+            var AnkleLeft = poseLandmarks[27];
+
+            var angle = Legraise_calculate_angle(hipRight, kneeRight, AnkleRight,hipLeft,kneeLeft,AnkleLeft);
 
             countScoreLegraise(angle, poseLandmarks);
         }
@@ -547,12 +552,19 @@
             }
         }
         // คำนวณท่าทาง Legraise และ คำนวณเพื่อจะ Counter
-        function Legraise_calculate_angle(hip, knee, ankle) {
+        function Legraise_calculate_angle(hip, knee, ankle,hipLeft,kneeLeft,AnkleLeft) {
             var a = [hip.x, hip.y];
             var b = [knee.x, knee.y];
             var c = [ankle.x, ankle.y];
 
+            var d = [hipLeft.x,hipLeft.y];
+            var e = [kneeLeft.x, kneeLeft.y];
+            var f = [AnkleLeft.x, AnkleLeft.y];
+
             var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+
+            var radians = Math.atan2(f[1] - e[1], f[0] - e[0]) - Math.atan2(d[1] - e[1], d[0] - e[0]);
+
             var angle = Math.abs(radians * 180.0 / Math.PI)
 
             if (angle > 180.0) {
