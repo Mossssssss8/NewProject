@@ -124,7 +124,7 @@ def DiamondAI(self):
                 cv2.imshow('Exercise : PUSH - UP', image)
 
                 if cv2.waitKey(10) & 0xFF == 27:
-                    self.ui.Reps.setText("Repitition : "+str(counter))
+                    self.ui.Reps.setText("Repetition : "+str(counter))
                     self.ui.Set.setText("Set : "+str(Set))
                     self.ui.Timer.setText("Timer : "+str(min)+":"+str(diff))
                     break      

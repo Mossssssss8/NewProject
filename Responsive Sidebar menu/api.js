@@ -34,7 +34,7 @@ async function UserRegister() {
 
     if (modeluser.password.length < 8) {
         Swal.fire(
-            'Password is too Short',
+            'กรุณาใช้รหัสผ่านไม่น้อยกว่า 8 ตัว',
             '',
             'warning'
         )

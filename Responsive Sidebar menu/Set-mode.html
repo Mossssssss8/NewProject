@@ -468,7 +468,8 @@
             }
             return angle;
         }
-        // ============================================================================== PushUP =================================================================================== // 
+
+        // ================ PushUP ============== // 
         // ท่า Push-Up
         function getPosePushup(poseLandmarks) {
             var wristRight = poseLandmarks[16];
@@ -536,7 +537,7 @@
                 if (angle > 170) {
                     stage = "down"
                 }
-                if (angle < 160 && stage == "down") {
+                if (angle < 158 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
                     console.log("counter : " + counter);
                     // counter++;

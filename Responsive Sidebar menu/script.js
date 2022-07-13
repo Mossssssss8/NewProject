@@ -89,7 +89,7 @@ async function init() {
 
 function logout() {
     Swal.fire({
-        title: 'ต้องการออกจากระบบ ?',
+        title: 'ต้องการออกจากหน้านี้ ?',
         showCancelButton: true,
         cancelButtonText: 'ยกเลิก',
         confirmButtonText: 'ตกลง',

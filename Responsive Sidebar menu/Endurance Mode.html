@@ -155,7 +155,7 @@
                         </main>
                     </div>
                     <div class="glassboxStatus center">
-                        <h1 data-text="Repititions" class=" textcolor textRep">Repititions : <span id="CurrentScore">
+                        <h1 data-text="Repetitions" class=" textcolor textRep">Repetitions : <span id="CurrentScore">
                                 0</span></h1>
                         <h1 class=" textcolor textTime"> Time : <span id="showTime">0 </span></h1>
                         <h1 class=" textcolor1 textExercies"> <span id="CurrentEx">
@@ -203,7 +203,7 @@
             } else {
                 Swal.fire({
                     title: 'ออกจากการออกกำลังกาย ?',
-                    text: 'ระบบจะไม่ทำการบันทึกลงฐานข้อมูล',
+                    text: 'ระบบจะไม่ทำการบันทึก Status การออกกำลังกายครั้งนี้ลงฐานข้อมูล',
                     showCancelButton: 'ยกเลิก',
                     confirmButtonText: 'Accept',
                     icon: "error"
@@ -319,6 +319,7 @@
                 // console.log(Mode)
                 title = "ระดับ Beginner"
                 html = `ต้องผ่านภายใน 10 นาที ทุกท่าทาง 8 ครั้ง / 1 เซต <br>
+                สามารถพักระหว่างท่า 15 วินาที <br>
                 Squats , Pull-UP , Push-UP , DMPush-UP`
             }
             if (Mode == "Intermediate") {
@@ -326,6 +327,7 @@
                 console.log("Intermediate")
                 title = "ระดับ Intermediate"
                 html = `ต้องผ่านภายใน 20 นาที ทุกท่าทาง 12 ครั้ง / 1 เซต <br>
+                สามารถพักระหว่างท่า 15 วินาที <br>
                 Squats , Pull-UP , Push-UP , DMPush-UP`
             }
             if (Mode == "Advance") {
@@ -334,6 +336,7 @@
                 Mode = "Advance"
                 title = "ระดับ Advance"
                 html = `ต้องผ่านภายใน 30 นาที ทุกท่าทาง 15 ครั้ง / 1 เซต <br>
+                สามารถพักระหว่างท่า 15 วินาที <br>
                 Squats , Pull-UP , Push-UP , DMPush-UP`
             }
             Swal.fire({
@@ -732,7 +735,7 @@
                 }
                 case "4": {
                     getPoseDMPushup(poseLandmarks)
-                    ChangeEx("DMPush-UP", "--:--")
+                    ChangeEx("DPush-UP", "--:--")
                     break;
                 }
             }
