@@ -34,46 +34,56 @@ async function UserRegister() {
     !modeluser.gender ? alertRequire.push("gender") : "";
     !modeluser.Height ? alertRequire.push("Height") : "";
     !modeluser.Weight ? alertRequire.push("Weight") : "";
-
-    if (modeluser.password.length < 8) {
+    var a = /^[0-9]+$/
+    if (!a.test(modeluser.Height) || !a.test(modeluser.Weight) || modeluser.Height > 250 || modeluser.Height < 100 || modeluser.Weight > 500 || modeluser.Weight < 30) {
         Swal.fire(
-            'กรุณาใช้รหัสผ่านไม่น้อยกว่า 8 ตัว',
+            'กรุณาใส่ให้ถูกต้อง',
             '',
-            'warning'
+            'error'
         )
-    } else {
-
-        var alertText = "";
-        if (alertRequire.length > 0) {
-            alertRequire.forEach((element, index) => {
-                index != 0 ? alertText += ", " : "";
-                alertText += element;
-                console.log(index)
-            })
+    }
+    else {
+        if (modeluser.password.length < 8) {
             Swal.fire(
-                'Please Enter ' + alertText,
+                'กรุณาใช้รหัสผ่านไม่น้อยกว่า 8 ตัว',
                 '',
                 'warning'
             )
         } else {
-            const response = await fetch(UserApi + "add", {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(modeluser)
-            })
-            Swal.fire({
-                title: "Register Successfully",
-                confirmButtonText: 'OK',
-                icon: "success"
-            }).then((result) => {
-                location.href = "./index.html"
-            })
-            return response.json()
+
+            var alertText = "";
+            if (alertRequire.length > 0) {
+                alertRequire.forEach((element, index) => {
+                    index != 0 ? alertText += ", " : "";
+                    alertText += element;
+                    console.log(index)
+                })
+                Swal.fire(
+                    'Please Enter ' + alertText,
+                    '',
+                    'warning'
+                )
+            } else {
+                const response = await fetch(UserApi + "add", {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(modeluser)
+                })
+                Swal.fire({
+                    title: "Register Successfully",
+                    confirmButtonText: 'OK',
+                    icon: "success"
+                }).then((result) => {
+                    location.href = "./index.html"
+                })
+                return response.json()
+            }
         }
     }
+
 
 }
 async function getAllUser() {
