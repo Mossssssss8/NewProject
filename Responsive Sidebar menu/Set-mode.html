@@ -394,7 +394,6 @@
         camera.start();
 
         currentExerise = 1
-        // getPosePullup(poseLandmarks)
 
         function ChangenumEx(num) {
             nameEx = num;
@@ -487,6 +486,7 @@
                 }
                 if (angle < 110 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
+                    var reb = document.getElementById("showRep").innerHTML;
                     console.log("counter : " + counter);
                     // counter++;
                     stage = "up";
@@ -539,6 +539,7 @@
                 }
                 if (angle < 158 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
+                    var reb = document.getElementById("showRep").innerHTML;
                     console.log("counter : " + counter);
                     // counter++;
                     stage = "up";
@@ -592,8 +593,8 @@
                 }
                 if (angle < 75 && stage == "down") {
                     var counter = document.getElementById("showCounter").innerHTML;
-                    var currentex = document.getElementById("CurrentEx").innerHTML;
-                    document.getElementById("CurrentEx").innerHTML = "Squats";
+                    var reb = document.getElementById("showRep").innerHTML;
+                    // document.getElementById("CurrentEx").innerHTML = "Squats";
                     console.log("counter : " + counter);
                     // counter++;
                     stage = "up";
