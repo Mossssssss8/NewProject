@@ -347,7 +347,7 @@
             if (nameEx == 1) {
                 console.log("Pullup")
                 getPosePullup(results.poseLandmarks)
-                console.log(results.poseLandmarks)
+                // console.log(results.poseLandmarks)
             }
             if (nameEx == 2) {
                 console.log("pushup")
@@ -421,7 +421,7 @@
         // ============================================================================== Pull-UP =================================================================================== // 
         // ตรวจจับท่า Pull-Up
         function getPosePullup(poseLandmarks) {
-            var wristRight = poseLandmarks[16].visibility ;
+            var wristRight = poseLandmarks[16];
             var elbowRight = poseLandmarks[14];
             var shoulderRight = poseLandmarks[12];
             var angle = Pullup_calculate_angle(wristRight, elbowRight, shoulderRight);
