@@ -467,13 +467,13 @@
             var Mode = localStorage.getItem("Mode")
             if (Mode == "Easy") {
                 HIITModel.Score = 1
-                ScoreModel.Score = 8
+                ScoreModel.Score = 0 //แก้ให้เป็น 0 เพราะ ตอนทำแต่ละท่า มันเพิ่มคะแนนอยูแล้ว
             } if (Mode == "Intermediate") {
                 HIITModel.Score = 2
-                ScoreModel.Score = 12
+                ScoreModel.Score = 0 //แก้ให้เป็น 0 เพราะ ตอนทำแต่ละท่า มันเพิ่มคะแนนอยูแล้ว
             } if (Mode == "Advance") {
                 HIITModel.Score = 3
-                ScoreModel.Score = 15
+                ScoreModel.Score = 0 //แก้ให้เป็น 0 เพราะ ตอนทำแต่ละท่า มันเพิ่มคะแนนอยูแล้ว
             }
             await addLineInScoreDB(HIITModel)
             ScoreModel.NameEx = "Squats"

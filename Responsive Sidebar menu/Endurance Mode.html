@@ -488,13 +488,13 @@
             var Mode = localStorage.getItem("Mode")
             if (Mode == "Easy") {
                 HIITModel.Score = 1
-                ScoreModel.Score = 8
+                ScoreModel.Score = 0 //แก้ให้เป็น 0 เพราะ ตอนทำแต่ละท่า มันเพิ่มคะแนนอยูแล้ว
             } if (Mode == "Intermediate") {
                 HIITModel.Score = 2
-                ScoreModel.Score = 12
+                ScoreModel.Score = 0
             } if (Mode == "Advance") {
                 HIITModel.Score = 3
-                ScoreModel.Score = 15
+                ScoreModel.Score = 0
             }
             await addLineInScoreDB(HIITModel)
             ScoreModel.NameEx = "Squats"
@@ -679,12 +679,14 @@
                     timepushup = timeleft - timesquats - timepullup
 
 
-                } else if (currentExerise == 4) {
-                    timeLegraise = timeleft - timesquats - timepullup - timepushup
+                }
+                // else if (currentExerise == 4) {
+                //     timeLegraise = timeleft - timesquats - timepullup - timepushup
 
 
-                } else if (currentExerise == 5) {
-                    timedmpushup = timeleft - timesquats - timepullup - timepushup - timeLegraise
+                // } 
+                else if (currentExerise == 4) {
+                    timedmpushup = timeleft - timesquats - timepullup - timepushup
 
                 }
                 currentExerise++
@@ -716,29 +718,31 @@
                 currentExerise = 1
 
             }
-
-            switch (nameExercise) {
-                case "1": {
-                    getPoseSquats(poseLandmarks)
-                    ChangeEx("Squats", "Pull-UP")
-                    break;
-                }
-                case "2": {
-                    getPosePullup(poseLandmarks)
-                    ChangeEx("Pull-UP", "Push UP")
-                    break;
-                }
-                case "3": {
-                    getPosePushup(poseLandmarks)
-                    ChangeEx("Push UP", "DMPush-UP")
-                    break;
-                }
-                case "4": {
-                    getPoseDMPushup(poseLandmarks)
-                    ChangeEx("DPush-UP", "--:--")
-                    break;
+            if (isStop == false) {
+                switch (nameExercise) {
+                    case "1": {
+                        getPoseSquats(poseLandmarks)
+                        ChangeEx("Squats", "Pull-UP")
+                        break;
+                    }
+                    case "2": {
+                        getPosePullup(poseLandmarks)
+                        ChangeEx("Pull-UP", "Push UP")
+                        break;
+                    }
+                    case "3": {
+                        getPosePushup(poseLandmarks)
+                        ChangeEx("Push UP", "DMPush-UP")
+                        break;
+                    }
+                    case "4": {
+                        getPoseDMPushup(poseLandmarks)
+                        ChangeEx("DPush-UP", "--:--")
+                        break;
+                    }//8 26 16 24 8
                 }
             }
+
         }
 
         // ============================================================================== Squats =================================================================================== // 
@@ -814,7 +818,7 @@
                     // success
                     // change score
                     document.getElementById("showCounter").innerHTML = counter;
-                    await plusScore("Pullup");
+                    await plusScore("Pull-Up");
                     PlusCurrentScore()
                     console.log(poseLandmarks)
                 }

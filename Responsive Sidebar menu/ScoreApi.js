@@ -56,7 +56,6 @@ async function getScoreById(userId) {
 function CountTimeByNameEx(AllScore, nameEx) {
     var time = 0
     AllScore.forEach(s => {
-
         if (s.NameEx.toLowerCase() == nameEx.toLowerCase()) {
             if (s.Seconds != null) {
                 time = time + s.Seconds
