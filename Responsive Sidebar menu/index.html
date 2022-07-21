@@ -523,7 +523,7 @@
 
                 var User = GetUser()
                 var Allscore = await getScoreById(User._id)
-
+                Allscore = Allscore.reverse();
                 // Allscore.filter((s) => {
                 //     var onlyDate = s.createdAt.substring(0, 10);
                 //     var Today = new Date().toISOString().substring(0, 10);
