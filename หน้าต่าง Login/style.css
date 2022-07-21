@@ -130,7 +130,7 @@ form.sign-in-form {
     font-weight: 500;
 }
 
-.label-field{
+.label-field {
     position: relative;
     display: flex;
     flex-direction: column-reverse;
@@ -209,6 +209,16 @@ form.sign-in-form {
     position: absolute;
     height: 100%;
     width: 100%;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.panels-containerLeft {
+    position: absolute;
+    height: 75%;
+    width: 75%;
     top: 0;
     left: 0;
     display: grid;
@@ -349,6 +359,12 @@ form.sign-in-form {
         grid-template-rows: 1fr 2fr 1fr;
     }
 
+    .panels-containerLeft {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 2fr 1fr;
+    }
+
+
     .panel {
         flex-direction: row;
         justify-content: space-around;
@@ -462,7 +478,8 @@ form.sign-in-form {
     justify-items: center;
     flex-direction: column;
 }
-.main-text{
+
+.main-text {
     display: flex;
     margin-top: 300px;
     flex-direction: column;
