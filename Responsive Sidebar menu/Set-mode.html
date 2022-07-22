@@ -158,6 +158,7 @@
                                         <button class="btn-sty" id="" onclick="ChangenumEx(3)"> Push-Up </button>
                                         <button class="btn-sty" id="" onclick="ChangenumEx(4)"> Legraise </button>
                                         <button class="btn-sty" id="" onclick="ChangenumEx(5)"> Squats </button>
+                                        <button class="btn-sty" id="" onclick="ChangenumEx(6)"> BicepCurl </button> 
                                     </div>
                                 </div>
                             </div>
@@ -365,6 +366,10 @@
                 console.log("Squats")
                 getPoseSquats(results.poseLandmarks)
             }
+            if (nameEx == 6) {
+                console.log("BicepCurl")
+                getPoseBicepCurl(results.poseLandmarks)
+            }
 
             grid.updateLandmarks(results.poseWorldLandmarks);
         }
@@ -412,6 +417,10 @@
             if (num == 5) {
                 ChangenameEx('Squats')
             }
+            if (num == 6) {
+                ChangenameEx('BicepCurl')
+            }
+
             currentScore = 0
             rep = 0
             document.getElementById("showCounter").innerHTML = currentScore
@@ -613,6 +622,54 @@
             var a = [hip.x, hip.y];
             var b = [knee.x, knee.y];
             var c = [ankle.x, ankle.y];
+
+            var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
+            var angle = Math.abs(radians * 180.0 / Math.PI)
+
+            if (angle > 180.0) {
+                angle = 360 - angle
+            }
+            return angle;
+        }
+        ///test ex BicepCurl เพิ่ม
+        function getPoseBicepCurl(poseLandmarks) {
+            var wristRight = poseLandmarks[16];
+            var elbowRight = poseLandmarks[14];
+            var shoulderRight = poseLandmarks[12];
+            var angle = BicepCurl_calculate_angle(wristRight, elbowRight, shoulderRight);
+
+            countScoreBicepCurl(angle, poseLandmarks);
+        }
+        // ตรวจสอบคำนวณท่า BicepCurl
+        async function countScoreBicepCurl(angle, poseLandmarks) {
+            if (CheckSpot(poseLandmarks)) {
+                if (angle > 160) {
+                    stage = "down"
+                }
+                if (angle < 110 && stage == "down") {
+                    var counter = document.getElementById("showCounter").innerHTML;
+                    var reb = document.getElementById("showRep").innerHTML;
+                    console.log("counter : " + counter);
+                    // counter++;
+                    stage = "up";
+
+                    // success
+                    // change score
+
+                    // document.getElementById("showRep").innerHTML = reb;
+                    // document.getElementById("showCounter").innerHTML = counter;
+                    // await plusScore("Pull-Up");
+                    PlusCurrentScore()
+                    console.log(poseLandmarks)
+
+                }
+            }
+        }
+        // คำนวณท่าทาง BicepCurl และ คำนวณเพื่อจะ Counter
+        function BicepCurl_calculate_angle(wrist, elbow, shoulder) {
+            var a = [shoulder.x, shoulder.y];
+            var b = [elbow.x, elbow.y];
+            var c = [wrist.x, wrist.y];
 
             var radians = Math.atan2(c[1] - b[1], c[0] - b[0]) - Math.atan2(a[1] - b[1], a[0] - b[0]);
             var angle = Math.abs(radians * 180.0 / Math.PI)
